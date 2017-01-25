@@ -1,0 +1,35 @@
+\subsection{Gradient Temporal Difference Learning}
+The instability of TD($0$) is due to the fact that it is not a true gradient descent algorithm. The first gradient-TD (GTD) algorithm was proposed by \citet{sutton2009convergent} and is based on minimizing the \emph{norm of the expected TD update} (NEU) given by
+\begin{align}\label{neu}
+NEU(\theta)=\parallel b_\pi -A_\pi\theta\parallel^2
+=\E[\rho_t\phi_t^\top\delta_t(\theta)]^\top\E[\rho_t\phi_t^\top\delta_t(\theta)]
+\end{align}
+The GTD scheme based is on the gradient of the above expression which is given by (dropping subscript $t$ for convenience) $-\frac{1}{2}\nabla NEU(\theta)=\E[\rho (\phi-\gamma\phi')^\top \phi]\E[\rho \phi^\top\delta(\theta)]$. Since the gradient is a product of two expectation we cannot use a sample product (due to the presence of correlations). The GTD addresses this issue by estimating $\E[\rho\delta\phi^\top]$ in a separate recursion. The GTD updates can be given by
+\begin{align}
+\begin{split}
+\textbf{GTD:\quad}y_{t+1}&=y_t+\alpha_t(\rho_t\phi^\top\delta_t -y_t)\\
+\theta_{t+1}&=\theta_t+\alpha_t\rho_t(\phi_t-\gamma\phi'_t)^\top\phi_ty_t
+\end{split}
+\end{align}
+Notice that $y$ updates are noisy Euler discretization of the ODE $\dot{y}=\E[\rho\delta\phi^\top]-y(t)$. The overall design of GTD is given by $\D_{GTD}=\langle \begin{bmatrix}b_\pi\\ 0\\ \end{bmatrix},\begin{bmatrix}-I &-A^\mu_\pi \\ {A^\mu_\pi}^\top &0 \\ \end{bmatrix}\rangle$.\par
+%$\{g_1,H_1\}$ where $g_1=\begin{bmatrix}b_\pi\\ 0\\ \end{bmatrix}$, $H_1=\begin{bmatrix}-I &-\Phi^\top D_\mu (\Phi -\gamma P_\pi\Phi) \\ (\Phi -\gamma P_\pi\Phi)^\top D_\mu\Phi &0 \\ \end{bmatrix}$.\par
+Instead of NEU, the \emph{mean-square projected Bellman Error} (MSPBE) can also be minimized. The MSPBE is defined as
+\begin{align}\label{mspbe}
+MSPBE(\theta)=\parallel J_\theta-\Pi T_\pi J_\theta \parallel^2_D
+\end{align}
+The GTD2 algorithm was proposed in \cite{gtdref} based on minimizing \eqref{mspbe}. The GTD2 updates are given by
+\begin{align}
+\begin{split}
+\textbf{GTD2:\quad}y_{t+1}&=y_t+\beta_t\phi_t^\top(\rho_t\delta_t-\phi_t y_t)\\
+\theta_{t+1}&=\theta_t+\alpha_t\rho_t(\phi_t-\gamma\phi’_t)^\top\phi_t y_t
+\end{split}
+\end{align}
+The design of GTD2 is given by $\D_{GTD2}=\langle \begin{bmatrix}b_\pi\\ 0\\ \end{bmatrix}, \begin{bmatrix}-M &-A^\mu_\pi \\ {A^\mu_\pi}^\top &0 \\ \end{bmatrix}\rangle$, where $M=\Phi^\top D_\mu\Phi$.\par
+The GTD-\emph{Mirror Prox}(GTD-MP) algorithm is given by the following update rule:
+\begin{align}\label{gtdmp}
+\begin{split}
+\textbf{GTD-MP:} y_t^m=y_t+\alpha_t{\phi_t}^\top(R(s_t,a_t)+\gamma (\phi'_t-\phi_t)\theta_t),\\ \theta_t^m=\theta_t+\alpha_t({\phi_t}-\gamma\phi'_t )^\top\phi_ty_t,\\
+ y_{t+1}=y_t+\alpha_t{\phi_t}^\top(R(s_t,a_t)+\gamma(\phi'_t-\phi_t)\theta^m_t), \\ \theta_{t+1}=\theta_t+\alpha_t({\phi_t}-\gamma\phi'_t )^\top\phi_ty^m_t,
+\end{split}
+\end{align}
+The GTD-MP algorithm in \eqref{gtdmp} is the PC discretization of the GTD algorithm with the design matrix as $\D_{GTD-MP}=\langle (I-\alpha_t H_{GTD})g_{GTD}, H_{GTD}-\alpha_t H^2_{GTD}\rangle$. In a similar fashion, one can derive the GTD2-MP algorithm as the PC discretization of GTD2 algorithm.\par

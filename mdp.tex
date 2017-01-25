@@ -1,0 +1,43 @@
+\section{Background: Reinforcement Learning}
+We now present a brief overview of Markov Decision Processes (MDPs) which is a framework to describe the RL setting, i.e., the agent's interaction with the environment. An MDP is a five tuple and is denoted by $M=\{S,A,P,R,\gamma\}$, where $S$ is the state space, $A$ is the action space, $P=(p_a(s,s'),a\in A,s,s’\in S)$ is the probability transition kernel that specifies the probability of transitioning from state $s$ to $s'$ when the agent taking an action $a$, and $R(s,a)\colon S\times A\ra \R$ is the reward for taking an action $a$ in state $s$ and $0<\gamma<1$ is a given discount factor. A stationary deterministic policy (or simply a policy) is a denoted by $\pi=(\pi(s,\cdot),s\in S)$, where $\pi(s,\cdot)$ is a probability distribution over the set of actions. The infinite horizon discounted reward of a policy $\pi$ is given by, $V_\pi=\mathbf{E}[\sum_{t=0}^\infty \gamma^t R(s_t,a_t)| s_0=s, \pi]$,
+and is the discounted sum of rewards starting from state $s$ and taking actions according to policy $\pi$. The value function $V_\pi$ can be computed by solving the Bellman equation (BE) given below:
+\begin{align}\label{be}
+V_\pi=R_\pi+\gamma P_\pi V_\pi,
+\end{align}
+where $R_\pi(s)=\sum_{a\in A}\pi(s,a) R(s,a)$ and $p_\pi(s,s’)=\sum_{a\in A}\pi(s,a)p_a(s,s’)$.\par
+\subsection{Projected Bellman Equation}
+The BE is a linear sytem of equations, and needs to be solved from the samples. However, when the number of states $|S|$ is large, it is common to use a linear representation for value function i.e., to let $V_\pi\approx\Phi \ts$. The value function can then be learnt by solving a projected Bellman equation (PBE) instead of the BE in \eqref{be}. The PBE is given as follows
+\begin{align}
+\Phi\ts=\Pi (R_\pi+\gamma P_\pi \Phi \ts),
+\end{align}
+where $\Pi=\Phi(\Phi^\top \Xi\Phi)^{-1}\Phi^\top\Xi$, where is a diagonal matrix with positive diagonal entries $\xi_{s}, s\in S$ such that $\sum_{s\in S} \xi=1$. Note that $\xi_s$ here stands for the weight of the state $s$, and $\Pi V= {\arg\min}_{\theta\in \R^n}\parallel \Phi \theta -V\parallel_{\xi}$. One can re-write the PBE as below
+\begin{align}\label{tdlin}
+\Phi\ts&= (\Phi^\top \Xi\Phi)^{-1}\Phi^\top\Xi (R_\pi+\gamma P_\pi \Phi \ts)\nn\\
+(\Phi^\top \Xi\Phi)\ts&= \Phi^\top\Xi (R_\pi+\gamma P_\pi \Phi \ts)\nn\\
+\underbrace{\Phi^\top \Xi(I-\gamma P_\pi)\Phi}_{A}\ts&= \underbrace{\Phi^\top\Xi R_\pi}_{b}
+\end{align}
+We consider the scenario where we have data $\D=\{(s_i,a_i,s'_i),\forall i=1,\ldots,N\}$, where $s_i\sim \xi$, $a_i\sim \pi_b(s_i,\cdot)$, $s'_i\sim p_{a_i}(s_i,\cdot)$, where $\pi_b$ is the \emph{behavior} policy, which might be different from the \emph{target} policy $\pi$ whose value function $V_\pi$ we are interested in computing. This scenario is known as the \ofp setting. A special case is that of \onp setting wherein $\pi_b=\pi$. A quantity of interest in this context is the importance sampling ratio given by $\rho(s,a)=\frac{\pi(s,a)}{\pi_b(s,a)}$.\par
+In the RL setting, model parameters $P^\pi$ and $R^\pi$ are not explicitly available. This implies that we have to solve for \eqref{tdlin} using noisy samples of $A=\Phi^\top \Xi(I-\gamma P_\pi)\Phi$ and $b=\Phi^\top\Xi R_\pi$.\par
+\begin{lemma}
+Let $A_t=\rho(s_i,a_i)phi^\top(s_i)(\phi(s_i)-\gamma \phi(s'_i))$ and $b_t=\rho(s_t,a_t)\phi^\top(s_t) R(s_t,a_t)$ then we have $\E[A_t|\xi]=A$ and $\E[b_t|\xi]=b$.
+\end{lemma}
+\section{LSA algorithms in RL}
+We now look at LSA algorithms occuring in RL that solve \eqref{tdlin} using noisy samples.
+\subsection{Fixed Point LSA}
+The vanilla temporal difference (simply TD) algorithm is a LSA to solve \eqref{tdlin}. The TD algorithm is given as follows:
+\begin{align}\label{vtd}
+\theta_{t+1}=\theta_t+\alpha_t \rho(s_t)\phi^\top(s_t)(R(s_t,a_t)+\gamma \phi(s'_t)\theta_t- \phi(s_t)\theta_t),
+\end{align}
+Thus results in \Cref{sec:fp} apply to this algorithm
+\subsection{Saddle Point LSA}
+The gradient temporal difference (GTD) learning algorithms were shown to be gradient algorithms with respect to the saddle point objectives. We present GTD and GTD2 with their saddle point objective functions
+\begin{align}\label{gtd}
+\begin{split}
+\textbf{GTD(GTD2):\quad}y_{t+1}&=y_t+\alpha \rho_t(b_t-A_t\theta_t - M y_t)\\
+\theta_{t+1}&=\theta_t+\alpha\rho_t(A^\top_ty_t),
+\end{split}
+\end{align}
+where GTD/GTD2 can be obtained by letting $M=I/C$ respectively in \eqref{gtd}. Results of \Cref{sec:splsa} apply to the GTD algorithms
+\subsection{Least Squares LSA}
+We now present a novel algorithm called the \emph{incremetal-gradient} least squares temporal difference leanring (iGLTSD), named so owing to the fact that it makes use of gradient the least squares objective and at the same times makes incremental updates like the iLSTD algorithm.
+\input{algo}

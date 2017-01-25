@@ -1,19 +1,28 @@
 \section{Problem Setup}
-We study the finite time performance of LSERs in \eqref{lser} given as
-\begin{align}\label{lser}
-e_{t+1}=(I-\alpha_t H_t)e_t+ M_{t+1},
+A Linear Stochastic Approximation (LSA) algorithm is given by
+\begin{align}\label{lsa}
+\theta_{t+1}=\theta_t+\alpha_t(L_t(\theta)),
 \end{align}
-where
+where $\{\alpha_t>0,t\geq 0\}$ is a sequence of step-sizes and $L_t\in \R^n$ is a noisy sample of some function $L(\theta)$. Without loss of generality one can assume that $L_t(theta)=g_t-H_t\theta$, where $g_t\in\R^n$ and $H_t\in \R^n$ are noisy samples of some $g\in \R^n$ and $H\in \R^n$ (note that $L=g-H\theta$). We wish to study the convergence of $\theta_t$ to a $\ts\in\R^n$ such that the expected update $\E[L_t(\ts)]=L(\ts)=0$. Depending on the application, such $\ts$ can either be a fixed point or extrememum. In order to understand the error $e_t\eqdef\theta_t-\ts$, we can look at is dynamics as follows:
+\begin{align}\label{lser}
+\theta_{t+1}-\ts&=\theta_t-\ts+\alpha_t(g_t- H_t (\theta_t+\ts-\ts)),\nn\\
+e_{t+1}&=(I-\alpha_t)e_t+\alpha_t M_{t+1},
+\end{align}
+where $M_{t+1} is$ some noise function. We call the recursion in \eqref{lser} as a linear stochastic error recursion (LSER) and we now proceed to study the same under the following assumptions.
 \begin{assumption}\label{fpassump}
 \begin{enumerate}[leftmargin=*]
 \item $\alpha_t=\alpha>0,~\forall t\geq 0$.
 \item $H_t=H+N_{t+1}$ such that $\{N_t\}$ and $\{M_t\}$ are martingale difference sequences measurable with respect to an increasing family of $\sigma$-fields $\mathcal{F}_{t}\stackrel{\cdot}{=}\sigma(x_0,M_1,N_1\ldots,N_t,M_t),t\geq 0$, such that $\E[N_{t+1}|\F_t]=\E[M_{t+1}|\F_t]=0$, $\E[\parallel M_{t+1} \parallel^2|\F_t]\leq \sigma^2, \E[\parallel N_{t+1} \parallel^2|\F_t]\leq \sigma^2, ~\forall t\geq 0$ for some variance $\sigma>0$.
 \end{enumerate}
 \end{assumption}
+Notice that once a constant step-size is chosen the noise term in \eqref{lser} is $\alpha M_{t+1}$, i.e., there is constant addition of noise each iteration, a scenario under which we cannot hope the iterates to converge to $\ts$. However, we can look at the behavior of the average of the iterates, formally known as Rupert-Polyak averaging defined below.
 \begin{align}\label{erp}
-\bar{e}_{t}=\frac{1}{t}\overset{t-1}{\underset{s=0}{\sum}}e_t,
+\begin{split}
+\tb_{t}=\frac{1}{t}\overset{t-1}{\underset{s=0}{\sum}}\theta_t
+\bar{e}_{t}=\frac{1}{t}\overset{t-1}{\underset{s=0}{\sum}}e_t
+\end{split}
 \end{align}
-We are interested in the quantity
+We are interested in the mean squared error given by
 \begin{align}\label{errfun}
 \err(t)&= \E[\parallel \eb_t\parallel^2]
 %&=\B(t)+\V(t),
@@ -25,10 +34,10 @@ We now expand $\err(t)$ to understand the structure of LSERs. For the purpose of
 \end{align}
 Then we have from \eqref{lser} that for any $j>i$,
 \begin{align}
-e_{j+1}=F_{j,i}e_i + \sum_{k=i}^j F_{j,k+1}M_{k+1}
+e_{j+1}=F_{j,i}e_i + \alpha\sum_{k=i}^j F_{j,k+1}M_{k+1}
 \end{align} and hence notice that
 \begin{align}
-\overset{t-1}{\underset{i=0}{\sum}}e_i=\overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0+ \overset{t-1}{\underset{i=0}{\sum}} \overset{i}{\underset{k=0}{\sum}} F_{i,k+1}M_{k+1}\end{align} Thus the error can be naturally split into two terms namely $\err(t)=\B(t)+\V(t)$, where $\B(t)$ is the \emph{bias} term which satisfies $\err(t)=\B(t)$ when $M_{t+1}=0~\forall t\geq 0$ and $e_0\neq 0$,  and, $\V(t)$ is the variance term which satisfies $\err(t)=\V(t)$ when $e_0=0$ and $M_{t+1}\neq 0$.
+\overset{t-1}{\underset{i=0}{\sum}}e_i=\overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0+\alpha \overset{t-1}{\underset{i=0}{\sum}} \overset{i}{\underset{k=0}{\sum}} F_{i,k+1}M_{k+1}\end{align} Thus the error can be naturally split into two terms namely $\err(t)=\B(t)+\V(t)$, where $\B(t)$ is the \emph{bias} term which satisfies $\err(t)=\B(t)$ when $M_{t+1}=0~\forall t\geq 0$ and $e_0\neq 0$,  and, $\V(t)$ is the variance term which satisfies $\err(t)=\V(t)$ when $e_0=0$ and $M_{t+1}\neq 0$.
 %Now, for any $j>i$ we have $<e_i,e_j>=<e_i,F_{j,i}e_i+\sum_{k=i}^j F_{j,k+1}M_{k+1}>$
 \begin{lemma}
 For any $x_i\in \R^n$ that is $\F_i$ measurable and $\forall ~j \geq k> i$ it follows that $\E[x_i^\top F_{j,k+1}M_{k+1}]=0$
@@ -50,19 +59,60 @@ Let $\rho_{s}(\alpha)\eqdef \underset{{x\in \R^n}}{\sup}x^\top (2H-\alpha E[H_t^
 \item $|1-\alpha\rho_d|<1$.
 \end{enumerate}
 \end{assumption}
-
-\begin{lemma}\label{nonsym}
+\begin{theorem}
 For $\alpha\in(0,\alpha_{\max})$ and $H$ non-symmetric
 \begin{align}
 \err(t)\leq &\frac{(\rho_s\alpha)^{-1}(1+2(\rho_d\alpha)^{-1})}{t^2}\nn\\&+\frac{\alpha^2(\alpha\rho_s)^{-1}(1+2(\rho_d\alpha)^{-1})}{t}
 \end{align}
-\end{lemma}
-\begin{lemma}\label{sym}
+\end{theorem}
+\comment{\begin{theorem}\label{sym}
 For $\alpha\in(0,\alpha_{\max})$ and $H$ symmetric
 \begin{align}
 \err(t)\leq &\frac{(\rho_s\alpha)^{-1}(2(\rho_d\alpha)^{-1})}{t^2}\nn\\&+\frac{\alpha^2(\alpha\rho_s)^{-1}(2(\rho_d\alpha)^{-1})}{t}
 \end{align}
-\end{lemma}
+\end{theorem}
+}
+\begin{proof}
+\begin{align*}
+&\E<\overset{t-1}{\underset{i=0}{\sum}}e_i ,\overset{t-1}{\underset{i=0}{\sum}} e_i>\nn\\
+=&\E < \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0+\alpha \overset{t-1}{\underset{i=0}{\sum}} \overset{i}{\underset{k=0}{\sum}} F_{i,k+1}M_{k+1},\nn\\ &\overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0+\alpha \overset{t-1}{\underset{i=0}{\sum}} \overset{i}{\underset{k=0}{\sum}} F_{i,k+1}M_{k+1} >
+\end{align*}
+Bias term $\E < \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0, \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0>$
+\begin{align*}
+=\E\overset{t-1}{\underset{i=0}{\sum}}<F_{i,0}e_0,F_{i,0}>+2 \E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}}<F_{i,0}e_0, F_{j,0}e_0>
+\end{align*}
+Now we know that for $j>i$ $\E<F_{i,0}e_0, F_{j,0}e_0>\leq (1-\alpha \rho_d)^{j-i}\E<F_{i,0}e_0,F_{i,0}e_0>$. Thus
+\begin{align*}
+&\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}}<F_{i,0}e_0, F_{j,0}e_0>\nn\\
+&\leq \E\overset{t-2}{\underset{i=0}{\sum}}\overset{\infty}{\underset{j\geq i}{\sum}} (1-\alpha \rho_d)^{j-i} <F_{i,0}e_0, F_{i,0}e_0>\nn\\
+&\leq (\alpha\rho_d)^{-1} 2 \E<F_{i,0}e_0, F_{i,0}e_0>
+\end{align*}
+Now
+\begin{align*}
+&\E\overset{t-1}{\underset{i=0}{\sum}}<F_{i,0}e_0,F_{i,0}e_0>\nn\\
+&\leq\E\overset{\infty}{\underset{i=0}{\sum}}<F_{i,0}e_0,F_{i,0}e_0>\nn\\
+&\leq\E\overset{\infty}{\underset{i=0}{\sum}}(1-\rho_s(\alpha))^i <e_0,e_0>\nn\\
+&\leq \rho_s(\alpha)^{-1} \parallel e_0\parallel^2\nn
+\end{align*}
+
+
+%\begin{align*}
+%\E < \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0, \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0>
+%\end{align*}
+\comment{The proof is on similar lines of \cite{}
+$
+\E<\overset{t-1}{\underset{i=0}{\sum}}e_i ,\overset{t-1}{\underset{i=0}{\sum}} e_i>=\E\overset{t-1}{\underset{i=0}{\sum}} <e_i,e_i>+ 2\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geqi}{\sum}} <e_i,e_{j+1}>
+$. Now,
+
+\begin{align*}
+\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}} <e_i,e_{j+1}>\nn\\
+=\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}} <e_i,F_{j,i}e_i + \alpha\sum_{k=i}^{j} F_{j,k+1}M_{k+1}>\nn\\
+=\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}} <e_i,(I-\alpha H)^{j-i}e_i >\nn\\
+=\E\overset{t-2} <e_i,\alpha^{-1}H^{-1}[(I-\alpha H)-(I-\alpha H)^{t-i}e_i >\nn\\
+=\E\overset{t-2} (\alpha H)^{-1}<e_i,e_i > - <e_i,e_i >- <e_i,\alpha^{-1}H^{-1}[(I-\alpha H)-(I-\alpha H)^{t-i}e_i >\nn\\
+\end{align*}
+}
+\end{proof}
 \section{LSAs to solve linear system of equations}
 In what follows, we assume that we have access to the stochastic orcales which provide $i.i.d$ samples of $A$ and $b$. We now look at the three different LSAs to solve \eqref{linsys}.
 \subsection{Fixed Point Linear Stochastic Approximation (FP-LSA)}
@@ -102,38 +152,25 @@ where $M^{(1)}_{t+1}=A^{(1)}_t-A$, $M^{(2)}_{t+1}=A^{(2)}_t-A$ and $M^{(3)}_{t+1
 \subsection{Saddle-Point Linear Stochastic Approximation (SP-LSA)}
 An important downside of \Cref{lslsa} is that two independent samples of $A$ are available in the form of $A^{(1)\top}_t$ and $A^{(2)}_t$ which might be possible in certain applications. This issue can be alleviated by looking at the following Saddle-Point objective function
 \begin{align}
-L(\theta,y)=\min_{\theta\in \R^n}\max{y\in \R^n}<b-A\theta,y>-\frac{1}{2}\parallel y\parallel ^2
+L(\theta,y)=\min_{\theta\in \R^n}\max{y\in \R^n}<b-A\theta,y>-\frac{1}{2}\parallel y\parallel_M ^2
 \end{align}
-By noticing the fact that $\nabla_\theta L =-A^\top y$ and $\nabla_{y}L=-A\theta-I$, we now specify the SP-LSA algorithm as follows:
+By noticing the fact that $\nabla_\theta L =-A^\top y$ and $\nabla_{y}L=-A\theta-M$, we now specify the SP-LSA algorithm as follows:
 \begin{align}\label{splsa}
 \begin{split}
-y_{t+1}&=y_t+\alpha (b_t-A_t\theta_t-y_t)\\
+y_{t+1}&=y_t+\alpha (b_t-A_t\theta_t- M y_t)\\
 \theta_{t+1}&=\theta_t+\alpha(A_t^\top)y_t
 \end{split}
 \end{align}
 The SLER corresponding to the SP-LSA in \eqref{splsa} is given by
 \begin{align}
-e_{t+1}=\Big(\begin{bmatrix} I & 0 \\ 0 &I\\\end{bmatrix} -\begin{bmatrix} I & A_t \\ -A_t^\top &0\\\end{bmatrix}\Big)e_t+\Big(\begin{bmatrix} M^{(2)}_{t_1}-M^{(1)}_{t+1}\ts  \\ 0\\\end{bmatrix}\Big),
+e_{t+1}=\Big(\begin{bmatrix} I & 0 \\ 0 &I\\\end{bmatrix} -\begin{bmatrix} M & A_t \\ -A_t^\top &0\\\end{bmatrix}\Big)e_t+\Big(\begin{bmatrix} M^{(2)}_{t_1}-M^{(1)}_{t+1}\ts  \\ 0\\\end{bmatrix}\Big),
 \end{align}
 where $M^{(1)}_{t+1}=A_t-A$, $M^{(2)_{t+1}}=b_t-b$,  and $\ts=A^{-1}b$.
-Let $x_t=(y_t,\theta_t)$, $g_t=\begin{bmatrix} b_t\\ 0\\\end{bmatrix}$ and $G^{(i)}_t=\begin{bmatrix} I & A^{(i)}_t \\ -A^{(i)\top}_t &0\\\end{bmatrix}$ for $i=1,2$, then consider the following updates
+Let $x_t=(y_t,\theta_t)$, $g_t=\begin{bmatrix} b_t\\ 0\\\end{bmatrix}$ and $G^{(i)}_t=\begin{bmatrix} M & A^{(i)}_t \\ -A^{(i)\top}_t &0\\\end{bmatrix}$ for $i=1,2$, then consider the following updates
 \begin{align}
 x'_{t}&=x_t+\alpha (g_t-G^{(1)}_t x_t)\\
 x_{t+1}&=x_t+\alpha(g_t- G^{(2)}_t x'_t);
 \end{align}
-\comment{
-The problem of solving a linear system of equations arises in many machine learning applications. Formally, the aim is to solve the following linear system given by
-\begin{align}\label{linsys}
-Hx^*=g,
-\end{align}
-where $H\in \R^{n\times n}$ and $g\in \R^{n\times n}$ are respectively the given design matrix and design vector which are dependent on the underlying data. In many applications of interest \cite{fbach,rl}, the solution $x^*$ of \eqref{linsys} has to be computed using \emph{noisy} measurements of $g$ and $H$. In such applications, a common approach to handle noisy data is to employ a stochastic approximation (SA) algorithm, which computes $x^*$ by updating its the iterates in an incremental manner. In this paper, we focus on the linear stochastic approximation (LSA) algorithm to solve \eqref{linsys}, given by the following recursion:
-\begin{align}\label{linearrec}
-x_{t+1}=x_t+\alpha_t (g_t-H_t x_t)
-\end{align}
-where $x_t\in \R^n$ are iterates, $\alpha_t>0,t\geq 0$ are  step-sizes. Further, in \eqref{linearrec} $g_t\in \R^n$ and $H_t\in \R^{n\times n}$ are \emph{noisy} measurements of $g$ and $H$, i.e., $g_t\eqdef g+M^{(1)}_{t+1}$ and $H_t\eqdef H+M^{(2)}_{t+1}$ for some noise sequences $\{M^{(i)}_{t},i=1,2,~ t\geq 0\}$.
-Note that $\rho_s(\alpha)>1$ is the case of SP-LSA. To see this,
+%\subsection{Related Work}
 
-\subsection{Objectives and Assumptions}
-We are interested in the behaviour of the iterates $\{x_t, t\geq 0\}$ of the LSA \eqref{linearrec}, and in particular the rate of convergence to the solution $x^*$.
-It is natural to expect that the behavior of the iterates varies with the design variables ($H$ in particular) and the properties of the noise sequence, and it is desirable to build algorithms that are \emph{robust} to these variations. The step-sizes are completely decided by the algorithm designer and hence their choice is critical in ensuring robustness.
-}
+%\subsection{Maximum Allowable step size}
