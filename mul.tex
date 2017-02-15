@@ -1,0 +1,82 @@
+\subsection{Multiplicative Noise}
+When the noise is multiplicative i.e., $t\neq 0$, the quantity $F_R=F_{i,i}=(I-\alpha H_i)$ is random.
+\begin{lemma}
+There exists $\alpha_{r}>0$ such that $\E[\norm{F}_{op}]<1$ for all $\alpha\in (0,\alpha_r)$.
+\end{lemma}
+Letting $\zeta_k=N_k-M_k\ts$, we have
+\begin{align}\label{erreq}
+\E<H\eb_t,H\eb_t>=\frac{1}{(t+1)^2}\E <\ous{\sum}{i=0}{t} F_{i,1}e_0+\alpha \ous{\sum}{k=1}{t} \ous{\sum}{i=k}{t} F_{i,k+1} \zeta_k,\ous{\sum}{i=0}{t} F_{i,1}e_0+\alpha \ous{\sum}{k=1}{t} \ous{\sum}{i=k}{t} F_{i,k+1} \zeta_k >
+\end{align}
+On expanding \eqref{erreq}, we encounter the following types of interactions:
+\begin{enumerate}
+\item \emph{Type I:} Terms involving $\E<F_{i,1}e_0,F_{i,1}e_0>, i,j=0,\ldots, t$ or $<F_{i,k+1}\zeta_k, F_{j,k+1}\zeta_k>,~ k=1,\ldots,t, i,j=k,\ldots,t$.
+\item \emph{Type II:} Terms involving $\E<F_{i,k+1}\zeta_k, F_{j,k+1}\zeta_k>, k=1,\ldots,t, i,j=k,\ldots,t$ or inner products of form $<F_{i,1}e_0, F_{j,1}e_0>, i,j=0,\ldots, t$.
+\item \emph{Type III:} Terms involving $\E<F_{i,1}e_0, F_{j,k+1}\zeta_k>, i=0,\ldots,t, 1\leq k \leq t$.
+\item \emph{Type IV:} Terms involving $\E<F_{i,k+1}\zeta_{k'}, F_{j,k+1}\zeta_k>, k\neq k'$ and $k',k=1,\ldots,t, i,j=k,\ldots,t$.
+\end{enumerate}
+The \emph{Type III} and \emph{Type IV} terms are zero due to the independence assumption.
+\begin{lemma}
+For all $i>j$ and $x\in \R^n$ $\E <F_{j,k+1} x,F_{i,k+1}x>=\E<F_{j,k+1}k,(I-\alpha H)^{i-j} F_{j,k+1}x>$
+\end{lemma}
+Thus the operator norm $\norm{F_D}_{op}$ plays a role in the \emph{Type II} terms.
+\begin{lemma}
+Define $\norm{F_R}^2_{op}\eqdef \us{\sup}{x\in \R^n}\E[x^\top(I-\alpha H_t)^\top(I-\alpha H_t)x]$. If $H$ is PS, there exists an $\alpha_R$ such that $\norm{F_R}_{op}<1$ and $\norm{F_D}_{op}<1$.
+\end{lemma}
+\begin{theorem}\label{psmn}
+Let $H$ be PS, then for $\alpha\in (0,\alpha_R)$, let $\rho_{R}\eqdef \underset{{x\in \R^n}}{\sup}x^\top (2H-\alpha E[H_t^\top H_t])x$ and $\rho_D\eqdef\underset{{x\in \R^n}}{\sup}x^\top (2H-\alpha H^\top H)x$, then
+\begin{align}
+\norm{\eb_t}\leq &\frac{(\rho_R\alpha)^{-1}(1+2(\rho_D\alpha)^{-1})}{(t+1)^2}\nn\\&+(\sigma^2)\frac{\alpha^2(\alpha\rho_R)^{-1}(1+2(\rho_D\alpha)^{-1})}{t+1}
+\end{align}
+\end{theorem}
+\begin{theorem}\label{spdsmn}
+Let $H$ be SPDS, then for $\alpha\in (0,\alpha_R)$, let $\rho_{R}\eqdef \underset{{x\in \R^n}}{\sup}x^\top (2H-\alpha E[H_t^\top H_t])x$ and $\rho_D\eqdef\underset{{x\in \R^n}}{\sup}x^\top (2H-\alpha H^\top H)x$, then
+\begin{align}
+\norm{H^{\frac{1}{2}}\eb_t}\leq &\frac{(\rho_R)^{-1}(\alpha)^{-2}}{(t+1)^2}\nn\\&+(\sigma^2)\frac{(\rho_R)^{-1}}{t+1}
+\end{align}
+\end{theorem}
+
+
+\comment{
+\begin{proof}
+\begin{align*}
+&\E<\overset{t-1}{\underset{i=0}{\sum}}e_i ,\overset{t-1}{\underset{i=0}{\sum}} e_i>\nn\\
+=&\E < \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0+\alpha \overset{t-1}{\underset{i=0}{\sum}} \overset{i}{\underset{k=0}{\sum}} F_{i,k+1}{k+1},\nn\\ &\overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0+\alpha \overset{t-1}{\underset{i=0}{\sum}} \overset{i}{\underset{k=0}{\sum}} F_{i,k+1}{k+1} >
+\end{align*}
+Bias term $\E < \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0, \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0>$
+\begin{align*}
+=\E\overset{t-1}{\underset{i=0}{\sum}}<F_{i,0}e_0,F_{i,0}>+2 \E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}}<F_{i,0}e_0, F_{j,0}e_0>
+\end{align*}
+Now we know that for $j>i$ $\E<F_{i,0}e_0, F_{j,0}e_0>\leq (1-\alpha \rho_d)^{j-i}\E<F_{i,0}e_0,F_{i,0}e_0>$. Thus
+\begin{align*}
+&\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}}<F_{i,0}e_0, F_{j,0}e_0>\nn\\
+&\leq \E\overset{t-2}{\underset{i=0}{\sum}}\overset{\infty}{\underset{j\geq i}{\sum}} (1-\alpha \rho_d)^{j-i} <F_{i,0}e_0, F_{i,0}e_0>\nn\\
+&\leq (\alpha\rho_d)^{-1} 2 \E<F_{i,0}e_0, F_{i,0}e_0>
+\end{align*}
+Now
+\begin{align*}
+&\E\overset{t-1}{\underset{i=0}{\sum}}<F_{i,0}e_0,F_{i,0}e_0>\nn\\
+&\leq\E\overset{\infty}{\underset{i=0}{\sum}}<F_{i,0}e_0,F_{i,0}e_0>\nn\\
+&\leq\E\overset{\infty}{\underset{i=0}{\sum}}(1-\rho_s(\alpha))^i <e_0,e_0>\nn\\
+&\leq \rho_s(\alpha)^{-1} \parallel e_0\parallel^2\nn
+\end{align*}
+
+
+%\begin{align*}
+%\E < \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0, \overset{t-1}{\underset{i=0}{\sum}} F_{i,0}e_0>
+%\end{align*}
+\comment{The proof is on similar lines of \cite{}
+$
+\E<\overset{t-1}{\underset{i=0}{\sum}}e_i ,\overset{t-1}{\underset{i=0}{\sum}} e_i>=\E\overset{t-1}{\underset{i=0}{\sum}} <e_i,e_i>+ 2\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geqi}{\sum}} <e_i,e_{j+1}>
+$. Now,
+
+\begin{align*}
+\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}} <e_i,e_{j+1}>\nn\\
+=\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}} <e_i,F_{j,i}e_i + \alpha\su{k=i}^{j} F_{j,k+1}{k+1}>\nn\\
+=\E\overset{t-2}{\underset{i=0}{\sum}}\overset{t-1}{\underset{j\geq i}{\sum}} <e_i,(I-\alpha H)^{j-i}e_i >\nn\\
+=\E\overset{t-2} <e_i,\alpha^{-1}H^{-1}[(I-\alpha H)-(I-\alpha H)^{t-i}e_i >\nn\\
+=\E\overset{t-2} (\alpha H)^{-1}<e_i,e_i > - <e_i,e_i >- <e_i,\alpha^{-1}H^{-1}[(I-\alpha H)-(I-\alpha H)^{t-i}e_i >\nn\\
+\end{align*}
+}
+\end{proof}
+}
+

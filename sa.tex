@@ -1,0 +1,43 @@
+\section{Asymptotic analysis: The ODE method}
+We now review some of the results in stochastic approximation theory \cite{SA}. Consider the following LSA with diminishing step sizes given by
+\begin{align}\label{lsadim}
+\theta_t=\theta_{t-1}+\alpha_t(b_t-H_t\theta_{t-1}),
+\end{align}
+where $\alpha_t$ satifies \Cref{dimassmp}
+\begin{assumption}\label{dimassmp}
+$\us{\lim}{t\ra\infty }\alpha_t=0, \us{\sum}{t\geq 0}\alpha_t=\infty, \us{\sum}{t\geq 0}\alpha_t^2<\infty$
+\end{assumption}
+The results in this section hold for the AS case and diminishing step sizes (see \Cref{} ), and are based on the ordinary differential equation (ODE) method \cite{SA,Kush}. The ODE method concerns itself with asymptotic behaviour of \eqref{lsadim}.
+The idea here is to associate the following ODE in \eqref{ode} with \eqref{lsadim}:
+\begin{align}\label{ode}
+\dot{\theta(t)}=g-H\theta(t),
+\end{align}
+where $t\in\R$ and $t\geq 0$. Note that time $t$ in \eqref{ode} is continuous and time $t$ in \eqref{lsadim} is integer valued. In order to maintain the disctinction between discrete and continuous times, we denote the former by $t_d$ and the latter by $t_c$.
+The ODE method centres around the following transformation/interpretation of the `discrete' time in \eqref{ode} to/as the `continuous' time in \eqref{lsadim}.
+\begin{align}\label{stepacc}
+t_c(t_d)=\ous{\sum}{s=0}{t_d}\alpha_s,
+\end{align}
+i.e., the continuous time $t_c$ corresponding to the discrete time $t_d$ is merely the step sizes accumulated during the discrete time period from $0$ to $t_d$. The iterates of \eqref{lsadim} can then be used to define a continuous time trajectory $\hat{\theta(t)}$ as follows:
+\begin{align}\label{inter}
+\hat{\theta(t)}=\theta_{t_d}+(\theta_{t_d+1}-\theta_{t_d})\frac{t-t_c(t_d) }{t_c(t_d+1)-t_c(t_d)}, ~\forall~t\in[t_c(t_d),t_c(t_d+1)].
+\end{align}
+Note in \eqref{inter} the continuous time trajectory $\hat{\theta(t)}$ is obtained by \emph{interpolating} the iterates of \eqref{lsadim}.
+We now state a result that shows the trajectory of the ODE \eqref{ode} and the interpolated trajectory in \eqref{inter} are `close' to each other asymptotically.
+\begin{theorem}\label{sadim}
+Let $\theta^s(t), t\geq s$ be the trajectory to the ODE \eqref{ode} with $\theta^s(s)=\hat{\theta(s)}$. It holds \emph{almost surely} that for any $T>0$
+\begin{align}
+\us{\lim}{s\ra\infty} \us{\sup}{t\in[s,s+T]}\norm{\hat{\theta(t)}- \theta^s(t)} = 0,
+\end{align}
+and the iterates $\theta_t \ra \ts$ as $t\ra\infty$
+\end{theorem}
+\begin{proof}
+See Chapter~$2$, \cite{SA}.
+\end{proof}
+We can now comment on the asymptotic convergence rates that are expected to hold in lieu of the \Cref{track}.
+\subsection{Asymptotic Convergence Rates}\label{initial}
+We denote the spectrum of $H$ by $\{\mu_i,i=1,\ldots,n\}$. It is known from standard results that the trajectory $\theta(t)$ the ODE \eqref{ode} with initial condition $\theta(0)=\theta_0$ is given by
+\begin{align}\label{oderate}
+\theta(t)-\ts=\sum_{i=1}^n C_i e^{-\mu_i t},
+\end{align}
+where $C=(C_i,i=1,\ldots,n)\in \R^n$ are real coefficients. The time $t\geq 0$ in \eqref{oderate} is the continous time defined in \eqref{stepacc}. It is easy to see from \eqref{oderate} that terms in the summation are dependent on the Eigen values values and the accumulation of step sizes as given by \eqref{stepacc}. For instance, if the step-size are chosen to be $\alpha_t=C/t$, then
+\begin{align}\label{biasforget}e^{-\mu_i\sum_{0\leq k<t}\alpha_t}\approx e^{-\mu_i Clog s}=O(1/s^{\mu_i C})\end{align}

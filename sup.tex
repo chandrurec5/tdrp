@@ -1,0 +1,124 @@
+\section{Supplementary Material}
+\begin{align*}
+\theta_{t+1}&=\theta_t+\alpha(b_t-A_t\theta_t)\\
+\theta_{t+1}-\theta^*&=\theta_t-\theta^*+\alpha(b_t-A_t(\theta_t-\theta^*+\theta^*))\\
+e_{t+1}&=(I-\alpha A_t) e_t+\alpha(M^{(1)}_{t+1} -M^{(2)}_{t+1}\theta^*)\\
+\end{align*}
+Let $F_{j,i}\eqdef\Pi_{t=i}^{j} (I-\alpha A_t), \forall j\geq i$ and $F_{j,i}\eqdef I,~\forall i<j$ and $M_{t+1}=M^{(1)}_{t+1}-M^{(2)}_{t+1}\theta^*$.
+\begin{align}\label{exp}
+\theta_t-\theta^*=F_{t,1}(\theta_0-\theta^*)+\alpha\sum_{k=1}^t F_{t,k+1} M_{k+1}
+\end{align}
+\begin{lemma}
+Let $\parallel \cdot\parallel$ be the operator norm, then $\parallel (I-\alpha A)\parallel \leq 1-\alpha \rho$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\parallel (I-\alpha A)\parallel&=\sup_{\theta\in \R^n | \parallel x\parallel=1}\theta^T (I-\alpha A) \theta\\
+&=1-\alpha \inf_{\theta\in \R^n | \parallel x\parallel=1}\theta^T  A \theta\\
+&=1-\alpha\rho
+\end{align*}
+\end{proof}
+\begin{lemma}
+For any $x_t\in \R^n$ that is $\F_t$ measurable and $\forall ~i > t$ if follows that $\E[x_t^\top F_{i,t+1}M_{t+1}]=0$
+\end{lemma}
+\small
+\begin{proof}
+\begin{align*}
+&\E[x_t^\top F_{i,t+1}M_{t+1}]\\
+%=\E\big[\E[ x_t^\top F_{i,t+1}M_{t+1}|\F_t]\big]\\
+=&\E\Bigg[\E\bigg[\E\Big[\E\big[ x_t^\top F_{i,t+1}M_{t+1}|\F_{i}\big]|F_{i-1}\Big]\ldots|\F_{t}\bigg]\Bigg]\\
+=&\E\Bigg[ x_t^\top \E\bigg[\E\Big[\E\big[(I-\alpha A_i)|\F_{i}\big]|\ldots F_{t+1}\Big]M_{t+1}|\F_{t}\bigg]\Bigg]\\
+=&\E\Bigg[ x_t^\top \E\bigg[(I-\alpha A)^{t-i+1}M_{t+1}|\F_{t}\bigg]\Bigg]\\
+=&\E\Bigg[ x_t^\top (I-\alpha A)^{t-i+1}\E\bigg[M_{t+1}|\F_{t}\bigg]\Bigg]\\
+=&0
+\end{align*}
+\end{proof}
+$\E\sum_{i=0}^t\sum_{j=0}^t<A(\theta_i-\theta^*),A(\theta_j-\theta^*)>=\E\sum_{i=0}^t<A(\theta_i-\theta^*),A(\theta_j-\theta^*)>+ 2\E\sum_{i=0}^t\sum_{j=i+1}^t<A(\theta_i-\theta^*),A(\theta_j-\theta^*)$. Now
+\begin{align}\label{inter}
+&\E\sum_{i=0}^t\sum_{j=i+1}^t<A(\theta_i-\theta^*),A(\theta_j-\theta^*)>\nn\\
+&=\E\sum_{i=0}^t\sum_{j=i+1}^t<A(\theta_i-\theta^*),A\big[F_{j,i+1} (\theta_i-\theta^*)+\alpha\sum_{k=i+1}^j F_{j,k+1}M_{k+1}\big]>\nn\\
+&=\E\sum_{i=0}^t\sum_{j=i+1}^t<A(\theta_i-\theta^*),A F_{j,i+1} (\theta_i-\theta^*)>\nn\\
+&=\E\sum_{i=0}^t\sum_{j=i+1}^t<A(\theta_i-\theta^*),A(I-\alpha A)^{j-i} (\theta_i-\theta^*)>\nn\\
+&=\E\sum_{i=0}^t<A(\theta_i-\theta^*),\alpha^{-1}AA^{-1}[(I-\alpha A)-(I-\alpha A)^{t-i+1}] (\theta_i-\theta^*)>\nn\\
+&\leq\E\sum_{i=0}^t <A(\theta_i-\theta^*),\alpha^{-1}(I-\alpha A)(\theta_i-\theta^*)>+C_t\nn\\
+&\leq\alpha^{-1}\E\sum_{i=0}^t<A(\theta_i-\theta^*),(\theta_i-\theta^*)>+ C_t
+%&=\alpha^{-1}\E\sum_{i=0}^t<A(\theta_i-\theta^*),(\theta_i-\theta^*)>-\E\sum_{i=0}^t<A(\theta_i-\theta^*),A(\theta_i-\theta^*)>+ C_t\nn\\
+\end{align}
+\begin{lemma}
+For any $x\in \R^n$, there exists $\ab$ such that $x^\top \E[(I-\alpha A_t)(I-\alpha A_t)|\F_t]x \leq x^\top(I-\alpha A)x, ~\forall \alpha\in (0,\ab)$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+&x^\top\E[(I-\alpha A_t)(I-\alpha A_t)|\F_t]x\\
+&=x^\top\big(I-\alpha A -\alpha( A- \alpha\E[A_t^\top A_t|\F_t])\big)x\\
+\end{align*}
+\end{proof}
+\begin{lemma}
+Define for $x\in \R^n$ $f^i_t(x)\eqdef\E[<F_{t,i}x,F_{t,i}x>]$ and $g^i_t(x)\eqdef\E[<F_{t,i}x, A F_{t,i}x>]$. Then we have $g^i_{t-1}(x)\leq \alpha^{-1}(f^i_{t-1}(x)-f^i_t(x))$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f^i_t=&\E\bigg[\E\Big[\E\big[ x^\top F^\top_{t,i} F_{t,i}x|\F_{t}\big]|F_{t-1}\Big]\ldots\bigg]\\
+=&\E\bigg[x^\top\ldots\E\Big[(I-\alpha A_{t-1})^\top\E\big[ (I-\alpha A_t)^\top(I-\alpha A_t)|\F_{t}\big]\\&(I-\alpha A_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
+&\leq f^i_{t-1}(x)-\alpha g^i_{t-1}(x)
+\end{align*}
+\end{proof}
+\begin{lemma}
+For $i\neq j$, $\E[<F_{t,i+1}M_{i+1},F_{t,j+1} M_{j+1}>]=0$
+\end{lemma}
+\begin{proof}
+W.l.o.g suppose $i>j$
+\begin{align}
+&\E[<F_{t,i+1} M_{i+1},F_{t,j+1} M_{j+1}>]\nn\\
+\label{diffindexinter}=&\E[ M^\top_{i+1}(I-\alpha A_{i+1})^\top\ldots(I-\alpha A_t)^\top(I-\alpha A_t)\ldots(I-\alpha A_{j+1}) M_{j+1}]\\
+\label{diffindex}=&\E[ \sum_{l} G_l],
+%&=\E\Bigg[\E\bigg[\E\Big[\E\big[<F_{i,k+1} M_{k+1},F_{i,k+1} M_{k+1}>|\F_{j-1}\big]|F_{j-2}\Big]\ldots|\F_{k+1}\bigg]\Bigg]\\
+\end{align}
+where $l$ is any index and $G_l$s in \eqref{diffindex} are terms obtained by expanding the product in \eqref{diffindexinter} using the fact that $A_t=A+M_{t+1},~\forall t\geq 0$. Note that $G_l$ is a product involving powers of $\alpha A$, vectors such as $M^\top_{q+1}$ and $M_{p+1}$ for some $i\geq p,q\geq j$. For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top_{r(l)+1}$ or $M_{r(l)+1}$ is present in that term.
+\begin{align*}
+\E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
+\end{align*}
+\end{proof}
+\begin{align*}
+\E<A(\theta_t-\theta^*),(\theta_t-\theta^*)>&=g^0_t(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_t(M_{k+1})\\
+\sum_{i=0}^t\E<A(\theta_i-\theta^*),(\theta_i-\theta^*)>&=\sum_{i=0}^t g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_i(M_{k+1})\\
+&\leq\alpha^{-1}(f^0_0(\theta_0-\ts)-f^0_{t+1}(\theta_0-\ts))+\sum_{k=0}^t \alpha^{-1}(f^k_k(M_{k+1})-f^k_{t+1}(M_{k+1}))\\
+&\leq\alpha^{-1}(f^0_0(\theta_0-\ts))+\alpha^{-1}(t+1)\sigma\sum_{k=0}^t \alpha^{-1}(f^k_k(M_{k+1}))\\
+&\leq\alpha^{-1}\parallel \theta_0-\ts\parallel^2+\alpha^{-1}(t+1)\sigma^2
+\end{align*}
+\begin{lemma}
+In \eqref{inter} $C_t\leq \frac{t+1}{\rho}{(1-\alpha\rho)^{t+1}}$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\E<A(\theta_i-\theta^*),(\theta_i-\theta^*)>&=g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^i g^{k+1}_i(M_{k+1})\\
+\end{align*}
+\end{proof}
+\comment{
+\begin{proof}
+\begin{align*}
+&<A(\theta_i-\theta^*),(I-\alpha A)^{t-i+1} (\theta_i-\theta^*)>\\
+&\leq(1-\alpha \rho)^{t-i+1} <(\theta_t-\theta^*),A (\theta_t-\theta^*)>\\
+\end{align*}
+\begin{align*}
+C_t&=\E\sum_{i=0}^t<A(\theta_i-\theta^*),(I-\alpha A)^{t-i+1} (\theta_i-\theta^*)>\\
+&\leq\E\sum_{i=0}^t|<A(\theta_i-\theta^*),(I-\alpha A)^{t-i+1} (\theta_i-\theta^*)>|\\
+&\leq \E\sum_{i=0}^t(1-\alpha\rho)^{t-i+1}(1-\alpha\rho)^i\\
+&\leq \frac{t+1}{\rho}{(1-\alpha\rho)^{t+1}}\\
+&\E<\theta_i-\theta^*,\theta_j-\theta^*>\\
+&=\alpha^2\E\sum_{k=1}^i\sum_{j=1}^i <F_{i,j+1}M_{j+1},F_{i,k+1} M_{k+1}>\\
+&=\alpha^2\E\sum_{k=1}^i<F_{i,k+1}M_{k+1},F_{i,k+1} M_{k+1}>\\
+\end{align*}
+\end{proof}
+\begin{align*}
+&\E[<F_{i,k+1}M_{k+1},F_{i,k+1} M_{k+1}>]\\
+&=\E[\big[\Big[\bigg[<F_{i,k+1} M_{k+1},F_{i,k+1} M_{k+1}>|\F_{j-1}\bigg]|F_{j-2}\Big]\ldots|\F_{k+1}\big]]\\
+&\leq(1-\alpha\rho)^{i-k-1}\sigma^2\\
+&\E<\theta_i-\theta^*,\theta_j-\theta^*>\\
+&\leq \frac{\alpha\sigma^2}{\rho}\\
+&\E[<F_{i,1}(\theta_0-\theta^*),F_{i,1}(\theta_0-\theta^*)>]\\
+&=\E[\bigg[\Big[\big[<F_{i,1}(\theta_0-\theta^*),F_{i,1}(\theta_0-\theta^*)>|\F_{j-1}\big]|F_{j-2}\Big]\ldots|\F_{k+1}\bigg]]\\
+&\leq (1-\alpha\rho)^{i-k-1}\parallel \theta_0-\theta^*\parallel\\
+&\leq (\rho\alpha)^{-1}\parallel \theta_0-\theta^*\parallel
+\end{align*}
+}
