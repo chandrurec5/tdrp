@@ -4,6 +4,15 @@
 \newcommand{\todoc}[2][]{\todo[size=\scriptsize,color=blue!20!white,#1]{Csaba: #2}}
 \newcommand{\todoch}[2][]{\todo[size=\scriptsize,color=red!20!white,#1]{Chandru: #2}}
 \newcommand{\todox}[2][]{\todo[size=\scriptsize,color=green!20!white,#1]{Xiaowei: #2}}
+\newcommand{\norm}[1]{\left\| #1\right\|}
+\newcommand{\ip}[1]{\langle#1\rangle}
+\newcommand{\ber}{\begin{enumerate}[label=(\roman*)]}
+\newcommand{\eer}{\end{enumerate}}
+\newcommand{\rr}{\rho^{\alpha}_{R}}
+\newcommand{\rd}{\rho^{\alpha}_{D}}
+\newcommand{\ld}{\lambda_{D}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\B}{\mathcal{B}}
 \usepackage{hyperref}
 \hypersetup{
     bookmarks=true,         % show bookmarks bar?
@@ -33,7 +42,8 @@
 \let\temp\epsilon
 \let\epsilon\varepsilon
 
-
+\usepackage{diagbox}
+\usepackage{makecell}
 \usepackage{pgfplots}
 \usepackage{pgf}
 \usepackage{amsmath}
@@ -48,10 +58,9 @@
 \newcommand{\nn}{\nonumber}
 \newcommand{\onp}{\emph{on-policy~}}
 \newcommand{\ofp}{\emph{off-policy~}}
+\newcommand{\Ra}{\Rightarrow}
 \renewcommand{\L}{\emph{L}}
 \newcommand{\T}{\mathcal{T}}
-\newcommand{\V}{\emph{V}}
-\newcommand{\B}{\emph{B}}
 \newcommand{\I}{\mathcal{I}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\R}{\mathbb{R}}
@@ -80,6 +89,7 @@
 \newtheorem{example}{Example}
 \newtheorem{remark}{Remark}
 \newtheorem{domain}{Domain}
+\newtheorem{condition}{Condition}
 
 \usetikzlibrary{intersections}
 \usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,   shapes.arrows,   shapes.callouts,   shapes.multipart,   shapes.gates.logic.US,   shapes.gates.logic.IEC,   er,   automata,   backgrounds,   chains,   topaths,   trees,   petri,   mindmap,   matrix,   calendar,   folding, fadings,   through,   positioning,   scopes,   decorations.fractals,   decorations.shapes,   decorations.text,   decorations.pathmorphing,   decorations.pathreplacing,   decorations.footprints,   decorations.markings, shadows}
@@ -88,3 +98,7 @@
 \tikzstyle{line}=[draw]
 \tikzstyle{elli}=[draw,ellipse]
 \tikzstyle{arrow} = [thick]
+\newcommand{\us}[2]{\underset{#2}{#1}~}
+\newcommand{\ous}[3]{\overset{#3}{\underset{#2}{#1}}~}
+
+

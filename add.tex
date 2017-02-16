@@ -1,18 +1,54 @@
+\section{Main Results}
+We can recurse backwards in \eqref{errprelim} to obtain the following:
+\begin{align}\label{errrec}
+e_t=F_{t,1}e_0+\ous{\sum}{k=1}{t}\alpha F_{t,k+1}\zeta_k
+\end{align}
+Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dyanmics of $e_t$.
 \subsection{Additive Noise}
-In the case of additive noise (AN), we have $F_{i,j}= (I-\alpha H)^{i-j+1},~\forall i\geq j$ to be deterministic. In what follows we resort to abuse of notation by letting $F_D=F_{0,0}=I-\alpha H$. The convergence of \eqref{lsa} in the AN case then depends on the spectral properties of $F$, which in turn depends on the choice of $\alpha$ for a given $H$. We are interested in the following two quantities
+\FloatBarrier
+\comment{
+\begin{table}
+\resizebox{.5\textwidth}{!}{
+\begin{tabular}{|l|c|c|}\hline
+\theadfont\diagbox[width=3em]{$H$}{$\zeta$}&
+\thead{US}&\thead{S}\\    \hline
+AS& $\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$  & NA \\    \hline
+PS& $\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)\big(1+\frac{2}{1-\norm{F_D}_{op}}+\frac{1}{1-\norm{F_D}^2_{op}}\big)$ &NA\\ \hline
+PD& $\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$
+\end{tabular}
+}
+\end{table}
+}
+\comment{
+\begin{table}
+%\resizebox{.5\textwidth}{!}{
+
+\begin{tabular}{|l|c|}\hline
+\theadfont\diagbox[width=3em]{$H$}{$\zeta$}&
+\thead{Strucutred}\\    \hline
+AS& NA  \\    \hline
+PS& NA\\ \hline
+PD& $\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$\\\hline
+PD& $\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$\\\hline
+\end{tabular}
+%}
+\end{table}
+}
+\comment{In the case of additive noise (AN), we have $F_{i,j}= (I-\alpha H)^{i-j+1},~\forall i\geq j$ to be deterministic. In what follows we resort to abuse of notation by letting $F_D=F_{0,0}=I-\alpha H$. The convergence of \eqref{lsa} in the AN case then depends on the spectral properties of $F$, which in turn depends on the choice of $\alpha$ for a given $H$. We are interested in the following two quantities
 \begin{enumerate}
 \item The \emph{spectral radius} $\rho_s(F_D)$, where $\rho(A)\eqdef\max\{|\lambda_1|,\ldots,|\lambda_k|,k\leq n\}$ with $|\lambda_i|$ denoting the absolute value of the Eigen value $\lambda_i$ of any given matrix $A$.
 \item The \emph{operator norm} of $\norm{F_D}_{op}$, where $\norm{A}_{op}\eqdef\us{\sup}{x^\top x\leq 1}\sqrt{x^\top A^\top A x}$ is the operator norm of any given matrix $A$.
 \end{enumerate}
+}
 \begin{lemma}\label{addstep}
-For any $H$ that is AS there exists an $\alpha_{as}>0$ for which it holds that $\rho_{s}(F_D)<1,~\forall \alpha\in (0,\alpha_{as})$.
-\end{lemma}
-\begin{lemma}\label{addstep}
-For any $H$ that is PS there exists an $\alpha_{ps}>0$ for which it holds that $\norm{F_D}_{op}<1$, $~\forall \alpha\in (0,\alpha_{ps})$.
+\begin{enumerate}[label=(\roman*)]
+\item For any $H$ that is AS there exists an $\alpha_{as}>0$ for which it holds that $\rho(F_D(\alpha))<1,~\forall \alpha\in (0,\alpha_{as})$.
+\item For any $H$ that is PS there exists an $\alpha_{ps}>0$ for which it holds that $\E[x^\top(H-\alpha H_t^\top H_t)x|\F_{t-1}]> 0$, $~\forall \alpha\in (0,\alpha_{ps})$.
+\end{enumerate}
 \end{lemma}
 We begin by stating a result related to norms of matrices
 \begin{lemma}
-Let $A\in \R^{n\times n}$ be any real matrix then $\norm{Ax}^2_2\leq \us{\sup}{i,j}n^2|(A)_{ij}|^2\norm{x}^2_2$ and $<x,Ax>\leq \us{\sup}{i,j}n|(A)_{ij}|\norm{x}^2_2$, where $(A)_{ij}$ denotes the $ij^{th}$ entry of matrix $A$.
+Let $A\in \R^{n\times n}$ be any real matrix then $\norm{Ax}^2_2\leq \us{\sup}{i,j}n^2|(A)_{ij}|^2\norm{x}^2_2$ and $\ip{x,Ax}\leq \us{\sup}{i,j}n|(A)_{ij}|\norm{x}^2_2$, where $(A)_{ij}$ denotes the $ij^{th}$ entry of matrix $A$.
 \end{lemma}
 \begin{lemma}
 For $\alpha \in (0,\alpha_{as})$ there exists constants $B_1>0$ and $B_2>0$ such that $B_1=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^t)_{ij}|$ and $B_2=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^{t\top}F_D^t)_{ij}|$
@@ -21,6 +57,63 @@ For $\alpha \in (0,\alpha_{as})$ there exists constants $B_1>0$ and $B_2>0$ such
 \eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )\nn\\
 &=\frac{1}{t+1}\big((\alpha H)^{-1}(I-F_D^t)e_0+ H^{-1}\ous{\sum}{i=1}{t}(I-F_D^{t-i}) \zeta_i\big)
 \end{align}
+\begin{table*}
+\begin{center}
+\resizebox{1\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|}\hline
+Matrix   & $\alpha$             &   $C$     & Noise     &   $E[\norm{C\eb_t}^2]\leq \B^2+\V^2$\\\hline
+AS       & $(0,\alpha_{as})$    &   $H$     & AUS        &   $\B^2=\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big),~\V^2=\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$\\    \hline
+AS       & $(0,\alpha_{as})$    &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big),~\V^2=\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$\\    \hline
+
+PS       & $(0,\alpha_{ps})$    &   $H$     & AUS        &   $\B^2=\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big),~\V^2=\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1})$\\ \hline
+PS       & $(0,\alpha_{ps})$    &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big),~\V^2=\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1})$\\ \hline
+
+SPDS    & $(0,\alpha_{ps})$     &   $H$     & AUS        &   $\B^2=\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & US        &   $\B^2=\norm{H^{-1}}\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}\frac{\sigma^2}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & US        &   $\B^2=\norm{H^{-1}}\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}\frac{\sigma^2}{t+1}$\\ \hline
+
+SPDS    & $(0,\alpha_{ps})$     &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}^2\frac{\sigma^2}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $I$     & AS        &   $\B^2=\norm{H^{-1}}^2\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}\frac{\sigma^2}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     &AS        &   $\B^2=\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
+PS       & $(0,\alpha_{ps})$    &   $I$     & MUS        &   $\B^2=\frac{(\rho_H\alpha)^{-1}(1+4(\rho_H\alpha)^{-1})}{(t+1)^2},~\V^2=(\sigma^2)\frac{\alpha^2(\alpha\rho_H)^{-1}(1+4(\rho_H\alpha)^{-1})}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H$     & MUS        &  $\B^2=\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & MUS        &   $\B^2=\frac{(\rho_H)^{-1}(\alpha)^{-2}}{(t+1)^2},~\V^2=(\sigma^2)\frac{(\rho_H)^{-1}}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & MS        &   $\B^2=\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
+\end{tabular}
+}
+\end{center}
+\end{table*}
+\begin{theorem}
+In the case of additive noise, i.e., $M_t=0$, \\
+\textbf{Unstructured Noise}
+\begin{enumerate}[label=(\roman*)]
+\item if $H$ is AS, then $\forall \alpha\in (0,\alpha_{as})$ and $t\geq0 $ we have $E\norm{H\eb_t}^2\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$.
+\item if $H$ is PS, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{H\eb_t}^2\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)\big(1+\frac{2}{1-\norm{F_D}_{op}}+\frac{1}{1-\norm{F_D}^2_{op}}\big)$.
+\item if $H$ is PD, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{H\eb_t}^2\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$.
+\item if $H$ is PD, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{H^{\frac{1}{2}}\eb_t}^2\leq \norm{H^{-1}}^2_{op}\Big(\frac{\norm{(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$.
+\end{enumerate}
+\textbf{Structured Noise}
+\begin{enumerate}[label=(\roman*)]
+\item if $H$ is PD, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{H^{\frac{1}{2}}\eb_t}^2\leq \Big(\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$
+\end{enumerate}
+\end{theorem}
+
+
+\begin{theorem}
+In the case of additive noise, i.e., $M_t=0$, \\
+\textbf{Unstructured Noise}
+\begin{enumerate}[label=(\roman*)]
+\item if $H$ is AS, then $\forall \alpha\in (0,\alpha_{as})$ and $t\geq0 $ we have $E\norm{\eb_t}^2\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$.
+\item if $H$ is PS, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{\eb_t}^2\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)\big(1+\frac{2}{1-\norm{F_D}_{op}}+\frac{1}{1-\norm{F_D}^2_{op}}\big)$.
+\item if $H$ is PD, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{\eb_t}^2\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$.
+\end{enumerate}
+\textbf{Structured Noise}
+\begin{enumerate}[label=(\roman*)]
+\item if $H$ is PD, then $\forall \alpha \in (0,\alpha_{ps})$ and $t\geq 0$ we have $E\norm{\eb_t}^2\leq \Big(\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$
+\end{enumerate}
+\end{theorem}
+
+\comment{
 \begin{theorem}[AS-AN]
 When $H$ is AS and $M_t=0,\forall t\geq 0$, we have
 \begin{align}
@@ -48,8 +141,7 @@ E\norm{H^{\frac{1}{2}}\eb_t}\leq \Big(\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)
 \begin{theorem}[SPDS-Unstructured Noise]
 When $H$ is SPDS and $M_t=0,\forall t\geq 0$, and $\alpha\in (0,\alpha_{ps})$
 \begin{align}
-E\norm{H^{\frac{1}{2}}\eb_t}\leq \norm{H^{-1}}^2_op\Big(\frac{\norm{(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)
+E\norm{H^{\frac{1}{2}}\eb_t}\leq \norm{H^{-1}}^2_{op}\Big(\frac{\norm{(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)
 \end{align}
 \end{theorem}
-
-
+}

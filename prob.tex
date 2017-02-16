@@ -8,14 +8,13 @@ where $\theta_t\in \R^n$, $\alpha>0$ is a positive step-size, $g_t\in \R^n$ and 
 We are interested in the behaviour of \eqref{lsa} under the following general conditions.
 \begin{assumption}\label{genlsa}
 \begin{enumerate}
-\item\label{mart} $H_t\eqdef H+M_t$, $g_t\eqdef g+N_t$, where $M_t\in \R^{n\times n}$ and $N_t\in \R^n$ are martingale difference sequences with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef \{\theta_s, N_s,M_s,s\leq t\}$, i.e., $\E[N_t|F_{t-1}]=0,\E[M_t|F_{t-1}]=0,~\forall t\geq 0$.
-\item \label{noise} The noise sequences satisfy $\E[N_t^\top N_t|F_{t-1}]\leq \sigma_1^2$ and $\E[M_t^\top M_t|F_{t-1}]\leq \Sigma_2^2$, where $\sigma_1^2>0$ is a positive scalar and $\Sigma^2$ is a real symmetric positive definite matrix.
+\item\label{mart} $H_t\eqdef H+M_t$, $g_t\eqdef g+N_t$, where $M_t\in \R^{n\times n}$ and $N_t\in \R^n$ are martingale difference sequences with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef \{\theta_s, N_s,M_s,s\leq t\}$, i.e., $\E[N_t|\F_{t-1}]=0,\E[M_t|\F_{t-1}]=0,~\forall t\geq 0$.
+\item \label{secondmom} $E[M_t^\top M_t| \F_{s}]=\Sigma_2^2$ for all $0\leq s< t$.
+\item \label{noise} The noise sequences satisfy $\E[N_t^\top N_t|\F_{t-1}]\leq \sigma_1^2$ and $\E[M_t^\top M_t|\F_{t-1}]\leq \Sigma_2^2$, where $\sigma_1^2>0$ is a positive scalar and $\Sigma^2$ is a real symmetric positive definite matrix.
 \item \label{mat} $H$ is invertible and there exists $\ts=H^{-1}g\in\R^n$. Further, there exists a scalar $\sigma_2^2$ such that ${\ts}^\top\Sigma_2^2\ts\leq \sigma_2^2$.
 \end{enumerate}
 \end{assumption}
 Here, $\ts$ is a desired fixed point or extremum, and the LSA in \eqref{lsa} computes $\ts$ from noisy data presented in the form of $g_t$ and $H_t$.\par
-%The conditions in \Cref{genlsa} are very general in nature and
-
 \textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
 \begin{align}\label{errprelim}
 \theta_t-\ts=\theta_{t-1}-\ts+\alpha_t(g_t -H_t(\theta_t-\ts+\ts))\nn\\
@@ -46,7 +45,18 @@ We note that SPDS $\Ra$ PS $\Ra$ AS.\\
 \item The \emph{Multiplicative Noise} (MN) case: Corresponds to the general case wherein $M_t\neq 0$.
 \item The \emph{Structured Noise} (SN) case: when $H$ is SPDS and $\E[\zeta_t^\top \zeta_t]\leq \sigma^2 H$, where $\zeta_t\eqdef N_t-M_t\theta^*$ and $\sigma>0$.
 \end{enumerate}
-\textbf{Performance Metrics} By defining $\eb_t=\frac{1}{t+1}\ous{\sum}{i=0}{t} e_i$, we have $\tb_t-\ts=\eb_t$. The finite time mean squared error is then given by $\E\norm{C(\tb_t-\ts)}^2=\E\norm{C\eb_t}^2$, where $C$ is any $n\times n$ matrix. The choices of $C$ we will be using are $C=I$ ($I$ is the identity matrix), $C=H$ and $C=H^{\frac{1}{2}}$.
+\textbf{Definitions}
+\ber
+\item Define for $\alpha>0$, $F_D(\alpha)\eqdef I-\alpha H$.
+%\item For any $H$ that is PS and $\alpha>0$, define $\ld\eqdef \us{\inf}{\norm{x}\leq 1 } x^\top H x$, $\rd\eqdef \us{\inf}{\norm{x}\leq 1 } x^\top (2H-\alpha H^\top H)x$.
+%\item For any $H$ that is PS and $\alpha>0$, define $\rr\eqdef \us{\inf}{\norm{x}\leq 1}\E[x^\top (2H-\alpha H_t^\top H_t)x|\F_{t-1}]$.
+\item For any $H$ that is PS define $\rho_H \eqdef \us{\inf}{\norm{x}\leq 1 } x^\top H x$.
+\item Define $F_{i,j}\eqdef (I-\alpha_i H_i)\ldots (I-\alpha_j H_j),~\forall i\geq j$ and $F_{i,j}\eqdef I,~\forall i<j$.
+\item Define the spectral radius of a matrix $A$ as $\lambda(A) \eqdef \max\{|\mu_1|,\ldots,|\mu_k|,k\leq n\}$ with $|\mu_i|$ denoting the absolute value of the Eigen value $\mu_i$ of any given matrix $A$.
+\item Define $\eb_t\eqdef\frac{1}{t+1}\ous{\sum}{i=0}{t} e_i$ (note that this means $\tb_t-\ts=\eb_t$).
+\eer
+\textbf{Performance Metrics} By defining $\eb_t=\frac{1}{t+1}\ous{\sum}{i=0}{t} e_i$, we have $\tb_t-\ts=\eb_t$. The finite time mean squared error is then given by $\E\norm{C(\tb_t-\ts)}^2=\E\norm{C\eb_t}^2$, where $C$ is any $n\times n$ matrix. The choices of $C$ we will be using are $C=I$ ($I$ is the identity matrix), $C=H$ and $C=H^{\frac{1}{2}}$.\par
+
 
 \comment{
 \textbf{Step-sizes}
@@ -60,19 +70,5 @@ We note that SPDS $\Ra$ PS $\Ra$ AS.\\
 \begin{enumerate}[label=(\roman*)]
 \item The \emph{asymptotic} behaviour is quantified by looking at $\us{\lim}{t\ra \infty} \norm{\theta_t-\ts}$.
 \item The \emph{finite time} behaviour is considered only for the CSRP case and is quantified by $\E\norm{C\tb_t-\ts}^2$, where $C$ is any $n\times n$ matrix. The choices of $C$ we will be using are $C=H$ and $C=H^{\frac{1}{2}}$ (only when in the SPDS-SN case).
-\end{enumerate}
-}
-\section{Main Results}
-\subsection{Error Dynamics}
-Letting $F_{i,j}\eqdef (I-\alpha_i H_i)\ldots (I-\alpha_j H_j),~\forall i\geq j$ and $F_{i,j}\eqdef I,~\forall i<j$ we can recurse backwards in \eqref{errprelim} to obtain the following:
-\begin{align}\label{errrec}
-e_t=F_{t,1}e_0+\ous{\sum}{k=1}{t}\alpha F_{t,k+1}\zeta_k
-\end{align}
-Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dyanmics of $e_t$.
-%To be more specific, we can expect the following to dictate the dynamics of \eqref{errrec}.
-\comment{
-\begin{enumerate}
-\item The spectral radius $\rho_s(F_{i,j})$, where $\rho(A)\eqdef\max\{|\lambda_1|,\ldots,|\lambda_k|,k\leq n\}$ with $|\lambda_i|$ denoting the absolute value of the Eigen value $\lambda_i$ of any given matrix $A$.
-\item The expected operator norm of $\rho_{op}(F_{i,j})\E[\norm{F_{i,j}}_{op}],i\geq j$, where $\norm{A}_{op}\eqdef\us{\su}{x^\top x\leq 1}\sqrt{x^\top A^\top A x}$ is the operator norm of any given matrix $A$.
 \end{enumerate}
 }
