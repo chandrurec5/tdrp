@@ -43,13 +43,3 @@ where GTD/GTD2 can be obtained by letting $M=I/C$ respectively in \eqref{gtd}. R
 We now present a novel algorithm called the \emph{incremetal-gradient} least squares temporal difference leanring (iGLTSD), named so owing to the fact that it makes use of gradient the least squares objective and at the same times makes incremental updates like the iLSTD algorithm.
 \input{algo}
 }
-\subsection{Variants of GTD}
-The GTD-\emph{Mirror-Prox} algorithm is given by
-\begin{align}
-\begin{split}
-y^m_{t}&=y_t+\alpha \rho_t(b_t-A_t\theta_t - M y_t)\\
-\theta^m_{t}&=\theta_t+\alpha\rho_t(A^\top_ty_t),\\
-y_{t+1}&=y_t+\alpha \rho_t(b_t-A_t\theta^m_t - M y^m_t)\\
-\theta_{t+1}&=\theta_t+\alpha\rho_t(A^\top_ty^m_t),
-\end{split}
-\end{align}

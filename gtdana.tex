@@ -1,4 +1,5 @@
-\section{Price of Off-Policy Stability}
+\section{RL algorithms: Insights from Spectral Analysis}
+\subsection{Price of Off-Policy Stability}
 We discuss the price paid by GTD variants to achieve off-policy stability.
 For the purpose of our discussions, we study the following modified version of GTD given by:
 \begin{align}\label{gtdbeta}
@@ -52,11 +53,29 @@ $\begin{aligned} 1-\alpha(\beta\epsilon^2)  \end{aligned}$ & $1-\frac{\alpha}{2}
 \begin{enumerate}[leftmargin=*]
 \item \textbf{Slowness of GTD:} The vanilla GTD algorithm ($\beta=1$) has been observed to be slow in comparison to the TD. The toy example captures this fact in a simple yet clear manner. To see this, observe that the spectral radius of the \eqref{gtdonstate} and \eqref{tdonestate} are $1-\alpha\epsilon^2$ and $1-\alpha\epsilon$ respectively. Thus the rate of convergence of the GTD  and TD in this toy example are $(1-\alpha\epsilon)^t\approx e^{-\alpha\epsilon^2 t}$ and $(1-\alpha\epsilon)^t\approx e^{-\alpha\epsilon t}$ respectively. Thus the performance of the GTD is off by a factor of $\epsilon$.
 \item \textbf{Price of Stabiity} Notice that the GTD is stable for the off-policy setting as well. The GTD is two timescale algorithm with the dual variable $y$ estimates $(b-A\theta)$ and the primal updates involve $A^\top(y)=A^\top(b-A\theta)$. Thus the GTD implictly has $A^\top A$ in their update equation and hence it is not surprising that in the toy example $\epsilon^2$ plays a role. This effect continues even in higher dimensions (see \Cref{squared}). While the GTD is stable in all the settings its slowness seems to be the inevitable price that we need to pay.
-\item The effect of the condition number can however be eliminated in the case of this toy example. By setting $\alpha=\frac{1}{\epslion}$ in \eqref{tdonstate} and $\alpha=2$, $\beta=\frac{1}{4\epsilon^2}$ in \eqref{gtdonestate}, we can eliminate the effect of $\epsilon$. However, in higher dimensions the GTD cannot be made as good as TD (see \Cref{}).
+\item The effect of the condition number can however be eliminated in the case of this toy example. By setting $\alpha=\frac{1}{\epsilon}$ in \eqref{tdonstate} and $\alpha=2$, $\beta=\frac{1}{4\epsilon^2}$ in \eqref{gtdonestate}, we can eliminate the effect of $\epsilon$. However, in higher dimensions the GTD cannot be made as good as TD (see \Cref{}).
 \end{enumerate}
 \begin{lemma}\label{squared}
-When $A$ has a small positive Eigen value say $0<\mu<<1$, then $1-\alpha\mu^2$ is an Eigen value of $F=\begin{bmatrix} (1-\alpha)I & -alpha A \\ \alpha A^\top& 0\\\end{bmatrix}$.
+When $A$ has a small positive Eigen value say $0<\mu<<1$, then $1-\alpha\mu^2$ is an Eigen value of $F=\begin{bmatrix} (1-\alpha)I & -\alpha A \\ \alpha A^\top& 0\\\end{bmatrix}$.
 \end{lemma}
 \begin{lemma}
 When $\mu_{\min}>0$ and $\mu_{\max}>0$ are the smallest and largest Eigen values of $A$ respectively. Then the best possible spectral radius that can be achieved for the TD and GTD algorithms are given by $1-2\frac{\mu_{\min}}{\mu_{\max}}$ and $1-2\frac{\mu_{\min}^2}{\mu_{\max}^2}$ respectively.
 \end{lemma}
+\subsection{Shortcomings of GTD-Mirror-Prox}
+The GTD-\emph{Mirror-Prox} algorithm is given by
+\begin{align}
+\begin{split}
+y^m_{t}&=y_t+\alpha \rho_t(b_t-A_t\theta_t - M y_t)\\
+\theta^m_{t}&=\theta_t+\alpha\rho_t(A^\top_ty_t),\\
+y_{t+1}&=y_t+\alpha \rho_t(b_t-A_t\theta^m_t - M y^m_t)\\
+\theta_{t+1}&=\theta_t+\alpha\rho_t(A^\top_ty^m_t),
+\end{split}
+\end{align}
+\begin{table}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|}\hline
+TD& GTD&   GTD-MP \\ \hline
+$F_{TD}=(I-\alpha A)$& $F_{GTD}=\begin{bmatrix} (1-\alpha) I&-\alpha A \\ -\alpha A^\top & 0\\\end{bmatrix} $ & $F_{GTDMP}=I-\alpha F_{GTD}+\alpha^2 F^2_{GTD}$ \\ \hline
+\end{tabular}
+}
+\end{table}
