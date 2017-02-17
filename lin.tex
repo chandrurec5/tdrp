@@ -1,46 +1,54 @@
 \section{LSAs to solve linear system of equations}
- We now look at the three different LSAs to solve the linear system given by
+We now study three different LSAs based on distinct approaches to solve the linear system \eqref{linsys} given by:
 \begin{align}\label{linsys}
 A\theta=b.
 \end{align}
-In what follows, we assume that we have access to the stochastic orcales which provide $i.i.d$ samples of $A$ and $b$.
-\subsection{Least Squares Linear Stochastic Approximation (LS-LSA)}
-When $A$ is not known to satisfy any specific assumption such as AS, PS or SPDS, it is important to enforce stability by designing the LSA appropriately. One way to ensure SPDS is to solve for $A^TA\theta^*=A^\top b$. We call the following stochastic recursion to compute $\theta^*$ a LS-LSA algorithm
+We call them three algorithms, the fixed-point/least-squares/saddle-point linear stochastic approximation algorithms (FP/LS/SP-LSA) respectively. In what follows, we assume that
+$A$ is invertible i.e., there exists $\ts=A^{-1} b$ and $A_t,A'_t, t\geq 0$ are sequences of $i.i.d$ samples of $A$ and $b_t,t\geq 0$ is a sequence of $i.i.d$ samples of $b$.\\
+\textbf{FP-LSA}
+\begin{align}\label{fplsa}
+\theta_{t+1}=\theta_t+\alpha(b_t-A_t),
+\end{align}
+\textbf{LS-LSA}
 \begin{align}\label{lslsa}
 \theta_{t+1}=\theta_t+\alpha A^{(1)\top}_t(b_t-A^{(2)}_t\theta_t),
 \end{align}
-where we assume $b_t$, $A^{(1)}_t$and $A^{(2)}_t$ are $i.i.d$ samples of $b$ and $A$. The LSER corresponding to LS-LSA in \eqref{lslsa} is given by
+\comment{Further, let $M^{(1)}_{t+1}=A^{(1)}_t-A$, $M^{(2)}_{t+1}=A^{(2)}_t-A$ and $M^{(3)}_{t+1}=b_t-b$ be the martingale difference sequences satisfying \Cref{genlsa}-\eqref{mart}. The LSER corresponding to LS-LSA in \eqref{lslsa} is given by
 \begin{align}\label{lslser}
 e_{t+1}=&(I-\alpha A^{(1)\top}_tA^{(2)}_t)e_t+\alpha(A^\top M^{(3)}_{t+1}+M^{(1)\top}_{t+1}M^{(3)}_{t+1}\nn\\&-A^\top M^{(2)}_{t+1}\ts-M^{(1)\top}_{t+1}M^{(2)}_{t+1}\ts),
 \end{align}
 where $M^{(1)}_{t+1}=A^{(1)}_t-A$, $M^{(2)}_{t+1}=A^{(2)}_t-A$ and $M^{(3)}_{t+1}=b_t-b$. Choosing $H_t=A^{(1)\top}_tA^{(2)}_t$, $\zeta_t= A^\top M^{(3)}_{t+1}+M^{(1)\top}_{t+1}M^{(3)}_{t+1}-A^\top M^{(2)}_{t+1}\ts-M^{(1)\top}_{t+1}M^{(2)}_{t+1}\ts$ and $\sigma^2=\parallel A\parallel^2 (\sigma_2^2+\sigma_1^2\parallel \ts\parallel^2)+ \sigma_1^4(1+\parallel \ts\parallel^2)$ we can identify \eqref{lslser} with \eqref{lsergen}, and  the results of \Cref{spdsmn} applies to the LSER in \eqref{lslser}.
-\subsection{Fixed Point Linear Stochastic Approximation (FP-LSA)}
-When it is known that $A$ is PS,  we can use the following LSA which we call the fixed point LSA (FP-LSA) to compute $\theta^*$:
-\begin{align}\label{fplsa}
-\theta_{t+1}=\theta_t+\alpha(b_t-A_t),
-\end{align}
-where we assume that $b_t$ and $A_t$ are $i.i.d$ samples of $b$ and $A$. We now present the LSER corresponding the FP-LSA in \eqref{fplsa}.
-\begin{align}\label{fplser}
-e_{t+1}=(I-\alpha A_t)e_t+\alpha(M^{(2)}_{t+1}-M^{(1)}_{t+1}\ts),
-\end{align}
-where $M^{(1)}_{t+1}=A_t-A$, $M^{(2)_{t+1}}=b_t-b$,  and $\ts=A^{-1}b$. Now letting $H_t=A_t$, $\zeta_t=M^{(2)}_{t+1}-M^{(1)}_{t+1}\ts$ and $\sigma=\sigma_1^2+\sigma^2_2 \parallel\ts\parallel^2$ we can identity \eqref{fplser} wit the \eqref{lsergen} and the results of \Cref{psmn} applies to the LSER in \eqref{fplser}.
-\subsection{Saddle-Point Linear Stochastic Approximation (SP-LSA)}
-An important downside of \Cref{lslsa} is that two independent samples of $A$ are available in the form of $A^{(1)\top}_t$ and $A^{(2)}_t$ which might be possible in certain applications. This issue can be alleviated by looking at the following Saddle-Point objective function
-\begin{align}
-L(\theta,y)=\min_{\theta\in \R^n}\max{y\in \R^n}<b-A\theta,y>-\frac{1}{2}\parallel y\parallel_M ^2
-\end{align}
-By noticing the fact that $\nabla_\theta L =-A^\top y$ and $\nabla_{y}L=-A\theta-M$, we now specify the SP-LSA algorithm as follows:
+}
+\textbf{SP-LSA}
 \begin{align}\label{splsa}
 \begin{split}
 y_{t+1}&=y_t+\alpha (b_t-A_t\theta_t- M y_t)\\
 \theta_{t+1}&=\theta_t+\alpha(A_t^\top)y_t
 \end{split}
 \end{align}
+\textbf{Remarks:}
+\begin{itemize}[leftmargin=*]
+\item In addition to invertibility of $A$, the FP-LSA algorithm needs further assumption that $A$ is AS.
+\item When it is not known whether $A$ is AS one has to resort to LS-LSA, where the idea is to solve $A^{\top} A\theta=A^{\top} b$. However a downside of the LS-LSA is that it requires \emph{double-sampling} i.e., $A'_t,A_t$ need to be independent, which cannot be ensured in many applications when the data is not available in a batch form.
+\item The SP-LSA is based on the saddle point formulation. The algorithm is a stochastic gradient algorithm with respect to the saddle point objective given by
+\begin{align}
+L(\theta,y)=\min_{\theta\in \R^n}\max{y\in \R^n}<b-A\theta,y>-\frac{1}{2}\parallel y\parallel_M ^2
+\end{align}
+Notice that $\nabla_\theta L =-A^\top y$ and $\nabla_{y}L=-A\theta-M$.
+\end{itemize}
+\comment{
+\subsection{Saddle-Point Linear Stochastic Approximation (SP-LSA)}
+An important downside of \Cref{lslsa} is that two independent samples of $A$ are available in the form of $A^{(1)\top}_t$ and $A^{(2)}_t$ which might be possible in certain applications. This issue can be alleviated by looking at the following Saddle-Point objective function
+\begin{align}
+L(\theta,y)=\min_{\theta\in \R^n}\max{y\in \R^n}<b-A\theta,y>-\frac{1}{2}\parallel y\parallel_M ^2
+\end{align}
+By noticing the fact that $\nabla_\theta L =-A^\top y$ and $\nabla_{y}L=-A\theta-M$, we now specify the SP-LSA algorithm as follows:
 The SLER corresponding to the SP-LSA in \eqref{splsa} is given by
 \begin{align}
 e_{t+1}=\Big(\begin{bmatrix} I & 0 \\ 0 &I\\\end{bmatrix} -\begin{bmatrix} M & A_t \\ -A_t^\top &0\\\end{bmatrix}\Big)e_t+\Big(\begin{bmatrix} M^{(2)}_{t_1}-M^{(1)}_{t+1}\ts  \\ 0\\\end{bmatrix}\Big),
 \end{align}
 where $M^{(1)}_{t+1}=A_t-A$, $M^{(2)_{t+1}}=b_t-b$,  and $\ts=A^{-1}b$. Now letting $H_t=\begin{bmatrix} M & A_t \\ -A_t^\top &0\\\end{bmatrix}$, we notice that $H=\E[H_t]=\begin{bmatrix} M & A \\ -A^\top &0\\\end{bmatrix}$, is not $PS$ and hence it is not straightforward to derive finite time bounds. However, by replacing $\alpha$ in \eqref{splsa} by $\alpha_t$ which satisfies \Cref{dimassmp}, the behaviour of the iterates can then be analysed using \Cref{sadim}.
+}
 \comment{
 Let $x_t=(y_t,\theta_t)$, $g_t=\begin{bmatrix} b_t\\ 0\\\end{bmatrix}$ and $G^{(i)}_t=\begin{bmatrix} M & A^{(i)}_t \\ -A^{(i)\top}_t &0\\\end{bmatrix}$ for $i=1,2$, then consider the following updates
 \begin{align}

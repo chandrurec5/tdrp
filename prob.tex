@@ -1,4 +1,5 @@
 \section{Problem Setup}
+\input{restable}
 We consider linear stochastic approximation (LSA) algorithms of the form
 \begin{align}\label{lsa}
 \theta_{t}=\theta_{t-1}+\alpha(g_t-H_t\theta_{t-1}),
@@ -47,7 +48,7 @@ We note that SPDS $\Ra$ PS $\Ra$ AS.\\
 \end{enumerate}
 \textbf{Definitions}
 \ber
-\item Define for $\alpha>0$, $F_D(\alpha)\eqdef I-\alpha H$.
+\item Define $F_D\eqdef I-\alpha H$.
 %\item For any $H$ that is PS and $\alpha>0$, define $\ld\eqdef \us{\inf}{\norm{x}\leq 1 } x^\top H x$, $\rd\eqdef \us{\inf}{\norm{x}\leq 1 } x^\top (2H-\alpha H^\top H)x$.
 %\item For any $H$ that is PS and $\alpha>0$, define $\rr\eqdef \us{\inf}{\norm{x}\leq 1}\E[x^\top (2H-\alpha H_t^\top H_t)x|\F_{t-1}]$.
 \item For any $H$ that is PS define $\rho_H \eqdef \us{\inf}{\norm{x}\leq 1 } x^\top H x$.

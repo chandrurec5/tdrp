@@ -1,0 +1,73 @@
+\section{Price of Off-Policy Stability}
+We discuss the price paid by GTD variants to achieve off-policy stability.
+For the purpose of our discussions, we study the following modified version of GTD given by:
+\begin{align}\label{gtdbeta}
+\begin{split}
+\textbf{GTD($\beta$)\quad}y_{t+1}&=y_t+\alpha \rho_t(b_t-A_t\theta_t - M y_t)\\
+\theta_{t+1}&=\theta_t+\alpha\rho_t\beta(A^\top_ty_t)
+\end{split}
+\end{align}
+We call the above variant GTD($\beta$).
+In order to keep the discussion intuitive, we first consider a simple example MDP and then
+\begin{example}\label{onestatemdp}
+Consider the MPD with $1$ state, $1$ action, the probability transition $p=1$, reward $R=1$, discount factor $\gamma 1-\epsilon$ (for small $\epsilon>0$ ) and feature matrix $\Phi=1$. Here $A=1-\gamma=\epsilon$, $R=1$, $V^*=\frac{1}{\epsilon}$.
+\end{example}
+We now write down the TD and GTD($\beta$) algorithms for this $1$-state MDP in \Cref{onestatemdp}.
+\begin{align}\label{tdonestate}
+\begin{split}
+\theta_{t}&=\theta_{t-1}+\alpha(1-\epsilon\theta_{t-1})\\
+&=(1-\alpha\epsilon)\theta_{t-1}+\alpha 1
+\end{split}
+\end{align}
+The Eigen value of the above TD update is given by $\mu=1-\alpha\epsilon$.
+%The Eigen value decay is given by $\mu^t\approx e^{-\alpha\epsilon t}$
+\begin{align}\label{gtdbeta}
+\begin{bmatrix} y_t \\ \theta_t\\\end{bmatrix}=\Big(\begin{bmatrix} 1&0 \\ 0& 1\\\end{bmatrix} - \alpha\begin{bmatrix} 1&\epsilon \\ -\beta\epsilon& 0\\\end{bmatrix}\Big)\begin{bmatrix} y_t \\ \theta_t\\\end{bmatrix}+\alpha\begin{bmatrix} 1 \\ 0\\\end{bmatrix}
+\end{align}
+%The Eigen values of $H=\begin{bmatrix} 1-\alpha& -\alpha\epsilon \\ \alpha\beta\epsilon& 1\\\end{bmatrix}$ is given by:
+\begin{align}
+1-\frac{\alpha}{2}(1\pm\sqrt{1-4\beta\epsilon^2}),
+\end{align}
+and consider the various cases of $\beta$ as follows.\\
+\comment{
+\begin{table}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}\hline
+&$0<\beta\leq1 $ &     $\beta=\frac{1}{4\epsilon^2}$  & $\beta>\frac{1}{4\epsilon^2}$ \\ \hline
+$\begin{aligned} \text{Eigen}\\ \text{Value}\end{aligned}$ &$\begin{aligned} &\mu_1=1- \alpha(1-\beta\epsilon^2) \\ &\mu_2=1-\alpha(\beta\epsilon^2) \\ & \end{aligned}$ & $\begin{aligned}\mu_1=1- \frac{\alpha}{2} \\ &\mu_2=1-\frac{\alpha}{2} \\ \end{aligned}$ & $\begin{aligned}\mu_{1}=1-\frac{\alpha}{2}(1+ i\sqrt{4\beta\epsilon^2-1})\\ \mu_2=1-\frac{\alpha}{2}(1- i\sqrt{4\beta\epsilon^2-1})\end{aligned}$\\ \hline
+$\begin{aligned} \text{Spectral}\\ \text{Radius}\end{aligned}$ &$\begin{aligned} 1-\alpha(\beta\epsilon^2)  \end{aligned}$ & $1-\frac{\alpha}{2}$ & $\begin{aligned} \sqrt{1-\frac{\alpha}{2}+\alpha^2\beta\epsilon^2}\end{aligned}$\\ \hline
+\end{tabular}
+}
+\end{table}
+}
+\begin{table}
+\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|}\hline
+$0<\beta\leq1 $ &     $\beta=\frac{1}{4\epsilon^2}$  & $\beta>\frac{1}{4\epsilon^2}$ \\ \hline
+ $\begin{aligned} &\mu_1=1- \alpha(1-\beta\epsilon^2) \\ &\mu_2=1-\alpha(\beta\epsilon^2) \\ & \end{aligned}$ & $\begin{aligned}&\mu_1=1- \frac{\alpha}{2} \\ &\mu_2=1-\frac{\alpha}{2} \\ \end{aligned}$ & $\begin{aligned}\mu_{1}=1-\frac{\alpha}{2}(1+ i\sqrt{4\beta\epsilon^2-1})\\ \mu_2=1-\frac{\alpha}{2}(1- i\sqrt{4\beta\epsilon^2-1})\end{aligned}$\\ \hline
+$\begin{aligned} 1-\alpha(\beta\epsilon^2)  \end{aligned}$ & $1-\frac{\alpha}{2}$ & $\begin{aligned} \sqrt{1-\frac{\alpha}{2}+\alpha^2\beta\epsilon^2}\end{aligned}$\\ \hline
+\end{tabular}
+}
+\end{table}
+
+
+\comment{
+\textbf{Case $\beta=1$: Why is GTD slow?} Since $\epsilon>0$ is very small, we can then approximate $\sqrt{1-4\epsilon^2}\approx 1-\frac{4\epsilon^2}{2}$ and the roots of $H$ in this case are then given by
+\begin{align}
+1-\frac{\alpha}{2}\big(1\pm (1-\frac{4\epsilon^2}{2})\big)=\underbrace{1- \alpha(1-\epsilon^2)}_{\mu_1}, \underbrace{1-\alpha(\epsilon^2)}_{\mu_2}
+\end{align}
+%The Eigevn value decay is given by $\mu_1^t\approx e^{-\alpha(1-\epsilon^2)t}$ and $\mu_2^t\approx e^{-\alpha\epsilon^2 t}$. Note that $\mu_2^t$ is much slower compared to $\mu^t$.\\
+\textbf{Case $0<\beta<1$} The Eigen values of $H$ are then approximately given by
+\begin{align*}
+1-\frac{\alpha}{2}(1\pm(1-4\beta\epsilon^2))=\underbrace{1- \alpha(1-\beta\epsilon^2)}_{\mu_1}, \underbrace{1-\alpha(\beta\epsilon^2)}_{\mu_2}
+\end{align*}
+%Using arguments similar for the $\beta=1$ case, we can see that the $\beta<1$ is also worse.\\
+\textbf{Case $\beta>>1$ Faster GTD} When $\beta>\frac{1}{4\epsilon^2}$ the Eigen values of $H$ split into two complex conjugates and are given by
+\begin{align*}
+1-\frac{\alpha}{2}(1\pm i\sqrt{4\beta\epsilon^2-1})=\rho e^{i\psi}
+\end{align*}
+where the modulus $\rho$ is given by $\rho=\sqrt{1-\frac{\alpha}{2}+\alpha^2\beta\epsilon^2}$, choosing $\beta=\frac{1}{4\epsilon^2}$ we have $\rho=(1-\frac{\alpha}{2})$. Thus, in this example atleast by choosing the right value of $\beta$ it looks like we can eliminate the dependence of.
+\textbf{Comparison of Eigen Values}
+}
+\subsection{Effect of Condition Number}
+\textbf{1-dimension}
