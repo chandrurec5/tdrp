@@ -1,9 +1,62 @@
 \onecolumn
 \section{Supplementary Material}
-In the case of additive noise, since $M_t=0$, we have $F_{i,j}=F^{i-j}_D$ and hence
+\begin{lemma}\label{addstep}
+\begin{enumerate}[label=(\roman*)]
+\item For any $H$ that is AS there exists an $\alpha_{as}>0$ for which it holds that $\rho(F_D(\alpha))<1,~\forall \alpha\in (0,\alpha_{as})$.
+\item For any $H$ that is PS there exists an $\alpha_{ps}>0$ for which it holds that $\E[x^\top(H-\alpha H_t^\top H_t)x|\F_{t-1}]> 0$, $~\forall \alpha\in (0,\alpha_{ps})$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Let $\mu=a+i b$ be any Eigen value of $H$. Since $H$ is AS, we know that $a>0$, and that the Eigen value of $I-\alpha H$ is given by $\rho=1-\alpha a -i\alpha b$. The modulus is then given by
+\begin{align*}
+|\rho| =\sqrt{(1-\alpha a)^2+b^2}=\sqrt{1-2\alpha a +\alpha^2 (a^2+b^2)}
+\end{align*}
+Now $\rho<1$ can be achieved by ensuring $\alpha <\frac{2a}{a^2+b^2}$.
+Since $H$ is PS, the result follows by choosing $\alpha<\frac{\us{\inf}{\norm{x}\leq 1} x^\top H x}{\us{\sup}{\norm{x}\leq 1}x^\top \E[H_t^\top H_t|\F_{t-1}]x}$.
+\end{proof}
+
+
+We begin by stating a result related to norms of matrices
+\begin{lemma}
+Let $A\in \R^{n\times n}$ be any real matrix then $\norm{Ax}^2_2\leq \us{\sup}{i,j}n^2|(A)_{ij}|^2\norm{x}^2_2$ and $\ip{x,Ax}\leq \us{\sup}{i,j}n|(A)_{ij}|\norm{x}^2_2$, where $(A)_{ij}$ denotes the $ij^{th}$ entry of matrix $A$.
+\end{lemma}
+\begin{proof}
+For given $x\in \R^n$, let $y=(y_1,\ldots,y_n)\in \R^n$ such that $y=Ax$. Now $y_i=\ip{x,y}\ous{\sum}{j=1}{n} (A)_{ij}x_j\leq \us{\sup}{i,j}|(A_{ij})| \norm{x}_1$, where $\norm{\cdot}_1$ denotes the $L_1$ norm.
+\begin{align*}
+\ip{x,Ax}&=\ip{x,y}\ous{\sum}{i=1}{n} x_iy_i\\
+&\leq\ous{\sum}{i=1}{n} |x_i||y_i|\\
+&\leq \us{\sup}{i,j}|(A_{ij})| \norm{x}^2_1\\
+&\leq \us{\sup}{i,j}|(A_{ij})| n\norm{x}^2_2
+\end{align*}
+\begin{align*}
+\ip{y,y}&\leq n(\us{\sup}{i,j}|(A_{ij})| \norm{x}_1)^2\\
+&\leq \us{\sup}{i,j}|(A_{ij})|^2 n^2 \norm{x}^2_2
+\end{align*}
+\end{proof}
+
+\begin{lemma}
+For $\alpha \in (0,\alpha_{as})$ there exists constants $B_1>0$ and $B_2>0$ such that $B_1=\us{\us{\sup}{i,j}}{t\geq 0}|(F^t)_{ij}|$ and $B_2=\us{\us{\sup}{i,j}}{t\geq 0}|(F^{t\top}F^t)_{ij}|$
+\end{lemma}
+\begin{proof}
+Consider the Jordon decomposition of $F=P\Lambda P^{-1}$. The result follows from noting that, since $\rho(F)<1$ for any $\alpha\in (0,\alpha_{as})$, we have $\us{\lim}{t\ra \infty}F^t=\us{\lim}{t\ra \infty} P\Lambda^t P^{-1} =0$ and $\us{\lim}{t\ra \infty}F^{t\top}F^t=0$.
+\end{proof}
 \begin{align}\label{addexp}
 \eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )
 \end{align}
+\textbf{Additive Noise:}
+In the case when $M_t=0,\forall t\geq 1$, we have $~\forall i\geq j, F_{i,j}=F^{i-j}=(I-\alpha H)^{i-j}$.
+\begin{lemma}
+For $i\neq j$ $\E[\ip{(I-(I-\alpha H)^{t-i}) \zeta_i, (I-(I-\alpha H)^{t-i}) \zeta_j}]=0$
+\end{lemma}
+\begin{proof}
+W.l.o.g $i>j$
+\begin{align}
+\E[\ip{(I-(I-\alpha H)^{t-i}) \zeta_i, (I-(I-\alpha H))^{t-i}) \zeta_j}]&= \E\big[\E[\zeta_i^\top (I-(I-\alpha H))^{t-i\top} (I-(I-\alpha H)^{t-i} \zeta_j|\F_{i-1}]\big]\\
+&= \E\big[\E[\zeta_i^\top|\F_{i-1}] (I-(I-\alpha H)^{t-i\top} (I-(I-\alpha H)^{t-i} \zeta_j\big]\\
+&=0
+\end{align}
+\end{proof}
+
 \begin{theorem}
 When $H$ is AS, $\alpha \in (0,\alpha_{as})$, we have
 $\E[\norm{H\eb_t}^2]\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big)+\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$
@@ -12,7 +65,7 @@ $\E[\norm{H\eb_t}^2]\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Bi
 Since $\alpha\in (0,\alpha_{as})$, we have from \eqref{addexp}
 \begin{align*}
 H\eb_t&=H\Big(\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )\Big)\\
-&=H\Big(\frac{1}{t+1}\big((\alpha H)^{-1}(I-(I-\alpha H)^t)e_0+ H^{-1}\ous{\sum}{i=1}{t}(I-(I-\alpha H)^{t-i}) \zeta_i\big)\Big)\\
+&=H\Big(\frac{1}{t+1}\big((\alpha H)^{-1}(I-(I-\alpha H)^t)e_0+ \alpha \alpha^{-1}H^{-1}\ous{\sum}{i=1}{t}(I-(I-\alpha H)^{t-i}) \zeta_i\big)\Big)\\
 &=\frac{1}{t+1}\big((\alpha)^{-1}(I-(I-\alpha H)^t)e_0+ \ous{\sum}{i=1}{t}(I-(I-\alpha H)^{t-i}) \zeta_i\big)
 \end{align*}
 Now
@@ -21,7 +74,7 @@ Now
 &=\E\ip{H\eb_t,H\eb_t}\\
 &=\frac{1}{\alpha^2(t+1)^2}\E\ip{(I-(I-\alpha H)^t)e_0,(I-(I-\alpha H)^t)e_0}+\frac{1}{(t+1)^2}\ous{\sum}{i=1}{t}\E\ip{(I-(I-\alpha H)^{t-i}) \zeta_i,(I-(I-\alpha H)^{t-i}) \zeta_i}
 \end{align*}
-Note that for $x\in \R^n$, $\ip{(I-(I-\alpha H)^t)x,(I-(I-\alpha H)^t)x}\leq \ip{x,x}+2\ip{x,(I-\alpha H)^tx}+\ip{(I-\alpha H)^t,(I-\alpha H)^t x}$. Thus it follows that
+Note that for $x\in \R^n$, $\ip{(I-(I-\alpha H)^t)x,(I-(I-\alpha H)^t)x}\leq \ip{x,x}+2\ip{x,(I-\alpha H)^tx}+\ip{(I-\alpha H)^t x,(I-\alpha H)^t x}$. Thus it follows that
 \begin{align*}
 &\E[\norm{H\eb_t}^2]\leq \frac{\norm{\theta_0-\ts}^2}{(t+1)^2} (1+2nB_1+n^2B_2)+\ous{\sum}{i=1}{t}\frac{\sigma^2}{(t+1)^2}(1+2nB_1+n^2B_2)
 \end{align*}
@@ -46,7 +99,7 @@ Note that for $x\in \R^n$, $\ip{(I-(I-\alpha H)^t)x,(I-(I-\alpha H)^t)x}\leq \ip
 
 \begin{theorem}
 When $H$ is SDPS and the noise is structured, $\alpha \in (0,\alpha_{ps})$, we have
-$\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
+$\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \frac{\norm{H^{-\frac{1}{2}}\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
 \end{theorem}
 \begin{proof}
 \begin{align*}
@@ -59,8 +112,20 @@ E\ip{H^{-\frac{1}{2}}(I-(I-\alpha H)^{t-i}) \zeta_i,H^{-\frac{1}{2}}(I-(I-\alpha
 &=\E trace(H^{-1}\zeta_i\zeta_i^\top)\\
 &\leq \sigma^2
 \end{align*}
-
 \end{proof}
+
+
+\begin{theorem}
+When $H$ is SDPS and the noise is unstructured, $\alpha \in (0,\alpha_{ps})$, we have
+$\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \norm{H^{-1}} \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$
+\end{theorem}
+\begin{proof}
+\begin{align*}
+&\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\\
+&=\frac{1}{\alpha^2(t+1)^2}\E\ip{H^{-\frac{1}{2}}(I-(I-\alpha H)^t)e_0,H^{-\frac{1}{2}}(I-(I-\alpha H)^t)e_0}+\frac{1}{(t+1)^2}\ous{\sum}{i=1}{t}\E\ip{H^{-\frac{1}{2}}(I-(I-\alpha H)^{t-i}) \zeta_i,H^{-\frac{1}{2}}(I-(I-\alpha H)^{t-i}) \zeta_i}
+\end{align*}
+\end{proof}
+
 
 
 \begin{lemma}
@@ -92,11 +157,18 @@ W.l.o.g  $i>j$
 \label{diffindex}=&\E[ \sum_{l} G_l],
 \end{align}
 where $l$ is any index and $G_l$s in \eqref{diffindex} are terms obtained by expanding the product in \eqref{diffindexinter} using the fact that $H_t=H+M_{t},~\forall t\geq 0$. Note that $G_l$ is a product involving powers of $\alpha H$, matrices such as $M^\top_{q+1}$ and $M_{p+1}$ for some $ i\leq p<t, j\leq q < t$ and vectors $\zeta^\top_i$ and $\zeta^\top_j$.
-For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top_{r(l)+1}$ or $M_{r(l)+1}$ or $\zeta_{r(l)+1}$is present in that term.
+For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top_{r(l)+1}$ or $M_{r(l)+1}$ or $\zeta^\top_{r(l)+1}$ is present in that term.
 \begin{align*}
 \E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
 \end{align*}
 \end{proof}
+\begin{theorem}
+When $H$ is PS and $\alpha\in (0,\alpha_{ps})$ we have $\E[\norm{H\eb_t}^2]\leq (1+4(\alpha\rho_H)^{-1}) (\alpha\rho_H)^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \Big)
+$
+\end{theorem}
+
+\begin{proof}
+$\E[\norm{H\eb_t}^2]=\E\ip{H\eb_t,H\eb_t}=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}(\theta_i-\ts),H\ous{\sum}{i=0}{t}(\theta_i-\ts)}$.
 $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}+ 2\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}$. Now
 \begin{align}\label{inter}
 &\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}\nn\\
@@ -115,12 +187,45 @@ Now
 \end{align*}
 $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}\leq (1+4(\alpha\rho_H)^{-1}) (\alpha\rho_H)^{-1}(t\sigma^2+\norm{\theta_0-\ts}^2)$
 \begin{align}
-\E[\norm{H\eb_t}]\leq \frac{1}{(t+1)^2}
+\E[\norm{H\eb_t}]\leq (1+4(\alpha\rho_H)^{-1}) (\alpha\rho_H)^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \Big)
 \end{align}
+\end{proof}
+
+\begin{theorem}
+When $H$ is SPDS and $\alpha\in (0,\alpha_{ps})$ we have $\E[\norm{H\eb_t}^2]\leq \frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
+\end{theorem}
+
+\begin{proof}
+$\E[\norm{H\eb_t}^2]=\E\ip{H\eb_t,H\eb_t}=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}(\theta_i-\ts),H\ous{\sum}{i=0}{t}(\theta_i-\ts)}$.
+$\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}+ 2\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}$. Now
+\begin{align}\label{inter}
+&\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H\big[F_{j,i+1} (\theta_i-\theta^*)+\alpha\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H F_{j,i+1} (\theta_i-\theta^*)}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(I-\alpha H)^{j-i} (\theta_i-\theta^*)}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ip{H(\theta_i-\theta^*),H(\alpha H)^{-1}[(I-\alpha H)-(I-\alpha H)^{j-i}] (\theta_i-\theta^*)}\nn\\
+&\leq \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\alpha H)^{-1}[(I-\alpha H)] (\theta_i-\theta^*)}\nn\\
+&\leq \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),(\alpha)^{-1} (\theta_i-\theta^*)}- \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}\nn\\
+\end{align}
+Now it is enough to bound $(\alpha)^{-1} \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),(\theta_i-\theta^*)}$
+\end{proof}
+
+\begin{lemma}
+Define for $x\in \R^n$ $f^i_t(x)\eqdef\E[\ip{F_{t,i}x,F_{t,i}x}]$ and $g^i_t(x)\eqdef\E[\ip{F_{t,i}x, H F_{t,i}x}]$. Then we have $g^i_{t-1}(x)\leq \alpha^{-1}(f^i_{t-1}(x)-f^i_t(x))$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f^i_t=&\E\bigg[\E\Big[\E\big[ x^\top F^\top_{t,i} F_{t,i}x|\F_{t}\big]|F_{t-1}\Big]\ldots\bigg]\\
+=&\E\bigg[x^\top\ldots\E\Big[(I-\alpha H_{t-1})^\top\E\big[ (I-\alpha H_t)^\top(I-\alpha H_t)|\F_{t}\big]\\&(I-\alpha H_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
+&\leq \E\bigg[x^\top\ldots\E\Big[(I-\alpha H_{t-1})^\top\big[I-\alpha H\big]\\&(I-\alpha H_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
+&\leq f^i_{t-1}(x)-\alpha g^i_{t-1}(x)
+\end{align*}
+\end{proof}
+
 
 
 \begin{align*}
-\E<A(\theta_t-\theta^*),(\theta_t-\theta^*)>&=g^0_t(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_t(M_{k+1})\\
+\E<H(\theta_t-\theta^*),(\theta_t-\theta^*)>&=g^0_t(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_t(M_{k+1})\\
 \sum_{i=0}^t\E<A(\theta_i-\theta^*),(\theta_i-\theta^*)>&=\sum_{i=0}^t g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_i(M_{k+1})\\
 &\leq\alpha^{-1}(f^0_0(\theta_0-\ts)-f^0_{t+1}(\theta_0-\ts))+\sum_{k=0}^t \alpha^{-1}(f^k_k(M_{k+1})-f^k_{t+1}(M_{k+1}))\\
 &\leq\alpha^{-1}(f^0_0(\theta_0-\ts))+\alpha^{-1}(t+1)\sigma\sum_{k=0}^t \alpha^{-1}(f^k_k(M_{k+1}))\\
@@ -136,6 +241,11 @@ In \eqref{inter} $C_t\leq \frac{t+1}{\rho}{(1-\alpha\rho)^{t+1}}$
 \end{proof}
 \comment{
 \begin{proof}
+
+
+
+
+
 \begin{align*}
 &<A(\theta_i-\theta^*),(I-\alpha A)^{t-i+1} (\theta_i-\theta^*)>\\
 &\leq(1-\alpha \rho)^{t-i+1} <(\theta_t-\theta^*),A (\theta_t-\theta^*)>\\

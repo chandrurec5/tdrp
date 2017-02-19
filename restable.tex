@@ -4,18 +4,23 @@
 \begin{tabular}{|c|c|c|c|c|}\hline
 Matrix   & $\alpha$             &   $C$     & Noise     &   $E[\norm{C\eb_t}^2]\leq \B^2+\V^2$\\\hline
 AS       & $(0,\alpha_{as})$    &   $H$     & AUS        &   $\B^2=\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big),~\V^2=\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$\\    \hline
-AS       & $(0,\alpha_{as})$    &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big),~\V^2=\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$\\    \hline
 
 PS       & $(0,\alpha_{ps})$    &   $H$     & AUS        &   $\B^2=\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big),~\V^2=\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1})$\\ \hline
-PS       & $(0,\alpha_{ps})$    &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big),~\V^2=\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1})$\\ \hline
 
 SPDS    & $(0,\alpha_{ps})$     &   $H$     & AUS        &   $\B^2=\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
+SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     &AS        &   $\B^2=\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
+
 SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & US        &   $\B^2=\norm{H^{-1}}\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}\frac{\sigma^2}{t+1}$\\ \hline
 
 SPDS    & $(0,\alpha_{ps})$     &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}^2\frac{\sigma^2}{t+1}$\\ \hline
 SPDS    & $(0,\alpha_{ps})$     &   $I$     & AS        &   $\B^2=\norm{H^{-1}}^2\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\norm{H^{-1}}\frac{\sigma^2}{t+1}$\\ \hline
-SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     &AS        &   $\B^2=\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
-PS       & $(0,\alpha_{ps})$    &   $I$     & MUS        &   $\B^2=\frac{(\rho_H\alpha)^{-1}(1+4(\rho_H\alpha)^{-1})}{(t+1)^2},~\V^2=(\sigma^2)\frac{\alpha^2(\alpha\rho_H)^{-1}(1+4(\rho_H\alpha)^{-1})}{t+1}$\\ \hline
+
+AS       & $(0,\alpha_{as})$    &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big),~\V^2=\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$\\    \hline
+PS       & $(0,\alpha_{ps})$    &   $I$     & AUS        &   $\B^2=\norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big),~\V^2=\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1})$\\ \hline
+
+
+
+PS       & $(0,\alpha_{ps})$    &   $I$     & MUS        &   $\B^2=(1+4(\alpha\rho_H)^{-1}) (\alpha\rho_H)^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}\Big),~\V^2=(1+4(\alpha\rho_H)^{-1}) (\alpha\rho_H)^{-1} \Big(\frac{\alpha^2\sigma^2}{t+1} \Big)$\\ \hline
 SPDS    & $(0,\alpha_{ps})$     &   $H$     & MUS        &  $\B^2=\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
 SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & MUS        &   $\B^2=\frac{(\rho_H)^{-1}(\alpha)^{-2}}{(t+1)^2},~\V^2=(\sigma^2)\frac{(\rho_H)^{-1}}{t+1}$\\ \hline
 SPDS    & $(0,\alpha_{ps})$     &   $H^{\frac{1}{2}}$     & MS        &   $\B^2=\frac{\norm{H^{-\frac{1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2},~\V^2=\frac{\sigma^2}{t+1}$\\ \hline
