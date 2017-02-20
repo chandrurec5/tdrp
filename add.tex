@@ -12,12 +12,15 @@ Let $A\in \R^{n\times n}$ be any real matrix then $\norm{Ax}^2_2\leq \us{\sup}{i
 \begin{lemma}
 For $\alpha \in (0,\alpha_{as})$ there exists constants $B_1>0$ and $B_2>0$ such that $B_1=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^t)_{ij}|$ and $B_2=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^{t\top}F_D^t)_{ij}|$
 \end{lemma}
-See \Cref{maintable}
+\begin{theorem}
+The values of $\E[\norm{C\eb_t}]$ as listed in \Cref{maintable} hold.
+\end{theorem}
 We can recurse backwards in \eqref{errprelim} to obtain the following:
 \begin{align}\label{errrec}
 e_t=F_{t,1}e_0+\ous{\sum}{k=1}{t}\alpha F_{t,k+1}\zeta_k
 \end{align}
 Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dyanmics of $e_t$.
+\input{lintable}
 \subsection{Discussion: Additive Noise Case}
  In the case of additive noise, since $M_t=0$, we have $F_{i,j}=F^{i-j}_D$ and hence
 \begin{align*}
