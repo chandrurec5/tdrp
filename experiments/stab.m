@@ -1,0 +1,1 @@
+clear all;n=6;d=2;X=[1 0;0 1;1 1;1 -1;-1 1;-2 -2];a=0;b=0;for i=1:na=a+X(i,:)'*X(i,:);b=b+X(i,:)'*X(i,:)*X(i,:)'*X(i,:);end;for alpha=0.1:0.01:0.2eig(a-alpha*b)endH=a/n;alpha=0.8;c=1;e=1;for i=1:1000j=randi(n);c=c*(eye(d)-alpha*X(j,:)'*X(j,:));e=e*(eye(d)-alpha*H);end;
