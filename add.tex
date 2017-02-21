@@ -1,8 +1,8 @@
 \section{Main Results}
 \begin{lemma}\label{addstep}
 \begin{enumerate}[label=(\roman*)]
-\item For any $H$ that is AS there exists an $\alpha_{as}>0$ for which it holds that $\rho(F_D(\alpha))<1,~\forall \alpha\in (0,\alpha_{as})$.
-\item For any $H$ that is PS there exists an $\alpha_{ps}>0$ for which it holds that $\E[x^\top(H-\alpha H_t^\top H_t)x|\F_{t-1}]> 0$, $~\forall \alpha\in (0,\alpha_{ps})$.
+\item\label{ascase} For any $H$ that is AS there exists an $\alpha_{as}>0$ for which it holds that $\rho(F_D(\alpha))<1,~\forall \alpha\in (0,\alpha_{as})$.
+\item\label{pscase} For any $H$ that is PS there exists an $\alpha_{ps}>0$ for which it holds that $\E[x^\top(H-\alpha H_t^\top H_t)x|\F_{t-1}]> 0$, $~\forall \alpha\in (0,\alpha_{ps})$.
 \end{enumerate}
 \end{lemma}
 We begin by stating a result related to norms of matrices
@@ -12,18 +12,51 @@ Let $A\in \R^{n\times n}$ be any real matrix then $\norm{Ax}^2_2\leq \us{\sup}{i
 \begin{lemma}
 For $\alpha \in (0,\alpha_{as})$ there exists constants $B_1>0$ and $B_2>0$ such that $B_1=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^t)_{ij}|$ and $B_2=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^{t\top}F_D^t)_{ij}|$
 \end{lemma}
-See \Cref{maintable}
+\begin{theorem}\label{maintheorem}
+The values of $\E[\norm{C\eb_t}]$ as listed in \Cref{maintable} hold.
+\end{theorem}
+\begin{proof}
+See supplementary section.
+\end{proof}
+\section{Discussion of \Cref{maintheorem}}
 We can recurse backwards in \eqref{errprelim} to obtain the following:
 \begin{align}\label{errrec}
 e_t=F_{t,1}e_0+\ous{\sum}{k=1}{t}\alpha F_{t,k+1}\zeta_k
 \end{align}
-Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dyanmics of $e_t$.
+Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dynamics of $e_t$. The results of \Cref{maintheorem} can be interpreted in the following heads.
+\begin{itemize}[leftmargin=*]
+\item \textbf{Bias vs Variance:} All the entries in the \Cref{maintable} have two terms namely $\B$ and $\V$. The $\B$ is the \emph{Bias} term that captures the rate at which the initial condition $\norm{\theta_t-\ts}$ is forgotten. The $\V$ is the \emph{Variance} term that captures the rate at which noise is filtered. The $\B$ and $\V$ terms capture two different sources of errors. To see this, note that in the absence of noise i.e., when $\zeta_t=0,~\forall t\geq 0$, we have $\E[C\eb_t]=\B$ and in the presence of noise, i.e., $\zeta\neq 0,\forall t\geq 0$ and perfect initial condition, i.e., $\theta_t=\ts$, we have $\E[C\eb_t]=\V$.
+\item \textbf{Error Recursion:} The expression for $\eb_t$ differs in the additive and the multiplicative noise cases and are given as below.
+\begin{enumerate}
+\item \textbf{Additive Noise:}
+\begin{align}\label{addexpand}
+\eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F^i e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F^t  \zeta_i )\\
+\end{align}
+Thus in the additive case involves only products of deterministic matrices since $F_{ij}=F^{i-j},\forall i\geq j$.
+\item \textbf{Multiplicative Noise:}
+\begin{align}
+\eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )
+\end{align}
+Here the quantities $F_{ij}=(I-\alpha H_i)\ldots (I-\alpha H_j)$ are product of random matrices.
+\end{enumerate}
+In comparison to the additive case, the multiplicative case is harder to analyze and also shows poor performance due to an extra source of error namely the multiplicative noise.
+
+\item \textbf{AS vs PS vs SPDS:} As observed before, the rates in \Cref{maintheorem} are dependent on the nature of the quantities $F_{i,j}$, which intern depends on the choice of step size and the spectral properties of $H$. Asking for $H$ to be AS is the most weakest condition, followed by PS and the strongest condition is to ask for $H$ to be SPDS. The relative strength of the three cases depends on the amount knowledge on has over the Eigen values. For example, when $H$ is SPDS, we know that it has all real and positive Eigen values. Similarly, when $H$ is PS then we can ensure that the operator norm of $I-\alpha H$ i.e., $\norm{I-\alpha H}$ to be less than unity. Finally, when $H$ is only AS we can only ensure that the spectral radius is less than unity. It turns out that the differences in spectral properties impact the analysis and also experimental results.
+\item \textbf{Spectral  Radius vs Operator Norm:} All the results in \Cref{maintable} are expressed for a given step size $\alpha>0$. However, the range of valid $\alpha$ changes from case to case.
+\begin{enumerate}
+\item \textbf{Additive Case:}In \Cref{addstep}-\ref{ascase}, the range $(0,\alpha_{as})$ ensures that the spectral radius of $F$ is less than unity, which in turn enables us to use $\ous{\sum}{i=1}{t}F^{i}=(I-(I-\alpha H)^t)$. Since $SPDS \Ra PS \Ra AS$, the range $(0,\alpha_{as})$ applies to all the three cases. The range $(0,\alpha_{ps})$ only holds for the PS and SPDS cases. It ensures that the operator norm of $F$ is less than unity.
+\item \textbf{Multiplicative Case:} Here we deal only with product of random matrices and cannot directly apply use  $\ous{\sum}{i=1}{t}F^{i}=(I-(I-\alpha H)^t)$, and hence the spectral radius does not appear in the analysis. While the condition for $(0,\alpha_{ps})$ reads the same (see \Cref{addstep}-\ref{pscase}) it is stricter in the case of multiplicative noise, since $\E[H^\top_t H_t|\F_{t-1}]$ will be larger in the case of multiplicative noise.  Further, in the case of multiplicative noise, we have to deal with products of random matrices, i.e., $F_{ij}$ and ensure that they are contraction maps. This translates to the condition that $\E[\norm{F_{ij}}^2]= \E[(I-\alpha H_j)\ldots (I-\alpha H_i)^\top (I-\alpha H_i) \ldots (I-\alpha H_j)]<1$. Using \Cref{genlsa}-\ref{secondmom}  $\E[\norm{F_{ij}}]<1$ can be ensured when
+\begin{align}\label{mulcond}
+\E[(I-\alpha H_i)^\top (I-\alpha H_i)|\F_{i-1}]<1
+\end{align}
+Note that \eqref{mulcond} is much more stricter than ensuring that the spectral radius of $F$ is less than unity.
+\end{enumerate}
+\item \textbf{Role of $C$:} The rates are dependent on the choice of $C$. By choosing $C=H$, we have $H(\eb_t)=H(\tb_t-\ts)=H\tb_t-g$, which is the error in the prediction $H\tb_t$. Choosing $C=I$ measures the error in the deviation of the current estimated parameter $\tb_t$ to the ideal parameter $\ts$. As the \Cref{maintable} reveals, $C=H$ seems to yield better rates because while the deviation in the parameter estimate $\tb_t-\ts$ the predicted output $H(\tb_t-\ts)$ is typically scaled by $H$.
+\end{itemize}
+\input{lintable}
+\comment{
 \subsection{Discussion: Additive Noise Case}
  In the case of additive noise, since $M_t=0$, we have $F_{i,j}=F^{i-j}_D$ and hence
-\begin{align*}
-\eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )\\
-&=\frac{1}{t+1}\big((\alpha H)^{-1}(I-F_D^t)e_0+ H^{-1}\ous{\sum}{i=1}{t}(I-F_D^{t-i}) \zeta_i\big)
-\end{align*}
 \textbf{Role of Contractions:} In this noise model, we need $F$ to have
 \subsection{Discussion: Multiplicative Noise Case}
 $\E\ip{H\eb_t,H\eb_t}=\frac{1}{(t+1)^2}\E \ip{\ous{\sum}{i=0}{t} F_{i,1}e_0+\alpha \ous{\sum}{k=1}{t} \ous{\sum}{i=k}{t} F_{i,k+1} \zeta_k,\ous{\sum}{i=0}{t} F_{i,1}e_0+\alpha \ous{\sum}{k=1}{t} \ous{\sum}{i=k}{t} F_{i,k+1} \zeta_k}$
@@ -38,3 +71,4 @@ The \emph{Type III} and \emph{Type IV} terms are zero due to the independence as
 \begin{lemma}
 For all $i>j$ and $x\in \R^n$ $\E <F_{j,k+1} x,F_{i,k+1}x>=\E<F_{j,k+1}k,(I-\alpha H)^{i-j} F_{j,k+1}x>$
 \end{lemma}
+}

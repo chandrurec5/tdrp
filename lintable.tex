@@ -1,0 +1,11 @@
+\begin{table*}
+%\resizebox{0.5\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|}\hline
+Algorithm& Single-Sample & $\sigma^2$ & Rate \\ \hline
+LS-LSA& \ding{53} &$\begin{aligned}(\norm{A}^2+\sigma_1^2) (\sigma_2^2+\sigma_1^2\parallel \ts\parallel^2)\end{aligned}$&  $\begin{aligned} \B^2=\frac{\norm{(A^\top A)^{-1}}}{\alpha^2(t+1)^2},\\\V^2=(\sigma^2)\frac{\norm{(A^\top A)^{-1}}}{t+1}\end{aligned}$\\ \hline
+FP-LSA& \ding{51} &$\begin{aligned} (\sigma_2^2+\sigma_1^2\norm{\ts}^2)\end{aligned}$& $\begin{aligned}\B^2=(1+4(\alpha\rho_A)^{-1}) (\alpha\rho_A)^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}\Big),~\\ \V^2=(1+4(\alpha\rho_A)^{-1}) (\alpha\rho_A)^{-1} \Big(\frac{\alpha^2\sigma^2}{t+1} \Big)\end{aligned}$\\ \hline
+SP-LSA& \ding{51} &\ding{53}& \ding{53}\\ \hline
+\end{tabular}
+%}
+\end{table*}
+

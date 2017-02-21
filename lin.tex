@@ -11,7 +11,7 @@ $A$ is invertible i.e., there exists $\ts=A^{-1} b$ and $A_t,A'_t, t\geq 0$ are 
 \end{align}
 \textbf{LS-LSA}
 \begin{align}\label{lslsa}
-\theta_{t+1}=\theta_t+\alpha A^{(1)\top}_t(b_t-A^{(2)}_t\theta_t),
+\theta_{t+1}=\theta_t+\alpha A^\top_t(b_t-A'_t\theta_t),
 \end{align}
 \comment{Further, let $M^{(1)}_{t+1}=A^{(1)}_t-A$, $M^{(2)}_{t+1}=A^{(2)}_t-A$ and $M^{(3)}_{t+1}=b_t-b$ be the martingale difference sequences satisfying \Cref{genlsa}-\eqref{mart}. The LSER corresponding to LS-LSA in \eqref{lslsa} is given by
 \begin{align}\label{lslser}
@@ -36,6 +36,9 @@ L(\theta,y)=\min_{\theta\in \R^n}\max{y\in \R^n}<b-A\theta,y>-\frac{1}{2}\parall
 \end{align}
 Notice that $\nabla_\theta L =-A^\top y$ and $\nabla_{y}L=-A\theta-M$.
 \end{itemize}
+
+
+
 \comment{
 \subsection{Saddle-Point Linear Stochastic Approximation (SP-LSA)}
 An important downside of \Cref{lslsa} is that two independent samples of $A$ are available in the form of $A^{(1)\top}_t$ and $A^{(2)}_t$ which might be possible in certain applications. This issue can be alleviated by looking at the following Saddle-Point objective function

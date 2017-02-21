@@ -57,7 +57,7 @@ W.l.o.g $i>j$
 \end{align}
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{asaus}
 When $H$ is AS, $\alpha \in (0,\alpha_{as})$, we have
 $\E[\norm{H\eb_t}^2]\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big)+\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$
 \end{theorem}
@@ -81,7 +81,7 @@ Note that for $x\in \R^n$, $\ip{(I-(I-\alpha H)^t)x,(I-(I-\alpha H)^t)x}\leq \ip
 \end{proof}
 
 
-\begin{theorem}
+\begin{theorem}\label{psaus}
 When $H$ is PS, $\alpha \in (0,\alpha_{ps})$, we have
 $\E[\norm{H\eb_t}^2]\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big)+\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1}\big)$
 \end{theorem}
@@ -89,16 +89,16 @@ $\E[\norm{H\eb_t}^2]\leq \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Bi
 Note that $\ip{x,(I-\alpha H)^t,x}\leq (1-\alpha\frac{\rho_H}{2})^t \ip{x,x}$, $\ous{\sum}{i=1}{t} 2 (1-\alpha \frac{\rho_H}{2})^{t-i}+(1-\alpha {\rho_H})^{t-i}\leq \ous{\sum}{i=1}{\infty} 2 (1-\alpha \frac{\rho_H}{2})^{t-i}+(1-\alpha {\rho_H})^{t-i}=5\alpha^{-1}\rho_H^{-1}$
 \end{proof}
 
-\begin{theorem}
-When $H$ is SDPS, $\alpha \in (0,\alpha_{ps})$, we have
+\begin{theorem}\label{spdsaus}
+When $H$ is SPDS, $\alpha \in (0,\alpha_{ps})$, we have
 $\E[\norm{H\eb_t}^2]\leq \frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
 \end{theorem}
 \begin{proof}
 Note that for $x\in \R^n$, $\ip{(I-(I-\alpha H)^t)x,(I-(I-\alpha H)^t)x}\leq \ip{x,x}$
 \end{proof}
 
-\begin{theorem}
-When $H$ is SDPS and the noise is structured, $\alpha \in (0,\alpha_{ps})$, we have
+\begin{theorem}\label{spdsas}
+When $H$ is SPDS and the noise is structured, $\alpha \in (0,\alpha_{ps})$, we have
 $\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \frac{\norm{H^{-\frac{1}{2}}\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
 \end{theorem}
 \begin{proof}
@@ -115,8 +115,8 @@ E\ip{H^{-\frac{1}{2}}(I-(I-\alpha H)^{t-i}) \zeta_i,H^{-\frac{1}{2}}(I-(I-\alpha
 \end{proof}
 
 
-\begin{theorem}
-When $H$ is SDPS and the noise is unstructured, $\alpha \in (0,\alpha_{ps})$, we have
+\begin{theorem}\label{spdsaushalf}
+When $H$ is SPDS and the noise is unstructured, $\alpha \in (0,\alpha_{ps})$, we have
 $\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \norm{H^{-1}} \Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}\Big)$
 \end{theorem}
 \begin{proof}
@@ -125,8 +125,18 @@ $\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \norm{H^{-1}} \Big(\frac{\norm{\theta_0-\
 &=\frac{1}{\alpha^2(t+1)^2}\E\ip{H^{-\frac{1}{2}}(I-(I-\alpha H)^t)e_0,H^{-\frac{1}{2}}(I-(I-\alpha H)^t)e_0}+\frac{1}{(t+1)^2}\ous{\sum}{i=1}{t}\E\ip{H^{-\frac{1}{2}}(I-(I-\alpha H)^{t-i}) \zeta_i,H^{-\frac{1}{2}}(I-(I-\alpha H)^{t-i}) \zeta_i}
 \end{align*}
 \end{proof}
-
-
+\begin{theorem}\label{blanket}
+The following holds
+\begin{enumerate}
+\item When $H$ is AS, and $\alpha \in (0,\alpha_{as})$, then $\E[\norm{\eb_t}^2]\leq \norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2nB_1+n^2B_2\big)+\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+2nB_1+n^2B_2\big)$.
+\item When $H$ is PS and  $\alpha \in (0,\alpha_{ps})$, then  $\E[\norm{\eb_t}^2]\leq \norm{H^{-1}}^2\Big(\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}\Big)\big(1+2(1-\alpha\frac{\rho_H}{2})^t+(1-\alpha\rho_H)^t\big)+\norm{H^{-1}}^2\Big(\frac{\sigma^2}{t+1}\Big)\big(1+5\alpha^{-1}{\rho_H}^{-1})$.
+\item When $H$ is SPDS, $\alpha \in (0,\alpha_{ps})$  then $\E[\norm{\eb_t}^2]\leq\norm{H^{-1}}^2\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\norm{H^{-1}}^2\frac{\sigma^2}{t+1}$.
+\item When $H$ is SPDS, $\alpha\in (0,\alpha_{ps})$  then  $\E[\norm{\eb_t}^2]\leq \norm{H^{-1}}^2\frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\norm{H^{-1}}\frac{\sigma^2}{t+1}$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+Follows from \Cref{asaus,psaus,spdsaus,spdsas} and the fact that $\ip{H^{-1}x,H^{-1}x}\leq \norm{H^{-1}}^2\norm{x}^2$.
+\end{proof}
 
 \begin{lemma}
 For any $x_{i-1}\in \R^n$ that is $\F_{i-1}$ measurable and $\forall ~t > i$ if follows that $\E[x_i^\top F_{t,i+1}\zeta_{i}]=0$
@@ -162,7 +172,7 @@ For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top
 \E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
 \end{align*}
 \end{proof}
-\begin{theorem}
+\begin{theorem}\label{psmus}
 When $H$ is PS and $\alpha\in (0,\alpha_{ps})$ we have $\E[\norm{H\eb_t}^2]\leq (1+4(\alpha\rho_H)^{-1}) (\alpha\rho_H)^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \Big)
 $
 \end{theorem}
@@ -191,7 +201,22 @@ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\thet
 \end{align}
 \end{proof}
 
-\begin{theorem}
+
+\begin{lemma}
+Define for $x\in \R^n$ $f^i_t(x)\eqdef\E[\ip{F_{t,i}x,F_{t,i}x}]$ and $g^i_t(x)\eqdef\E[\ip{F_{t,i}x, H F_{t,i}x}]$. Then we have $g^i_{t-1}(x)\leq \alpha^{-1}(f^i_{t-1}(x)-f^i_t(x))$.
+\end{lemma}
+\begin{proof}
+\begin{align*}
+f^i_t=&\E\bigg[\E\Big[\E\big[ x^\top F^\top_{t,i} F_{t,i}x|\F_{t}\big]|F_{t-1}\Big]\ldots\bigg]\\
+=&\E\bigg[x^\top\ldots\E\Big[(I-\alpha H_{t-1})^\top\E\big[ (I-\alpha H_t)^\top(I-\alpha H_t)|\F_{t}\big]\\&(I-\alpha H_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
+&\leq \E\bigg[x^\top\ldots\E\Big[(I-\alpha H_{t-1})^\top\big[I-\alpha H\big]\\&(I-\alpha H_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
+&\leq f^i_{t-1}(x)-\alpha g^i_{t-1}(x)
+\end{align*}
+\end{proof}
+
+
+
+\begin{theorem}\label{spdsm}
 When $H$ is SPDS and $\alpha\in (0,\alpha_{ps})$ we have $\E[\norm{H\eb_t}^2]\leq \frac{\norm{\theta_0-\ts}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
 \end{theorem}
 
@@ -208,44 +233,63 @@ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\thet
 &\leq \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),(\alpha)^{-1} (\theta_i-\theta^*)}- \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}\nn\\
 \end{align}
 Now it is enough to bound $(\alpha)^{-1} \E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),(\theta_i-\theta^*)}$
-\end{proof}
-
-\begin{lemma}
-Define for $x\in \R^n$ $f^i_t(x)\eqdef\E[\ip{F_{t,i}x,F_{t,i}x}]$ and $g^i_t(x)\eqdef\E[\ip{F_{t,i}x, H F_{t,i}x}]$. Then we have $g^i_{t-1}(x)\leq \alpha^{-1}(f^i_{t-1}(x)-f^i_t(x))$.
-\end{lemma}
-\begin{proof}
 \begin{align*}
-f^i_t=&\E\bigg[\E\Big[\E\big[ x^\top F^\top_{t,i} F_{t,i}x|\F_{t}\big]|F_{t-1}\Big]\ldots\bigg]\\
-=&\E\bigg[x^\top\ldots\E\Big[(I-\alpha H_{t-1})^\top\E\big[ (I-\alpha H_t)^\top(I-\alpha H_t)|\F_{t}\big]\\&(I-\alpha H_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
-&\leq \E\bigg[x^\top\ldots\E\Big[(I-\alpha H_{t-1})^\top\big[I-\alpha H\big]\\&(I-\alpha H_{t-1})|F_{t-1}\Big]\ldots x\bigg]\\
-&\leq f^i_{t-1}(x)-\alpha g^i_{t-1}(x)
-\end{align*}
-\end{proof}
-
-
-
-\begin{align*}
-\E<H(\theta_t-\theta^*),(\theta_t-\theta^*)>&=g^0_t(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_t(M_{k+1})\\
-\sum_{i=0}^t\E<A(\theta_i-\theta^*),(\theta_i-\theta^*)>&=\sum_{i=0}^t g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_i(M_{k+1})\\
-&\leq\alpha^{-1}(f^0_0(\theta_0-\ts)-f^0_{t+1}(\theta_0-\ts))+\sum_{k=0}^t \alpha^{-1}(f^k_k(M_{k+1})-f^k_{t+1}(M_{k+1}))\\
-&\leq\alpha^{-1}(f^0_0(\theta_0-\ts))+\alpha^{-1}(t+1)\sigma\sum_{k=0}^t \alpha^{-1}(f^k_k(M_{k+1}))\\
+\E<H(\theta_t-\theta^*),(\theta_t-\theta^*)>&=g^0_t(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_t(\zeta_{k+1})\\
+\sum_{i=0}^t\E<H(\theta_i-\theta^*),(\theta_i-\theta^*)>&=\sum_{i=0}^t g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^t g^{k+1}_i(\zeta_{k+1})\\
+&\leq\alpha^{-1}(f^0_0(\theta_0-\ts)-f^0_{t+1}(\theta_0-\ts))+\sum_{k=0}^t \alpha^{-1}(f^k_k(\zeta_{k+1})-f^k_{t+1}(\zeta_{k+1}))\\
+&\leq\alpha^{-1}(f^0_0(\theta_0-\ts))+\alpha^{-1}(t+1)\sum_{k=0}^t \alpha^{-1}(f^k_k(\zeta_{k+1}))\\
 &\leq\alpha^{-1}\parallel \theta_0-\ts\parallel^2+\alpha^{-1}(t+1)\sigma^2
 \end{align*}
-\begin{lemma}
-In \eqref{inter} $C_t\leq \frac{t+1}{\rho}{(1-\alpha\rho)^{t+1}}$
-\end{lemma}
+\end{proof}
+
+
+
+\begin{theorem}\label{spdsms}
+When $H$ is SPDS, noise is structured and $\alpha\in (0,\alpha_{ps})$ we have $\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \frac{\norm{H^{\frac{-1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
+\end{theorem}
+
 \begin{proof}
+$\E[\norm{H^{\frac{1}{2}}\eb_t}^2]=\E\ip{H^{\frac{1}{2}}\eb_t,H^{\frac{1}{2}}\eb_t}=\frac{1}{(t+1)^2}\E\ip{H^{\frac{1}{2}}\ous{\sum}{i=0}{t}(\theta_i-\ts),H^{\frac{1}{2}}\ous{\sum}{i=0}{t}(\theta_i-\ts)}$.
+$\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}}(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}}(\theta_j-\theta^*)}+ 2\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}}(\theta_j-\theta^*)}$. Now
+\begin{align}\label{inter}
+&\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}}(\theta_j-\theta^*)}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}}\big[F_{j,i+1} (\theta_i-\theta^*)+\alpha\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}} F_{j,i+1} (\theta_i-\theta^*)}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H^{\frac{1}{2}}(\theta_i-\theta^*),H^{\frac{1}{2}}(I-\alpha H)^{j-i} (\theta_i-\theta^*)}\nn\\
+&=\E\ous{\sum}{i=0}{t-1}\ip{(\theta_i-\theta^*),H(\alpha H)^{-1}[(I-\alpha H)-(I-\alpha H)^{j-i}] (\theta_i-\theta^*)}\nn\\
+&\leq \E\ous{\sum}{i=0}{t}\ip{(\theta_i-\theta^*),H(\alpha H)^{-1}[(I-\alpha H)] (\theta_i-\theta^*)}\nn\\
+&\leq \E\ous{\sum}{i=0}{t}\ip{(\theta_i-\theta^*),(\alpha)^{-1} (\theta_i-\theta^*)}- \E\ous{\sum}{i=0}{t}\ip{(\theta_i-\theta^*),H(\theta_i-\theta^*)}\nn\\
+\end{align}
+Now it is enough to bound $(\alpha)^{-1} \E\ous{\sum}{i=0}{t}\ip{(\theta_i-\theta^*),(\theta_i-\theta^*)}$
 \begin{align*}
-\E<A(\theta_i-\theta^*),(\theta_i-\theta^*)>&=g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^i g^{k+1}_i(M_{k+1})\\
+\E<H^{\frac{-1}{2}}(\theta_t-\theta^*),H H^{\frac{-1}{2}}(\theta_t-\theta^*)>&=g^0_t(H^{\frac{-1}{2}}(\theta_0-\theta^*))+\alpha\sum_{k=0}^t g^{k+1}_t(H^{\frac{-1}{2}}\zeta_{k+1})\\
+\end{align*}
+Now using the fact that $\zeta_k, k>0$ is structured, we have
+\begin{align*}
+\sum_{i=0}^t\E<(\theta_i-\theta^*),(\theta_i-\theta^*)>&=\sum_{i=0}^t g^0_i( H^{\frac{-1}{2}}(\theta_0-\theta^*))+\alpha\sum_{k=0}^t g^{k+1}_i(H^{\frac{-1}{2}}\zeta_{k+1})\\
+&\leq\alpha^{-1}(f^0_0(H^{\frac{-1}{2}}(\theta_0-\ts))-f^0_{t+1}(H^{\frac{-1}{2}}(\theta_0-\ts)))+\sum_{k=0}^t \alpha^{-1}(f^k_k(H^{\frac{-1}{2}}\zeta_{k+1})-f^k_{t+1}(H^{\frac{-1}{2}}\zeta_{k+1}))\\
+&\leq\alpha^{-1}(f^0_0(H^{\frac{-1}{2}}(\theta_0-\ts)))+\alpha^{-1}(t+1)\sum_{k=0}^t \alpha^{-1}(f^k_k(H^{\frac{-1}{2}}\zeta_{k+1}))\\
+&\leq\alpha^{-1}\norm{H^{\frac{-1}{2}}(\theta_0-\ts)}^2+\alpha^{-1}(t+1)\sigma^2
 \end{align*}
 \end{proof}
+
+\begin{theorem}\label{spdsmus}
+When $H$ is SPDS and $\alpha\in (0,\alpha_{ps})$ we have $\E[\norm{H^{\frac{1}{2}}\eb_t}^2]\leq \frac{\norm{H^{\frac{-1}{2}}(\theta_0-\ts)}^2_2}{\alpha^2(t+1)^2}+\frac{\sigma^2}{t+1}$
+\end{theorem}
+\begin{proof}
+\begin{align*}
+\E<H^{\frac{-1}{2}}(\theta_t-\theta^*),H H^{\frac{-1}{2}}(\theta_t-\theta^*)>&=g^0_t(H^{\frac{-1}{2}}(\theta_0-\theta^*))+\alpha\sum_{k=0}^t g^{k+1}_t(H^{\frac{-1}{2}}\zeta_{k+1})\\
+\end{align*}
+\begin{align*}
+\sum_{i=0}^t\E<(\theta_i-\theta^*),(\theta_i-\theta^*)>&=\sum_{i=0}^t g^0_i( H^{\frac{-1}{2}}(\theta_0-\theta^*))+\alpha\sum_{k=0}^t g^{k+1}_i(H^{\frac{-1}{2}}\zeta_{k+1})\\
+&\leq\alpha^{-1}(f^0_0(H^{\frac{-1}{2}}(\theta_0-\ts))-f^0_{t+1}(H^{\frac{-1}{2}}(\theta_0-\ts)))+\sum_{k=0}^t \alpha^{-1}(f^k_k(H^{\frac{-1}{2}}\zeta_{k+1})-f^k_{t+1}(H^{\frac{-1}{2}}\zeta_{k+1}))\\
+&\leq\alpha^{-1}(f^0_0(H^{\frac{-1}{2}}(\theta_0-\ts)))+\alpha^{-1}(t+1)\sum_{k=0}^t \alpha^{-1}(f^k_k(H^{\frac{-1}{2}}\zeta_{k+1}))\\
+&\leq\alpha^{-1}\norm{H^{-1}}\big(\norm{(\theta_0-\ts)}^2+\alpha^{-1}(t+1)\sigma^2\big)
+\end{align*}
+\end{proof}
+
 \comment{
 \begin{proof}
-
-
-
-
-
 \begin{align*}
 &<A(\theta_i-\theta^*),(I-\alpha A)^{t-i+1} (\theta_i-\theta^*)>\\
 &\leq(1-\alpha \rho)^{t-i+1} <(\theta_t-\theta^*),A (\theta_t-\theta^*)>\\
@@ -271,4 +315,13 @@ C_t&=\E\sum_{i=0}^t<A(\theta_i-\theta^*),(I-\alpha A)^{t-i+1} (\theta_i-\theta^*
 &\leq (1-\alpha\rho)^{i-k-1}\parallel \theta_0-\theta^*\parallel\\
 &\leq (\rho\alpha)^{-1}\parallel \theta_0-\theta^*\parallel
 \end{align*}
+
+\begin{lemma}
+In \eqref{inter} $C_t\leq \frac{t+1}{\rho}{(1-\alpha\rho)^{t+1}}$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\E<A(\theta_i-\theta^*),(\theta_i-\theta^*)>&=g^0_i(\theta_0-\theta^*)+\alpha\sum_{k=0}^i g^{k+1}_i(M_{k+1})\\
+\end{align*}
+\end{proof}
 }
