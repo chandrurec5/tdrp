@@ -1,16 +1,16 @@
 \section{Main Results}
 \begin{lemma}\label{addstep}
 \begin{enumerate}[label=(\roman*)]
-\item\label{ascase} For any $H$ that is AS there exists an $\alpha_{as}>0$ for which it holds that $\rho(F_D(\alpha))<1,~\forall \alpha\in (0,\alpha_{as})$.
-\item\label{pscase} For any $H$ that is PS there exists an $\alpha_{ps}>0$ for which it holds that $\E[x^\top(H-\alpha H_t^\top H_t)x|\F_{t-1}]> 0$, $~\forall \alpha\in (0,\alpha_{ps})$.
+\item\label{ascase} For any $H$ that is AS there exists an $\alpha_{\as}>0$ for which it holds that $\rho(F(\alpha))<1,~\forall \alpha\in (0,\alpha_{as})$.
+\item\label{pscase} For any $H$ that is PS there exists an $\alpha_{\ps}>0$ for which it holds that $\E[x^\top(H-\alpha H_t^\top H_t)x|\F_{t-1}]> 0$, $~\forall \alpha\in (0,\alpha_{ps})$.
 \end{enumerate}
 \end{lemma}
 We begin by stating a result related to norms of matrices
 \begin{lemma}
-Let $A\in \R^{n\times n}$ be any real matrix then $\norm{Ax}^2_2\leq \us{\sup}{i,j}n^2|(A)_{ij}|^2\norm{x}^2_2$ and $\ip{x,Ax}\leq \us{\sup}{i,j}n|(A)_{ij}|\norm{x}^2_2$, where $(A)_{ij}$ denotes the $ij^{th}$ entry of matrix $A$.
+Let $A=(A_{ij})\in \R^{n\times n}$ be any real matrix, then $\norm{Ax}^2_2\leq n^2 \norm{x}^2_2 \us{\sup}{i,j}|(A)_{ij}|^2$ and $\ip{x,Ax}\leq n \norm{x}^2_2\us{\sup}{i,j}|(A)_{ij}|$, where $(A)_{ij}$ denotes the $ij^{th}$ entry of matrix $A$.
 \end{lemma}
 \begin{lemma}
-For $\alpha \in (0,\alpha_{as})$ there exists constants $B_1>0$ and $B_2>0$ such that $B_1=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^t)_{ij}|$ and $B_2=\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^{t\top}F_D^t)_{ij}|$
+For $\alpha \in (0,\alpha_{as})$ $B_1\eqdef\us{\us{\sup}{i,j}}{t\geq 0}|(F^t)_{ij}|$ and $B_2\eqdef\us{\us{\sup}{i,j}}{t\geq 0}|(F_D^{t\top}F_D^t)_{ij}|$ are finite.
 \end{lemma}
 \begin{theorem}\label{maintheorem}
 The values of $\E[\norm{C\eb_t}]$ as listed in \Cref{maintable} hold.
@@ -21,27 +21,27 @@ See supplementary section.
 \section{Discussion of \Cref{maintheorem}}
 We can recurse backwards in \eqref{errprelim} to obtain the following:
 \begin{align}\label{errrec}
-e_t=F_{t,1}e_0+\ous{\sum}{k=1}{t}\alpha F_{t,k+1}\zeta_k
+e_t=F_{t,1}e_0+\alpha\ous{\sum}{k=1}{t} F_{t,k+1}\zeta_k.
 \end{align}
-Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dynamics of $e_t$. The results of \Cref{maintheorem} can be interpreted in the following heads.
+Looking at \eqref{errrec} it is clear that quantities $F_{t,j}, j=1,\ldots,t$ influence the dynamics of $e_t$. The results of \Cref{maintheorem} can be interpreted as below.
 \begin{itemize}[leftmargin=*]
-\item \textbf{Bias vs Variance:} All the entries in the \Cref{maintable} have two terms namely $\B$ and $\V$. The $\B$ is the \emph{Bias} term that captures the rate at which the initial condition $\norm{\theta_t-\ts}$ is forgotten. The $\V$ is the \emph{Variance} term that captures the rate at which noise is filtered. The $\B$ and $\V$ terms capture two different sources of errors. To see this, note that in the absence of noise i.e., when $\zeta_t=0,~\forall t\geq 0$, we have $\E[C\eb_t]=\B$ and in the presence of noise, i.e., $\zeta\neq 0,\forall t\geq 0$ and perfect initial condition, i.e., $\theta_t=\ts$, we have $\E[C\eb_t]=\V$.
+\item \textbf{Bias vs Variance:} All the entries in the \Cref{maintable} have two terms namely $\B$ and $\V$. The $\B$ is the \emph{Bias} term that captures the rate at which the initial condition $\norm{\theta_t-\ts}$ is forgotten. The $\V$ is the \emph{Variance} term that captures the rate at which noise is filtered. The $\B$ and $\V$ terms capture two different sources of errors. To see this, note that in the absence of noise i.e., when $\zeta_t=0,~\forall t\geq 0$, we have $\E[\norm{C\eb_t}^2]=\B$ and in the presence of noise, i.e., $\zeta\neq 0,\forall t\geq 0$ and perfect initial condition, i.e., $\theta_t=\ts$, we have $\E[\norm{C\eb_t}^2]=\V$.
 \item \textbf{Error Recursion:} The expression for $\eb_t$ differs in the additive and the multiplicative noise cases and are given as below.
 \begin{enumerate}
-\item \textbf{Additive Noise:}
-\begin{align}\label{addexpand}
-\eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F^i e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F^t  \zeta_i )\\
-\end{align}
-Thus in the additive case involves only products of deterministic matrices since $F_{ij}=F^{i-j},\forall i\geq j$.
 \item \textbf{Multiplicative Noise:}
 \begin{align}
 \eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )
 \end{align}
-Here the quantities $F_{ij}=(I-\alpha H_i)\ldots (I-\alpha H_j)$ are product of random matrices.
+Here recall that $F_{i,j}=(I-\alpha H_i)\ldots (I-\alpha H_j)$ are product of random matrices.
 \end{enumerate}
-In comparison to the additive case, the multiplicative case is harder to analyze and also shows poor performance due to an extra source of error namely the multiplicative noise.
+\item \textbf{Additive Noise:}
+\begin{align}\label{addexpand}
+\eb_t&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F^i e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F^{k-i}  \zeta_i )
+\end{align}
+Thus in the additive case involves only products of deterministic matrices since $F_{ij}=F^{i-j},\forall i\geq j$.
+In comparison to the additive case, the multiplicative case is harder to analyze.
 
-\item \textbf{AS vs PS vs SPDS:} As observed before, the rates in \Cref{maintheorem} are dependent on the nature of the quantities $F_{i,j}$, which intern depends on the choice of step size and the spectral properties of $H$. Asking for $H$ to be AS is the most weakest condition, followed by PS and the strongest condition is to ask for $H$ to be SPDS. The relative strength of the three cases depends on the amount knowledge on has over the Eigen values. For example, when $H$ is SPDS, we know that it has all real and positive Eigen values. Similarly, when $H$ is PS then we can ensure that the operator norm of $I-\alpha H$ i.e., $\norm{I-\alpha H}$ to be less than unity. Finally, when $H$ is only AS we can only ensure that the spectral radius is less than unity. It turns out that the differences in spectral properties impact the analysis and also experimental results.
+\item \textbf{AS vs PS vs SPDS:} As observed before, the rates in \Cref{maintheorem} are dependent on the nature of the quantities $F_{i,j}$, which in turn depends on the choice of step size and the spectral properties of $H$. Asking for $H$ to be AS is the weakest condition, followed by PS and the strongest condition is to ask for $H$ to be SPD. The relative strength of the three cases depends on the amount knowledge one has over the eigen values. For example, when $H$ is SPD, we know that it has all real and positive eigen values. Similarly, when $H$ is PS then we can ensure that the operator norm of $I-\alpha H$ i.e., $\norm{I-\alpha H}$ to be less than unity. Finally, when $H$ is only AS we can only ensure that the spectral radius is less than unity. It turns out that the differences in spectral properties impact the analysis and also practice.
 \item \textbf{Spectral  Radius vs Operator Norm:} All the results in \Cref{maintable} are expressed for a given step size $\alpha>0$. However, the range of valid $\alpha$ changes from case to case.
 \begin{enumerate}
 \item \textbf{Additive Case:}In \Cref{addstep}-\ref{ascase}, the range $(0,\alpha_{as})$ ensures that the spectral radius of $F$ is less than unity, which in turn enables us to use $\ous{\sum}{i=1}{t}F^{i}=(I-(I-\alpha H)^t)$. Since $SPDS \Ra PS \Ra AS$, the range $(0,\alpha_{as})$ applies to all the three cases. The range $(0,\alpha_{ps})$ only holds for the PS and SPDS cases. It ensures that the operator norm of $F$ is less than unity.

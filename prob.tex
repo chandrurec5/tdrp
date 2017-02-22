@@ -1,54 +1,55 @@
 \section{Problem Setup}
 \input{restable}
-We consider linear stochastic approximation (LSA) algorithms of the form
+We consider constant step size linear stochastic approximation (LSA) algorithms of the form
 \begin{align}\label{lsa}
 \theta_{t}=\theta_{t-1}+\alpha(g_t-H_t\theta_{t-1}),
 \end{align}
 where $\theta_t\in \R^n$, $\alpha>0$ is a positive step-size, $g_t\in \R^n$ and $H_t\in \R^{n\times n}$. The Rupert-Polyak average of the iterates $\theta_t$ in \eqref{lsa} is defined as
 \begin{align}\label{rp} \tb_t\eqdef \frac{1}{t+1}\ous{\sum}{s=0}{t} \theta_s. \end{align}
-We are interested in the behaviour of \eqref{lsa} under the following general conditions.
+We are interested in the behaviour of \eqref{lsa} under the following simultaneously assumed general conditions.
 \begin{assumption}\label{genlsa}
 \begin{enumerate}
-\item\label{mart} $H_t\eqdef H+M_t$, $g_t\eqdef g+N_t$, where $M_t\in \R^{n\times n}$ and $N_t\in \R^n$ are martingale difference sequences with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef \{\theta_s, N_s,M_s,s\leq t\}$, i.e., $\E[N_t|\F_{t-1}]=0,\E[M_t|\F_{t-1}]=0,~\forall t\geq 0$.
-\item \label{secondmom} $E[M_t^\top M_t| \F_{s}]=\Sigma_2^2$ for all $0\leq s< t$.
-\item \label{noise} The noise sequences satisfy $\E[N_t^\top N_t|\F_{t-1}]\leq \sigma_1^2$ and $\E[M_t^\top M_t|\F_{t-1}]\leq \Sigma_2^2$, where $\sigma_1^2>0$ is a positive scalar and $\Sigma^2$ is a real symmetric positive definite matrix.
-\item \label{mat} $H$ is invertible and there exists $\ts=H^{-1}g\in\R^n$. Further, there exists a scalar $\sigma_2^2$ such that ${\ts}^\top\Sigma_2^2\ts\leq \sigma_2^2$.
+\item\label{mart} $H_t\eqdef H+M_t$, $g_t\eqdef g+N_t$, where $M_t\in \R^{n\times n}$ and $N_t\in \R^n$ are martingale difference sequences with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef\sigma \{\theta_s, N_s,M_s,s\leq t\}$, in particular, $\E[N_t|\F_{t-1}]=0,\E[M_t|\F_{t-1}]=0,~\forall t\geq 0$.
+\item \label{secondmom} $E[M_t^\top M_t| \F_{t-1}]=\Sigma_2^2$ for all $0\leq s< t$.
+\item \label{noise} The noise sequences satisfy $\E[N_t^\top N_t|\F_{t-1}]\leq \sigma_1^2$ and $\E[M_t^\top M_t|\F_{t-1}]\leq \Sigma_2^2$, where $\sigma_1^2>0$ is a positive scalar and $\Sigma^2_2$ is a real symmetric positive definite matrix.
+\item \label{mat} $H$ is invertible and there exists $\ts=H^{-1}g\in\R^n$. Further, $\sigma_2^2$ is a scalar such that ${\ts}^\top\Sigma_2^2\ts\leq \sigma_2^2$.
 \end{enumerate}
 \end{assumption}
-Here, $\ts$ is a desired fixed point or extremum, and the LSA in \eqref{lsa} computes $\ts$ from noisy data presented in the form of $g_t$ and $H_t$.\par
+Here, $\ts$ is a parameter to be estimated that the LSA in \eqref{lsa} aims to compute from noisy data presented in the form of $g_t$ and $H_t$.\par
+Our motivation to study constant step size LSA with RP-averaging stems from the fact that LSAs are common in applications such as temporal difference learning algorithms \cite{} in reinforcement learning (RL)\cite{}, solution to large scale linear systems \cite, and the linear least squares problem in \cite{}. In particular, constant step size and RP averaging has been shown to have \lquote amazing \rqoute properties in the case of linear least squares problem and we would like to investigate further as to whether these properties generalize to LSA.
 \textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
 \begin{align}\label{errprelim}
-\theta_t-\ts=\theta_{t-1}-\ts+\alpha_t(g_t -H_t(\theta_t-\ts+\ts))\nn\\
-e_t=(I-\alpha_t H_t)e_{t-1}+(N_t-M_t\ts).
+&\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(\theta_t-\ts+\ts)),\text{~or}\nn\\
+&e_t=(I-\alpha H_t)e_{t-1}+(N_t-M_t\ts).
 \end{align}
 In what follows we consider what we call linear stochastic error recursion (LSER) given by
 \begin{align}\label{lsergen}
-e_t=(I-\alpha_t H_t)e_{t-1}+\zeta_t,
+e_t=(I-\alpha H_t)e_{t-1}+\zeta_t,
 \end{align}
 where $\zeta_t\in \R^n$ is a noise sequence that satisfies the following assumption
 \begin{assumption}\label{zetaassmp}
-$\zeta_t\in \R^{n}$ is a martingale difference sequence with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef \{e_s, \zeta_s,s\leq t\}$, i.e., $\E[\zeta_t|F_{t-1}]=0,~\forall t\geq 0$. Further, $\E[\zeta_t^\top \zeta_t|F_{t-1}]\leq \sigma^2$.
+$\zeta_t\in \R^{n}$ is a martingale difference sequence with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef \sigma \{e_s, \zeta_s,s\leq t\}$, in particular, $\E[\zeta_t|F_{t-1}]=0,~\forall t\geq 0$. Further, $\E[\zeta_t^\top \zeta_t|F_{t-1}]\leq \sigma^2$.
 \end{assumption}
 Note that \Cref{zetaassmp} holds for $\zeta_t=N_t-M_t\ts$, where $N_t$ and $M_t$ are as in \Cref{genlsa}, by choosing $\sigma^2=\sigma_1^2+\sigma_2^2$.\par
 
 The behaviour of \eqref{lsa} is affected by the specific spectral/structural properties of $H$ and the structural properties of $\Sigma$.
-In what follows, we quantify these specific properties.\\
+In what follows, we elaborate on these properties.\\
 \textbf{Different Cases of Matrix $H$}
 \begin{enumerate}[label=(\roman*)]
-\item The \emph{Asymptotically Stable} (AS) case: All the real parts of Eigen values of $H$ are positive.
+\item The \emph{Asymptotically Stable} (AS) case: All the real parts of eigen values of $H$ are positive.
 \item The \emph{Positive Stable} (PS) case: $H$ is such that $x^\top H x>0, \forall x\in \R^n,x\neq 0$.
-\item The \emph{symmetric positive definite stable} (SPDS) case: $H$ is real symmetric and $x^\top Hx>0, \forall x\in \R^n, x\neq 0$.
+\item The \emph{symmetric positive definite} (SPD) case: $H$ is real symmetric and $x^\top Hx>0, \forall x\in \R^n, x\neq 0$.
 \end{enumerate}
-We note that SPDS $\Ra$ PS $\Ra$ AS.\\
+We note that SPD $\Ra$ PS $\Ra$ AS and the converse does not hold.\\
 \textbf{Different Cases of Noise}
 \begin{enumerate}[label=(\roman*)]
 \item The \emph{Additive Noise} (AN) case: Here $M_t=0, ~\forall t\geq 0$.
 \item The \emph{Multiplicative Noise} (MN) case: Corresponds to the general case wherein $M_t\neq 0$.
-\item The \emph{Structured Noise} (SN) case: when $H$ is SPDS and $\E[\zeta_t^\top \zeta_t]\leq \sigma^2 H$, where $\zeta_t\eqdef N_t-M_t\theta^*$ and $\sigma>0$.
+\item The \emph{Structured Noise} (SN) case: when $H$ is SPD and $\E[zeta_t\zeta_t^\top]\leq \sigma^2 H$, where $\zeta_t\eqdef N_t-M_t\theta^*$ and $\sigma>0$.
 \end{enumerate}
 \textbf{Definitions}
 \ber
-\item Define $F_D\eqdef I-\alpha H$.
+\item Define $F\eqdef I-\alpha H$.
 %\item For any $H$ that is PS and $\alpha>0$, define $\ld\eqdef \us{\inf}{\norm{x}\leq 1 } x^\top H x$, $\rd\eqdef \us{\inf}{\norm{x}\leq 1 } x^\top (2H-\alpha H^\top H)x$.
 %\item For any $H$ that is PS and $\alpha>0$, define $\rr\eqdef \us{\inf}{\norm{x}\leq 1}\E[x^\top (2H-\alpha H_t^\top H_t)x|\F_{t-1}]$.
 \item For any $H$ that is PS define $\rho_H \eqdef \us{\inf}{\norm{x}\leq 1 } x^\top H x$.
@@ -56,7 +57,7 @@ We note that SPDS $\Ra$ PS $\Ra$ AS.\\
 \item Define the spectral radius of a matrix $A$ as $\lambda(A) \eqdef \max\{|\mu_1|,\ldots,|\mu_k|,k\leq n\}$ with $|\mu_i|$ denoting the absolute value of the Eigen value $\mu_i$ of any given matrix $A$.
 \item Define $\eb_t\eqdef\frac{1}{t+1}\ous{\sum}{i=0}{t} e_i$ (note that this means $\tb_t-\ts=\eb_t$).
 \eer
-\textbf{Performance Metrics} By defining $\eb_t=\frac{1}{t+1}\ous{\sum}{i=0}{t} e_i$, we have $\tb_t-\ts=\eb_t$. The finite time mean squared error is then given by $\E\norm{C(\tb_t-\ts)}^2=\E\norm{C\eb_t}^2$, where $C$ is any $n\times n$ matrix. The choices of $C$ we will be using are $C=I$ ($I$ is the identity matrix), $C=H$ and $C=H^{\frac{1}{2}}$.\par
+\textbf{Performance Metrics} Thanks to the definition of  $e_t$ we have $\tb_t-\ts=\eb_t$. The mean-squared error at time $t$ is then given by $\E\norm{C(\tb_t-\ts)}^2=\E\norm{C\eb_t}^2$, where $C$ is any $n\times n$ matrix. The choices of $C$ we will be using are $C=I$ ($I$ is the identity matrix), $C=H$ and $C=H^{\frac{1}{2}}$ (only defined when H is SPD).\par
 
 
 \comment{
