@@ -1,0 +1,224 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% ICML 2016 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use the following line _only_ if you're still using LaTeX 2.09.
+%\documentstyle[icml2016,epsf,natbib]{article}
+% If you rely on Latex2e packages, like most moden people use this:
+\documentclass{article}
+\input{pack}
+% use Times
+\usepackage{times}
+% For figures
+\usepackage{graphicx} % more modern
+%\usepackage{epsfig} % less modern
+\usepackage{subfigure} 
+
+% For citations
+\usepackage{natbib}
+
+% For algorithms
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+% As of 2011, we use the hyperref package to produce hyperlinks in the
+% resulting PDF.  If this breaks your system, please commend out the
+% following usepackage line and replace \usepackage{icml2016} with
+% \usepackage[nohyperref]{icml2016} above.
+\usepackage{hyperref}
+
+% Packages hyperref and algorithmic misbehave sometimes.  We can fix
+% this with the following command.
+%\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Employ the following version of the ``usepackage'' statement for
+% submitting the draft version of the paper for review.  This will set
+% the note in the first column to ``Under review.  Do not distribute.''
+\usepackage{icml2016} 
+
+% Employ this version of the ``usepackage'' statement after the paper has
+% been accepted, when creating the final version.  This will set the
+% note in the first column to ``Proceedings of the...''
+%\usepackage[accepted]{icml2016}
+
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{Iterate averaging}
+
+\begin{document} 
+
+\twocolumn[
+\icmltitle{Iterate Averaging in Linear Stochastic Approximation}
+
+%\icmlauthor{Your Name}{email@yourdomain.edu}
+%\icmladdress{Your Fantastic Institute,314159 Pi St., Palo Alto, CA 94306 USA}
+%\icmlauthor{Your CoAuthor's Name}{email@coauthordomain.edu}
+%\icmladdress{Their Fantastic Institute,27182 Exp St., Toronto, ON M6H 2T1 CANADA}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; these are used to populate 
+% the "keywords" metadata in the PDF but will not be shown in the document
+\icmlkeywords{
+stochastic approximation,
+iterate averaging,
+Polyak-Rupert,
+linear stochastic approximation,
+linear stochastic recursions,
+finite-time expected error bounds
+}
+
+\vskip 0.3in
+]
+%\input{intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+What is the problem setup:
+Iterate averaging in linear stochastic approximation with multiplicative i.i.d. noise.
+
+Why should we care?
+SA has wide range of applications in science and engineering. Low-cost alternative,
+highly suitable to process large data volumes and work in large dimensions.
+
+Motivation: Linear prediction with squared loss and iid sampling. Bach et al. obtained remarkable result:
+there exists a constant step-size 
+such that expected squared prediction error
+after $n$ updates is at most $C/n$ with a universal constant $C>0$, 
+uniformly over all problem instances
+such that the magnitude of features vectors is bounded by a known constant.
+Why remarkable? No dependence on the conditioning of the underlying system.
+
+Constant stepsize helps intuitively because $\dots$ (add explanation).
+
+Question asked: To what extent can this remarkable result generalized beyond linear prediction 
+with squared loss?
+One potential application domain is
+linear value function approximation in reinforcement learning using temporal difference (TD) learning.
+Either experience replay in a batch setting, or solving linear systems using TD-style algorithms.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem Setup and Result}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Linear stochastic approximation.
+
+Define only those quantities that are needed to state the main result.
+
+Example: TD(0) learning (don't get blogged down on explaining where the equations are coming from,
+just state them, state that they are a special case of ours).
+
+Main result: Expected loss bound.
+
+Theorem: Blah blah
+\todoc[inline]{
+Can we do the calculation for the structured and unstructured noise together? 
+What should happen is that the condition on the stepsize should have two
+parts: One part, that depends on the condition number should disappear
+when the structured noise condition is met.
+%
+Also, can we bound the error in $C$-norm for general positive definite $C$?
+}
+
+Proof will follow in \cref{sec:proof}.
+Make comment on how and why we depart from the analysis of Bach (add citation).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Goal: Discuss result, implications, limitations.
+
+Say the good things about the result: Fast rate, small constants.
+Better than using decreasing step-size?
+
+We could not eliminate the dependence on the condition number:
+The result only holds when the stepsize is smaller than a problem-dependent quantity.
+
+Discuss where this is coming from and why this is hard to avoid.
+
+Our recommendation: Keep track of error; if error is blowing up (larger than a preset value), decrease the stepsize
+multiplicatively, reset the parameter vector. After $\log(1/\alpha_0)$ resets, each taking at most BLAH time(?),
+the algorithm finds $\alpha<\alpha_0$. Good thing: The dependence on $1/\alpha_0$ is mild.
+
+We do not know whether the condition we have is really necessary,
+or a uniform bound with a universal step-size is possible.
+Discuss proof attempt: Switching stable linear systems.
+No known necessary and sufficient condition for the multiplicative ergodic theorem (cite source).
+The existing necessary conditions are too stringent (example).
+
+Why i.i.d. noise? 
+Extension to martingale noise.
+Extension to Markov noise.
+
+What happens under additive noise?
+
+\section{Related Work}
+We place our result into the context of related results.
+Compare with papers by Bach. Can our result reproduce theirs?
+If not why not? 
+
+Compare with Prashanth and Korda:
+Only work known to us to bound finite-time error of LSA,
+specifically for TD (special case of our setup,
+as far as the form of the updates are concerned).
+
+They use decreasing stepsizes -- they must use decreasing stepsizes
+as discussed because they assume Markov noise.
+Show their bound here (simplified maybe).
+Comment on the main qualities of the bound.
+Do they get the same rate?
+Do they need the same conditions?
+Do they depend on the same constants? No.. reciproc of minimum eigenvalue creeps in.
+Why is this a problem? Reciproc of minimum eigenvalue is at least $d$ -- bad for huge-dimensional systems.
+But it could be much smaller, too, when system is ill-conditioned.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+Iterate averaging: Extremely powerful in linear prediction under quadratic noise.
+Here, power is tested more generally.
+BLAH-BLAH
+
+Further work:
+TD($\lambda$) -- do the results extend? Why not? What can be done?
+
+GTD -- do the results extend? Why not? What can be done?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if0
+\input{prob}
+\input{add}
+\input{lin}
+\input{mdp}
+\input{gtdana}
+\input{opti}
+\input{systable}
+\fi
+%\input{pltadd}
+%\input{back}
+%\input{implications}
+%\input{stab}
+%\input{implications}
+%\input{sa}
+
+%\input{td}
+%\input{abstract}
+%\input{prob}
+%\input{mainresults}
+%\input{background}
+%\input{ana}
+%\input{relwork}
+%\input{stab}
+%\input{Discussion}
+\if0
+\input{restable_sup}
+\input{sup}
+\fi
+% Acknowledgements should only appear in the accepted version. 
+%\section*{Acknowledgements}
+\nocite{langley00}
+\bibliography{ref}
+\bibliographystyle{icml2016}
+\end{document}
