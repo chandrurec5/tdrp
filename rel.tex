@@ -1,6 +1,6 @@
 \section{Related Work}
 The proof technique for \Cref{maintheorem} has been adopted from \cite{bachharder}. However, there are some criticial differences which are listed below.
 \begin{itemize}[leftmargin=*]
-\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are  known to be symmetric positive definite. However, in \Cref{genlsa}
-\item
+\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables the authors in \cite{bachharder} to define operators from the space of symmetric matrices to the space of symmetric matric matrices and carry the computations making use of such operators. In \Cref{genlsa} the matrix is known only to be Loxley positive definite and the random matrices involved are not symmetric. Thus we cannot define appropriate linear operators, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
+\item Another significant difference is the assumption of structured noise in \cite{bachharder}, which does not apply in our case, simply due to the fact that we don't have any symmetric matrices at all in our scheme of things.
 \end{itemize}
