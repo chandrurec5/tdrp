@@ -1,0 +1,22 @@
+%!TEX root =  lsa.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notation and Common Definitions}
+\label{sec:not}
+
+The set of reals number is denoted by $\R$.
+For a matrix $A$, $A^\top$ denotes its transpose.
+We use $A\succeq 0$ to denote that the real \todoc{real?} square matrix $A$ is symmetric and positive semidefinite (SPSD):
+$A = A^\top$, $\inf_x x^\top A x\ge 0$.
+We also use $A \succ 0$ to denote that the real square matrix $A$ is symmetric and positive definite (SPD):
+$A = A^\top$, $\lambda_{\min}(A) =\inf_{x:\norm{x}=1} x^\top A x>0$. Here, $\lambda_{\min}(A)$ denotes the minimum eigenvalue of $A$.
+For $A,B$ SPSD matrices, $A\succeq B$ holds if $A-B\succeq 0$.
+We also use $A\succ B$ similarly to denote that $A-B \succ 0$.
+We also use $\preceq$ and $\prec$ analogously.
+%
+A matrix $A$ is called positive definite (PD) if $\inf_{x:\norm{x}=1} x^\top A x >0$.
+%
+We will also use $\ip{\cdot,\cdot}$ to denote inner products: $\ip{x,y} = x^\top y$.
+%
+$\E$ denotes mathematical expectation.
+
+

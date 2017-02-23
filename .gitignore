@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 lsa.pdf
 
 lsa.out
@@ -12,3 +13,22 @@ lsa.aux
 lsa.blg
 
 lsa.bbl
+=======
+*.aux
+
+*.bbl
+
+*.blg
+
+*.fdb_latexmk
+
+*.fls
+
+*.log
+
+*.out
+
+lsa.pdf
+
+*.gz
+>>>>>>> origin/master

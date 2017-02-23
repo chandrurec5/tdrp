@@ -1,0 +1,23 @@
+%!TEX root =  lsa.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}
+\label{sec:related}
+We place our result into the context of related results.
+Compare with papers by Bach. Can our result reproduce theirs?
+State his result!
+If not why not? 
+
+Compare with Prashanth and Korda:
+Only work known to us to bound finite-time error of LSA,
+specifically for TD (special case of our setup,
+as far as the form of the updates are concerned).
+
+They use decreasing stepsizes -- they must use decreasing stepsizes
+as discussed because they assume Markov noise.
+Show their bound here (simplified maybe).
+Comment on the main qualities of the bound.
+Do they get the same rate?
+Do they need the same conditions?
+Do they depend on the same constants? No.. reciproc of minimum eigenvalue creeps in.
+Why is this a problem? Reciproc of minimum eigenvalue is at least $d$ -- bad for huge-dimensional systems.
+But it could be much smaller, too, when system is ill-conditioned.
