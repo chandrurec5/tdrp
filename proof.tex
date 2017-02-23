@@ -31,3 +31,18 @@ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\thet
 \end{proof}
 
 >>>>>>> Stashed changes
+\begin{proof}
+W.l.o.g  $i>j$
+\begin{align}
+&\E[\ip{F_{t,i+1} \zeta_{i},F_{t,j+1} \zeta_{j}}]\nn\\
+\label{diffindexinter}=&\E\big[\E[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots(I-\alpha H_t)^\top(I-\alpha H_t)\ldots(I-\alpha H_{j+1}) \zeta_{j}|\F_{t-1}]\big]\\
+=&\E\big[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots\E[(I-\alpha H_t)^\top(I-\alpha H_t)|\F_{t-1}]\ldots(I-\alpha H_{j+1}) \zeta_{j}\big]\\
+=&\E\big[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots C\ldots(I-\alpha H_{j+1}) \zeta_{j}\big]\\
+\label{diffindex}=&\E[ \sum_{l} G_l],
+\end{align}
+where $l$ is any index and $G_l$s in \eqref{diffindex} are terms obtained by expanding the product in \eqref{diffindexinter} using the fact that $H_t=H+M_{t},~\forall t\geq 0$. Note that $G_l$ is a product involving powers of $\alpha H$, matrices such as $M^\top_{q+1}$ and $M_{p+1}$ for some $ i\leq p<t, j\leq q < t$ and vectors $\zeta^\top_i$ and $\zeta^\top_j$.
+For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top_{r(l)+1}$ or $M_{r(l)+1}$ or $\zeta^\top_{r(l)+1}$ is present in that term.
+\begin{align*}
+\E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
+\end{align*}
+\end{proof}

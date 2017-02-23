@@ -16,7 +16,7 @@ We are interested in the behaviour of \eqref{lsa} under the following conditions
 \end{enumerate}
 \end{assumption}
 Here, $\ts$ is a parameter to be estimated that the LSA in \eqref{lsa} aims to compute from noisy data presented in the form of $g_t$ and $H_t$.\par
-Our motivation to study constant step size LSA with RP-averaging stems from the fact that LSAs are common in applications such as temporal difference learning algorithms \cite{td} in reinforcement learning (RL)\cite{rl}, solution to large scale linear systems \cite, and the linear least squares problem in \cite{bachharder}. In particular, constant step size and RP averaging has been shown to have `` amazing" properties in the case of linear least squares problem \cite{bachharder} and we would like to investigate further as to whether these properties generalize to LSA.
+Our motivation to study constant step size LSA with RP-averaging stems from the fact that LSAs are common in applications such as temporal difference learning algorithms \cite{td} in reinforcement learning (RL)\cite{rl}, solution to large scale linear systems \cite{bertsekas}, and the linear least squares problem in \cite{bachharder}. In particular, constant step size and RP averaging has been shown to have `` amazing" properties in the case of linear least squares problem \cite{bachharder} and we would like to investigate further as to whether these properties generalize to LSA.
 \begin{example}[Temporal Difference Learning]
 The Temporal Difference learning algorithm with a constant step size $\alpha>0$ is given by
 \begin{align}\label{tdzero}
@@ -55,3 +55,15 @@ Define $\rho_\alpha\eqdef \us{sup}{\norm{x}\leq 1}\E[x^\top (2H_t-\alpha H_tH_t)
 \item \textbf{Problem Dependent terms:} The choice of the step size is unfortunately problem dependent. To see this, the condition that $\rho_{\alpha}>0$ in \Cref{maintheorem} ensures that the expected spectral norm of $\E[(I-\alpha H_t)^\top(I-\alpha H_t)]$ is less than unity. And thus the range of $\alpha$ changes from problem to problem, an issue we further elaborate in \Cref{sec:stepprob}.
 \item \textbf{Behaviour for extreme value of $\alpha$:} For smaller values of step size, i.e., $\alpha\approx 0$, the bias term blows up, due to the presence of $\alpha^{-1}$ term. This is due to the fact that the step sizes determine the learning rate and for smaller step sizes the learning rate is slower. However, in this case the noise term does not blow up, a fact that can appreciated by looking at \eqref{lsergen} where $\alpha$ is seen to multiply the noise term $\zeta_t$. In quantitative terms, we can see that the $\alpha^{-2}$ and $\alpha^2$ terms can each other. For larger values of $\alpha$ i.e., $\alpha\ra \alpha_{\max}$, the bounds blow up again, due to the fact that $\rho_{\alpha}\ra 0$ in this case. This is due to the fact that the effect of both noise and initial conditions decay with the contraction factor of $F_{t,i}$, which gets closer to unity as $\alpha\ra\alpha_{\max}$.
 \end{enumerate}
+The results of \Cref{maintheorem} can be extended to the case when $\zeta_t$ in \eqref{lser} is a martingale noise with the following assumptions.
+\begin{assumption}
+\begin{enumerate}
+\item $\zeta_t\in \R^{n}$ is a martingale difference sequence with respect to a increasing sequence of $\sigma$-fields given by $\F_t\eqdef \sigma \{e_s, \zeta_s,s\leq t\}$, in particular, $\E[\zeta_t|F_{t-1}]=0,~\forall t\geq 0$.
+\item \label{secondmom} $E[\zeta_t \zeta_t^\top| \F_{t-1}]=\Sigma^2$ for all $0\leq s< t$.
+\end{enumerate}
+\end{assumption}
+The proof of \Cref{maintheorem} can be re-used after we establish the fact that in the expansion of $\E[\norm{H\eb_t}^2]$ the terms that involve inner products containing $\zeta_i$ and $\zeta_j$ for $i\neq j$ are zero. This is captured by \Cref{crosstermmart}
+\begin{lemma}\label{crosstermmart}
+For $i\neq j$, $\E[\ip{F_{t,i+1}\zeta_{i},F_{t,j+1} \zeta_{j}}]=0$
+\end{lemma}
+However, the result in \Cref{maintheorem} cannot be extended to the case of Markov noise which requires diminishing step-sizes \cite{prashanth,neurodyna}.
