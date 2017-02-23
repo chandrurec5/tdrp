@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: lsa.aux
+The style file: icml2016.bst
+Database file #1: ref.bib
+Warning--I didn't find a database entry for ""
+Warning--I didn't find a database entry for "SA"
+Warning--I didn't find a database entry for "langley00"
+Warning--can't use both volume and number fields in rl
+You've used 3 entries,
+            2773 wiz_defined-function locations,
+            614 strings with 5299 characters,
+and the built_in function-call counts, 1315 in all, are:
+= -- 108
+> -- 80
+< -- 2
++ -- 27
+- -- 24
+* -- 112
+:= -- 212
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 15
+chr.to.int$ -- 3
+cite$ -- 7
+duplicate$ -- 61
+empty$ -- 105
+format.name$ -- 29
+if$ -- 264
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 4
+newline$ -- 23
+num.names$ -- 12
+pop$ -- 30
+preamble$ -- 1
+purify$ -- 13
+quote$ -- 0
+skip$ -- 47
+stack$ -- 0
+substring$ -- 31
+swap$ -- 5
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 28
+warning$ -- 1
+while$ -- 11
+width$ -- 0
+write$ -- 45
+(There were 4 warnings)
