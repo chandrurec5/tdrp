@@ -1,9 +1,9 @@
 %!TEX root =  lsa.tex
 \section{Proof}
+%\section{Proof of \Cref{maintheorem}}
 \label{sec:proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
-\section{Proof of \Cref{maintheorem}}
 \begin{proof}
 $\E[\norm{H\eb_t}^2]=\E\ip{H\eb_t,H\eb_t}=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}(\theta_i-\ts),H\ous{\sum}{i=0}{t}(\theta_i-\ts)}$.
 $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}+ 2\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}$. Now
@@ -14,7 +14,9 @@ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\thet
 &=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(I-\alpha H)^{j-i} (\theta_i-\theta^*)}\nn\\
 &=2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t-1}\ip{H(\theta_i-\theta^*),H (\theta_i-\theta^*)}\nn\\
 &\leq2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H (\theta_i-\theta^*)}\nn\\
- $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}(1+4(\alpha\rho_{\alpha})^{-1})\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}$
+\end{align}
+ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}(1+4(\alpha\rho_{\alpha})^{-1})\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}
+$
 
 Now
 \begin{align*}
