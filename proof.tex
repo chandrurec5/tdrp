@@ -1,11 +1,8 @@
-<<<<<<< Updated upstream
 %!TEX root =  lsa.tex
 \section{Proof}
 \label{sec:proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
-<<<<<<< HEAD
-=======
 \section{Proof of \Cref{maintheorem}}
 \begin{proof}
 $\E[\norm{H\eb_t}^2]=\E\ip{H\eb_t,H\eb_t}=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}(\theta_i-\ts),H\ous{\sum}{i=0}{t}(\theta_i-\ts)}$.
@@ -17,8 +14,7 @@ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\thet
 &=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(I-\alpha H)^{j-i} (\theta_i-\theta^*)}\nn\\
 &=2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t-1}\ip{H(\theta_i-\theta^*),H (\theta_i-\theta^*)}\nn\\
 &\leq2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H (\theta_i-\theta^*)}\nn\\
-\end{align}
-$\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}(1+4(\alpha\rho_{\alpha})^{-1})\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}$
+ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}(1+4(\alpha\rho_{\alpha})^{-1})\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}$
 
 Now
 \begin{align*}
@@ -31,7 +27,7 @@ $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\thet
 \end{align}
 \end{proof}
 
->>>>>>> Stashed changes
+\todoc[inline]{These were marked as stashed changes. Choose whichever you want.}
 \begin{proof}
 W.l.o.g  $i>j$
 \begin{align}
@@ -47,7 +43,7 @@ For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top
 \E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
 \end{align*}
 \end{proof}
-=======
+
 
 
 \textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{eq:lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
@@ -60,4 +56,3 @@ In what follows we consider what we call linear stochastic error recursion (LSER
 e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
 \end{align}
 where $\zeta_t\eqdef (N_t-M_t\ts)$.
->>>>>>> origin/master
