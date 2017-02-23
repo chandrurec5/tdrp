@@ -3,3 +3,15 @@
 \label{sec:proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
+
+
+\textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{eq:lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
+\begin{align}\label{errprelim}
+&\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(\theta_t-\ts+\ts)),\text{~or}\nn\\
+&e_t=(I-\alpha H_t)e_{t-1}+(N_t-M_t\ts).
+\end{align}
+In what follows we consider what we call linear stochastic error recursion (LSER) given by
+\begin{align}\label{lsergen}
+e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
+\end{align}
+where $\zeta_t\eqdef (N_t-M_t\ts)$.

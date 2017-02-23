@@ -1,46 +1,125 @@
 %!TEX root =  lsa.tex
 \section{Problem Setup and Main Result}\label{sec:prob}
 %\input{restable}
-We consider constant step size linear stochastic approximation (LSA) algorithms of the form
-\begin{align}\label{lsa}
-\theta_{t}=\theta_{t-1}+\alpha(g_t-H_t\theta_{t-1}),
+We consider constant stepsize linear stochastic approximation (LSA) algorithms with iterate averaging.
+These algorithms update a pair of parameters $\theta_t,\tb_t\in \R^n$ incrementally, in discrete time steps $t=1,2,\dots$
+based on data $g_t\in \R^n$, $H_t\in \R^{n\times n}$, using the updates
+\begin{subequations}
+\label{eq:lsa} % prefer eq:lsa etc.
+\begin{align}
+\theta_{t} & =\theta_{t-1}+\alpha\,(g_t-H_t\theta_{t-1})\,, \label{eq:lsa1}\\
+ \tb_t & =  \frac{1}{t+1}\sum_{s=0}^{t} \theta_s\,, \label{eq:rp}
 \end{align}
-where $\theta_t\in \R^n$, $\alpha>0$ is a positive step-size, $g_t\in \R^n$ and $H_t\in \R^{n\times n}$. The Polyak-Rupert average of the iterates $\theta_t$ in \eqref{lsa} is defined as
-\begin{align}\label{rp} \tb_t\eqdef \frac{1}{t+1}\ous{\sum}{s=0}{t} \theta_s. \end{align}
-We are interested in the behaviour of \eqref{lsa} under the following conditions.
+\end{subequations}
+where $\alpha>0$ is a positive step-size parameter; the only tuning parameter of the algorithm besides the 
+initial value $\theta_0$.
+The iterate $\theta_t$ is treated as an internal state of the algorithm, while $\tb_t$ is the output at time step $t$.
+The update of $\theta_t$ alone is considered a form of constant stepsize LSA.
+Note that the computation of $\tb_t$ can also be performed in an incremental fashion with $O(n)$ storage.
+
+Owning to the special form of $H_t$, sometimes the matrix-vector product $H_t \theta_{t-1}$ 
+can be efficiently computed in $O(n)$ time.
+This happens for example when $H_t$ is rank one; two specific examples of this kind are presented later in this section.
+The significance of efficient computation of the matrix-vector product is that then an update of the algorithm
+can be implemented in $O(n)$ time with $O(n)$ storage,
+which makes the algorithm particularly attractive in large-scale computations when $n$ is in the range of thousands or more.
+
+We are interested in the behaviour of \eqref{eq:lsa} under the following conditions:
+%%%%%%%%%%%%%%%%%%%%%
 \begin{assumption}\label{genlsa}
+%%%%%%%%%%%%%%%%%%%%%
+\mbox{}
+\vspace*{-0.14in}
+
 \begin{enumerate}
-\item\label{mart} $H_t\eqdef H+M_t$, $g_t\eqdef g+N_t$, where $M_t\in \R^{n\times n}$ and $N_t\in \R^n$ are zero mean $i.i.d$ sequences, i.e., $\E[N_t]=0,\E[M_t]=0,~\forall t\geq 0$.
-\item \label{noise} The noise sequences satisfy $\E[N_t^\top N_t]\leq \sigma_1^2$ and $\E[M_t^\top M_t]\leq \Sigma_2^2$, where $\sigma_1^2>0$ is a positive scalar and $\Sigma^2_2$ is a real symmetric positive definite matrix.
-\item \label{mat} $H$ is such that $\forall x\in \R^n$, $\ip{x,Hx}>0$ and let $\ts=H^{-1}g\in\R^n$. Further, $\sigma_2^2$ is a scalar such that ${\ts}^\top\Sigma_2^2\ts\leq \sigma_2^2$ and $\sigma^2\eqdef\sigma_1^2+\sigma_2^2$.
+%%%%%%%%%%%%%%%%%%%%%
+\item\label{mart} 
+The random quantities $(H_t,g_t)_t$  are independent of each other with common means $\EE{ H_t} = H$ and $\EE{g_t} = g$.
+
+%%%%%%%%%%%%%%%%%%%%%
+\item \label{noise} The ``noise variables'', $M_t = H_t - H$ and $N_t = g_t - g$ have uniformly bounded second moments;
+in particular, we let $\sigma_1^2>0$ and $\Sigma_2^2\succ 0$ such that for any $t\ge 1$,
+$\sup_{t\ge 1} \E[N_t^\top N_t]<\sigma_1^2$ and
+$\E[M_t^\top M_t]\preceq \Sigma_2^2$ both hold.
+
+%%%%%%%%%%%%%%%%%%%%%
+\item \label{mat} $H$ is positive definite (PD). % for all $x\in \R^n\setminus \{0\}$, $\ip{x,Hx}>0$. 
 \end{enumerate}
 \end{assumption}
-Here, $\ts$ is a parameter to be estimated that the LSA in \eqref{lsa} aims to compute from noisy data presented in the form of $g_t$ and $H_t$.\par
-Our motivation to study constant step size LSA with RP-averaging stems from the fact that LSAs are common in applications such as temporal difference learning algorithms \cite{} in reinforcement learning (RL)\cite{}, solution to large scale linear systems \cite, and the linear least squares problem in \cite{}. In particular, constant step size and RP averaging has been shown to have `` amazing" properties in the case of linear least squares problem and we would like to investigate further as to whether these properties generalize to LSA.
-\begin{example}[Temporal Difference Learning]
-The Temporal Difference learning algorithm with a constant step size $\alpha>0$ is given by
+Note that $H$ is not necessarily symmetric.
+Since $H$ is PD, it is invertible. We let
+\begin{align*}
+\ts = H^{-1} g\,.
+\end{align*}
+%%%%%%%%%%%%%%%%%%%%%
+The ``aim'' of the updates in \eqref{eq:lsa} is to estimate $\ts$ based on the noisy versions $(H_t,g_t)$ of $(H,g)$.
+There are various ways of quantifying the error $\eb_t \doteq \tb_t - \ts$ of estimating $\ts$ using $\tb_t$, but the magnitude
+of the errors is usually measured in some weighted quadratic norm. The expected loss for time step $t$ then becomes
+\begin{align*}
+L_t \doteq \EE{ \norm{\eb_t}_{C}^2 }\,,
+\end{align*}
+where recall that for a SPD matrix $C$, $\norm{x}_C^2 = x^\top C x$.
+Here, the choice of the matrix $C$ depends on the application.
+
+
+As noted in the introduction, LSA is widely used in science and engineering. Here, we provide two specific examples
+of LSA, which we will use throughout the paper:
+%%%%%%%%%%%%%%%%%%%%%
+\begin{example}[Linear Prediction under Quadratic Loss]
+Fill this in similarly to the TD example. What is the data, what is the goal (here we can explain briefly),
+what is the update, what is the loss metric.
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%
+\begin{example}[Temporal Difference  (TD) Learning]
+The simplest temporal differencelearning algorithm with a constant stepsize $\alpha>0$ is given by
+\begin{align}
+\label{tdzero}
+\begin{split}
+\theta_t
+& = \theta_{t-1}+\alpha\, (R_t+ \gamma \ip{\theta_{t-1},\tilde{\phi}_t } - \ip{\theta_{t-1},\phi_t})\phi_t \\
+& = \theta_{t-1}+\alpha\, \bigl( R_t\phi_t- (\phi_t \phi_t^\top-\gamma \phi_t \tilde{\phi}_t^\top)\theta_{t-1}\bigr)\,.
+\end{split}
+\end{align}
+Here, $(\phi_t,\tilde{\phi}_t,R_t)\in \R^n\times \R^n \times \R$ is the data at time $t$.
+Assuming $(\phi_t,\tilde{\phi}_t,R_t)$ is i.i.d. and say, bounded, 
+we see that with $H_t = \phi_t \phi_t^\top-\gamma \phi_t \tilde{\phi}_t^\top$, $g_t = R_t \phi_t$ is in the form of 
+\eqref{eq:lsa1} and satisfies the assumptions as long as $H = \EE{H_t}$ is PD. 
+Note that the matrices $H_t$ are rank-1, hence the algorithm can indeed be implemented with $O(n)$ storage and
+time (as is also shown in the first form of the update of $\theta_t$).
+However, the matrices $H_t$ are not symmetric (nor is $H$ symmetric in general).
+\todoc[inline]{Finish: This is indeed satisfied in ``on policy'' TD, etc. Add at least one reference. Note that this is TD(0).}
+In TD learning the error of a parameter $\theta$ is commonly measured using the expected squared 
+prediction error $L_t(\theta) = \EE{ (\phi_t^\top \theta - \phi_t^\top \ts)^2 } = \norm{\theta - \ts}_C^2$,
+where $C = \EE{ \phi_t \phi_t^\top }$ is assumed to be PD.
+\if0
 \begin{align}\label{tdzero}
 \theta_t=&\theta_{t-1}+\alpha \big(\phi(s_t) R(s_t)\nn\\&+ (\phi(s_t)\phi^\top(s_t)-\gamma \phi(s_t)\phi^\top(s'_t))\theta_{t-1}\big),
 \end{align}
-where are $s_t,s'_t\in S$ with $S$ being a finite set, $\phi(s)\in \R^n$ are the so called \emph{feature} vectors, $\gamma\in (0,1)$ is a given discount factor and $R\colon S\ra \R$ is map from S to reals. Here, $s_t$ are $i.i.d$ random variables distributed according to the law $s_t\sim \xi$ where $\xi$ is supported on $S$ and $s'_t\sim p(s_t,\cdot)$. The TD algorithm in \eqref{tdzero} can be cast in the general form as presented in \eqref{lsa}, by letting $g_t=\phi(s_t)R(s_t)$ and $H_t=\phi(s_t)\phi^\top(s_t)-\gamma \phi(s_t)\phi^\top(s'_t)$.
+where are $s_t,s'_t\in S$ with $S$ being a finite set, $\phi(s)\in \R^n$ are the so called \emph{feature} vectors, $\gamma\in (0,1)$ is a given discount factor and $R\colon S\ra \R$ is map from S to reals. \todoc{Shoot, I wish we used $d$ in place of $n$..}
+Here, $s_t$ are $i.i.d$ random variables distributed according to the law $s_t\sim \xi$ where $\xi$ is supported on $S$ and $s'_t\sim p(s_t,\cdot)$. The TD algorithm in \eqref{tdzero} can be cast in the general form as presented in \eqref{eq:lsa}, by letting $g_t=\phi(s_t)R(s_t)$ and $H_t=\phi(s_t)\phi^\top(s_t)-\gamma \phi(s_t)\phi^\top(s'_t)$.
+\fi
 \end{example}
-
-\textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
-\begin{align}\label{errprelim}
-&\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(\theta_t-\ts+\ts)),\text{~or}\nn\\
-&e_t=(I-\alpha H_t)e_{t-1}+(N_t-M_t\ts).
-\end{align}
-In what follows we consider what we call linear stochastic error recursion (LSER) given by
-\begin{align}\label{lsergen}
-e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
-\end{align}
-where $\zeta_t\eqdef (N_t-M_t\ts)$.
+%%%%%%%%%%%%%%%%%%%%%
+The following theorem is the main result of the paper.
+To state the result we define the key quantity
+\begin{align*}
+\rho_\alpha\eqdef \sup_{\norm{x}\leq 1} \E[x^\top (2H-\alpha H_tH_t)x]\,.
+\end{align*}
 \begin{theorem}\label{maintheorem}
-Define $\rho_\alpha\eqdef \us{sup}{\norm{x}\leq 1}\E[x^\top (2H_t-\alpha H_tH_t)x]$. Let $\alpha_{\max}$ be such that $~\forall \alpha\in(0,\alpha_{\max})$ $\rho_{\alpha}>0$. Then, it follows that
+Assume that $\alpha>0$ is such that $\rho_\alpha>0$. Then, it follows that for \emph{any} $t\ge 1$,
 \begin{align}
 \begin{split}
 \MoveEqLeft\E[\norm{H(\tb_t-\ts)}^2]\leq \\
-&(1+4\frac1{\alpha\rho_{\alpha}}) \frac{1}{\alpha\rho_{\alpha}} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+\frac{\alpha^2\sigma^2}{t+1} \Big)
+&\left(1+4\frac1{\alpha\rho_{\alpha}}\right) \frac{1}{\alpha\rho_{\alpha}}
+ \left(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+\frac{\alpha^2\sigma^2}{t+1} \right)\,.
 \end{split}
 \end{align}
 \end{theorem}
+\todoc[inline]{The result should rather be stated for $\EE{\norm{\tb_t-\ts}_C^2}$.}
