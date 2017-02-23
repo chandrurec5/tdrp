@@ -57,3 +57,22 @@ In what follows we consider what we call linear stochastic error recursion (LSER
 e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
 \end{align}
 where $\zeta_t\eqdef (N_t-M_t\ts)$.
+
+
+
+\begin{theorem}
+Let $\H$ be the space of $n\times n$ matrices $H=(H_{ij})$with bounded entries i.e., $|H_{ij}|\leq B$, for some $B>0$. Let $\P$ be the space of probability distributions over rank-$1$ matrices of form $H=uv^\top$ such that $~\forall x\in \R^n \E_{P}[x^\top H x]>0$, where $P\in \P$ and $H\sim P$. Then there exists an $alpha_{\max}>0$ such that $\ous{\sup}{\norm{x}\leq 1,P\in \P}\E_{P}[x^\top (2H - \alpha H^\top H)x ]>0$ whenever $\alpha\in (0,\alpha_{\max})$
+\end{theorem}
+
+\begin{proof}
+\begin{align}
+\begin{split}
+\E_{P}[x^\top (2H - \alpha H^\top H)x ]&=\E_{P}[( x^\top 2uv^\top -\alpha uv^\top u v^\top x ) ]\\
+&=\E_{P}[( x^\top 2uv^\top)x (2-\alpha v^\top u)) ]\\
+&\geq\E_{P}[( x^\top uv^\top)x (2-\alpha B^2)) ]\\
+&=\E_{P}[( x^\top H)x (2-\alpha B^2)) ]\\
+&>0 \text{~whenever}\quad (\alpha<\frac{2}{B^2})
+\end{split}
+\end{align}
+Thus $\alpha_{\max}=\frac{2}{B^2}$.
+\end{proof}
