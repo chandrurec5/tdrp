@@ -1,0 +1,25 @@
+%!TEX root =  lsa.tex
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+What is the problem setup:
+Iterate averaging in linear stochastic approximation with multiplicative i.i.d. noise.
+
+Why should we care?
+SA has wide range of applications in science and engineering. Low-cost alternative,
+highly suitable to process large data volumes and work in large dimensions.
+
+Motivation: Linear prediction with squared loss and iid sampling. Bach et al. obtained remarkable result:
+there exists a constant step-size 
+such that expected squared prediction error
+after $n$ updates is at most $C/n$ with a universal constant $C>0$, 
+uniformly over all problem instances
+such that the magnitude of features vectors is bounded by a known constant.
+Why remarkable? No dependence on the conditioning of the underlying system.
+
+Constant stepsize helps intuitively because $\dots$ (add explanation).
+
+Question asked: To what extent can this remarkable result generalized beyond linear prediction 
+with squared loss?
+One potential application domain is
+linear value function approximation in reinforcement learning using temporal difference (TD) learning.
+Either experience replay in a batch setting, or solving linear systems using TD-style algorithms.
