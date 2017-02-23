@@ -1,4 +1,4 @@
-%!TEX root =  speedylearn.tex
+%!TEX root =  lsa.tex
 \usepackage[textsize=tiny]{todonotes}
 \setlength{\marginparwidth}{13ex}
 \newcommand{\todoc}[2][]{\todo[size=\scriptsize,color=blue!20!white,#1]{Csaba: #2}}
@@ -40,14 +40,15 @@
 \usepackage{natbib}
 \usepackage{nicefrac}
 \usepackage{wrapfig}
+\usepackage{mathtools}
 
 \let\temp\epsilon
 \let\epsilon\varepsilon
 
 \usepackage{diagbox}
 \usepackage{makecell}
-\usepackage{pgfplots}
-\usepackage{pgf}
+%\usepackage{pgfplots}
+%\usepackage{pgf}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amsfonts}
@@ -55,8 +56,8 @@
 %\renewenvironment{comment}{}{}
 \usepackage[capitalize]{cleveref}
 \usepackage{enumitem}
-\usepackage{tikz}
-\usepackage{placeins}
+%\usepackage{tikz}
+%\usepackage{placeins}
 \newcommand{\nn}{\nonumber}
 \newcommand{\onp}{\emph{on-policy~}}
 \newcommand{\ofp}{\emph{off-policy~}}
@@ -93,6 +94,8 @@
 \newtheorem{domain}{Domain}
 \newtheorem{condition}{Condition}
 
+\if0
+% Comment by csaba: This screws up inverse search in TeXShop.. I prefer not to have these.
 \usetikzlibrary{intersections}
 \usetikzlibrary{arrows,calc,fit,patterns,plotmarks,shapes.geometric,shapes.misc,shapes.symbols,   shapes.arrows,   shapes.callouts,   shapes.multipart,   shapes.gates.logic.US,   shapes.gates.logic.IEC,   er,   automata,   backgrounds,   chains,   topaths,   trees,   petri,   mindmap,   matrix,   calendar,   folding, fadings,   through,   positioning,   scopes,   decorations.fractals,   decorations.shapes,   decorations.text,   decorations.pathmorphing,   decorations.pathreplacing,   decorations.footprints,   decorations.markings, shadows}
 \usetikzlibrary{arrows,calc,shapes, snakes, intersections,patterns,shadows}
@@ -100,7 +103,7 @@
 \tikzstyle{line}=[draw]
 \tikzstyle{elli}=[draw,ellipse]
 \tikzstyle{arrow} = [thick]
+\fi
 \newcommand{\us}[2]{\underset{#2}{#1}~}
 \newcommand{\ous}[3]{\overset{#3}{\underset{#2}{#1}}~}
-
 
