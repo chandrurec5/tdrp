@@ -74,10 +74,10 @@ Since $\sum_{i,j}\cdot{} = \sum_{i=j}\cdot{} + 2 \sum_i \sum_{j>i} \cdot{}$,
 \begin{align*}
 \ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t} \E\ip{He_i,He_j}&= \left(1+\frac4{\alpha\rho_{\alpha}}\right)\ous{\sum}{i=0}{t}\E\ip{He_i,He_i}\,.
 \end{align*}
-Now, \todoc{So where did the next inequality come from?}
+Now, from \Cref{innerproduct}\todoc{So where did the next inequality come from?}
 \begin{align*}
-\E\ip{He_i,He_i}=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\ous{\sum}{j=1}{i}\E\ip{F_{i,j+1}\zeta_j,F_{i,j+1}\zeta_j}
-\leq (1-\alpha\rho_{\alpha})^i+ \frac{\sigma^2}{\alpha \rho_\alpha}\,,
+\E\ip{He_i,He_i}=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\ous{\sum}{j=1}{i}\E\ip{\alpha F_{i,j+1}\zeta_j,\alpha F_{i,j+1}\zeta_j}
+\leq (1-\alpha\rho_{\alpha})^i\norm{e_0}^2+ \alpha^2\frac{\sigma^2}{\alpha \rho_\alpha}\,,
 \end{align*}
 and so
 \begin{align*}
@@ -157,6 +157,17 @@ Hence, the lemma is applicable and implies that
 \EE{ \ip{He_i, H (I-\alpha H)^{t-i} e_i} | \cF_i }\,.
 \end{align*}
 Taking expectation of both sides gives the desired result.
+\end{proof}
+
+\begin{lemma}\label{innerproduct}
+Let $x_j\in \R^n$ be $\F_j$ measurable. Then for any $i>j$ $\E\ip{F_{i,j+1}x_j,F_{i,j+1}x_j}\leq (1-\alpha \rho_\alpha)^{i-j}\norm{x_i}^2$
+\end{lemma}
+\begin{proof}
+\begin{align*}
+\E\ip{F_{i,j+1}x_j,F_{i,j+1}x_j}&= \E\big[\E[x_j^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_i)^\top (I-\alpha H_i)\ldots (I-\alpha H_{j+1})x_j|\F_{i-1}]\big]\\
+&=(1-\alpha\rho_{\alpha}) \E[x_j^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_{i-1})^\top (I-\alpha H_{i-1})\ldots (I-\alpha H_{j+1})x_j]
+\end{align*}
+The result can be obtained by similary taking conditional expectations with respect to $\F_{i-2},\ldots,\F_{j}$.
 \end{proof}
 
 \todoc[inline]{These were marked as stashed changes. Choose whichever you want.}
