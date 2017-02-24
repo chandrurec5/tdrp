@@ -38,9 +38,9 @@ The random quantities $(H_t,g_t)_t$  are independent of each other with common m
 
 %%%%%%%%%%%%%%%%%%%%%
 \item \label{noise} The ``noise variables'', $M_t = H_t - H$ and $N_t = g_t - g$ have uniformly bounded second moments;
-in particular, we let $\sigma_1^2>0$ and $\Sigma_2^2\succ 0$ such that for any $t\ge 1$,
-$\sup_{t\ge 1} \E[N_t^\top N_t]<\sigma_1^2$ and
-$\E[M_t^\top M_t]\preceq \Sigma_2^2$ both hold.
+in particular, we let $\sigma_N^2>0$ and $\Sigma_M^2\succ 0$ such that for any $t\ge 1$,
+$\sup_{t\ge 1} \E[N_t^\top N_t]<\sigma_N^2$ and
+$\E[M_t^\top M_t]\preceq \Sigma_M^2$ both hold.
 
 %%%%%%%%%%%%%%%%%%%%%
 \item \label{mat} $H$ is positive definite (PD). % for all $x\in \R^n\setminus \{0\}$, $\ip{x,Hx}>0$. 
@@ -114,7 +114,8 @@ To state the result we define the key quantity
 \rho_\alpha\eqdef \inf_{\norm{x}=1} x^\top (H^\top+H-\alpha\EE{ H_1^\top H_1} )x\,.
 \end{align}
 \begin{theorem}\label{maintheorem}
-Assume that $\alpha>0$ is such that $\rho_\alpha>0$. Then, it follows that for \emph{any} $t\ge 1$,
+Assume that $\alpha>0$ is such that $\rho_\alpha>0$. Let $\sigma^2 = \sigma_N^2 + (\ts)^\top \Sigma_M \ts$.
+Then, it follows that for \emph{any} $t\ge 1$,
 \begin{align}
 \begin{split}
 \MoveEqLeft\E[\norm{H(\tb_t-\ts)}^2]\leq \\
