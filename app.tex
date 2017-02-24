@@ -66,7 +66,7 @@ There are two cases depending on whether $i=j$. When $i< j$,
 &=\E \ip{e_i,\big[F_{j,i+1} e_i+\alpha\textstyle\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\\
 &=\E\ip{e_i,F_{j,i+1} e_i} & \text{(from \cref{noisecancel})}\\
 &=\E\ip{e_i, (I-\alpha H)^{j-i} e_i} & \text{(from \cref{lem:unroll})}\\
-&=\E\ip{e_i,(I-\alpha H)^{j-i}e_i}\,, &\text{(because $(I-\alpha H)$ and $H$ commute)}
+&=\E\ip{e_i,(I-\alpha H)^{j-i}e_i}\,,
 \end{align*}
 and therefore
 \begin{align*}
@@ -91,7 +91,7 @@ and so
 \end{align*}
 Putting things together,
 \begin{align}
-\E[\norm{\eb_t}]
+\E[\norm{\eb_t}^2]
 \leq \left(1+\frac4{\alpha\rho_{\alpha}}\right)\, \frac1{\alpha\rho_{\alpha}}\, \,
 		\left(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \right)\,.
 \end{align}
