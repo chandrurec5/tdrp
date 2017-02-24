@@ -1,37 +1,20 @@
 %!TEX root =  lsa.tex
 \onecolumn
 \section{Appendix: Proof of the main result}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
-
-The proof technique for \Cref{maintheorem} has been adopted from Appendix $B$ of \cite{bachharder} . However, there are some critical differences which are listed below.
-\begin{itemize}
-\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables the authors in \cite{bachharder} to define operators from the space of symmetric matrices to the space of symmetric matrices and carry out the computations making use of such operators. In \Cref{genlsa} the matrix is known only to be (laxly) positive definite, i.e., the lack of symmetry. 
-Thus we cannot define appropriate linear operators, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
+The proof technique for \Cref{maintheorem} has been adopted from Appendix $B$ of \cite{bachharder} . However, there are some criticial differences which are listed below.
+\begin{itemize}[leftmargin=*]
+\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables the authors in \cite{bachharder} to define operators from the space of symmetric matrices to the space of symmetric matric matrices and carry out the computations making use of such operators. In \Cref{genlsa} the matrix is known only to be Loxley positive definite and the random matrices involved are not symmetric. Thus we cannot define appropriate linear operators, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
 \item Another significant difference is the assumption of structured noise in \cite{bachharder}, which does not apply in our case, simply due to the fact that we don't have any symmetric matrices at all in our scheme of things.
 \end{itemize}
 
-
-
 \begin{proof}
-The error dynamics for the LSA in \eqref{eq:lsa1} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as 
-$\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(e_{t-1}+\ts))$,
-or 
-\begin{align}\label{lsergen}
-e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t\,, \qquad \zeta_t\eqdef (N_t-M_t\ts)\,,\qquad  t=1,2,\dots
-\end{align}
-Hence, $\eb_t \doteq \tb_t-\ts$ satisfies
-
 Define $F_{i,j}\eqdef (I-\alpha_i H_i)\ldots (I-\alpha_j H_j),~\forall i\geq j$ and $F_{i,j}\eqdef I,~\forall i<j$.
-It follows that 
 \begin{align*}
-\eb_t&=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i
-=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )\,.
+\eb_t&=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i\\
+&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )
 \end{align*}
-
-
-Then,
 \begin{align*}
 \E[\norm{H\eb_t}^2]&=\E\ip{H\eb_t,H\eb_t}\\
 &=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}e_i,H\ous{\sum}{i=0}{t}e_i}
@@ -109,6 +92,16 @@ For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top
 
 
 
+\textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{eq:lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
+\begin{align}\label{errprelim}
+&\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(\theta_t-\ts+\ts)),\text{~or}\nn\\
+&e_t=(I-\alpha H_t)e_{t-1}+(N_t-M_t\ts).
+\end{align}
+In what follows we consider what we call linear stochastic error recursion (LSER) given by
+\begin{align}\label{lsergen}
+e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
+\end{align}
+where $\zeta_t\eqdef (N_t-M_t\ts)$.
 
 
 
