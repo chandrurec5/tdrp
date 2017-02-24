@@ -16,51 +16,79 @@ Thus we cannot define appropriate linear operators, and instead we have resort t
 
 \begin{proof}
 The error dynamics for the LSA in \eqref{eq:lsa1} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as 
-$\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(e_{t-1}+\ts))$,
-or 
+$\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(e_{t-1}+\ts))$.
+From $H\ts=g$ it follows that $H_t\theta^* = g_t + M_t\ts - N_t$. Defining 
+\[
+\zeta_t = N_t - M_t \ts, \qquad t\ge 1
+\] and combining with the previous equality, we get
 \begin{align}\label{lsergen}
-e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t\,, \qquad \zeta_t\eqdef (N_t-M_t\ts)\,,\qquad  t=1,2,\dots
+e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t\,.
 \end{align}
+Iterating this gives
+\begin{align*}
+e_t 
+& = (I-\alpha H_t) (I-\alpha H_{t-1}) e_{t-2} + \alpha (I-\alpha H_t) \zeta_{t-1} +\alpha \zeta_t \\
+& \quad \vdots\\
+& = (I-\alpha H_t) \cdots (I-\alpha H_1) e_0 + \alpha (I-\alpha H_t) \cdots (I-\alpha H_2) \zeta_1 \\
+&  \qquad \qquad\qquad \qquad\qquad \qquad\,\,\, + \alpha (I-\alpha H_t) \cdots (I-\alpha H_3) \zeta_2\\
+&  \quad \vdots \\
+& \qquad \qquad\qquad \qquad\qquad \qquad\,\,\, + \alpha \zeta_t\,,
+\end{align*}
+which can be written compactly as
+\begin{align*}
+e_t = F_{t,1} e_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} \zeta_t )\,.
+\end{align*}
 Hence, $\eb_t \doteq \tb_t-\ts$ satisfies
-
-Define $F_{i,j}\eqdef (I-\alpha_i H_i)\ldots (I-\alpha_j H_j),~\forall i\geq j$ and $F_{i,j}\eqdef I,~\forall i<j$.
-It follows that 
 \begin{align*}
 \eb_t&=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i
-=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )\,.
+=\frac{1}{t+1}\left\{\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha \sum_{i=1}^{t} \left(\sum_{k=i}^{t} F_{k,i+1} \right)\zeta_i   \right\}\,,
 \end{align*}
+where in the second sum we flipped the order of sums and swapped the names of the variables that the sum runs over.
 
-
-Then,
+It follows that \todoc{We should rather use $C$ instead of $H$ here?}
 \begin{align*}
-\E[\norm{H\eb_t}^2]&=\E\ip{H\eb_t,H\eb_t}\\
-&=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}e_i,H\ous{\sum}{i=0}{t}e_i}
+\E[\norm{H\eb_t}^2]&=\E\ip{H\eb_t,H\eb_t}
+ =\frac{1}{(t+1)^2} \sum_{i,j=0}^t \E\ip{H e_i,He_j}\,.
 \end{align*}
+Hence, we see that it suffices to bound $\EE{\ip{H e_i, H e_j }}$.
+\if0
 \begin{align*}
 \E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{He_i,He_j}=\E\ous{\sum}{i=0}{t}\ip{He_i,He_i}+ 2\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{He_i,He_j}.
 \end{align*}
-
-\begin{align}\label{inter}
-\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{He_i,He_j}
-&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{He_i,H\big[F_{j,i+1} e_i+\alpha\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\nn\\
-&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{He_i,H F_{j,i+1} e_i},~\text{from \Cref{noisecancel}}\nn\\
-&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{He_i,(I-\alpha H)^{j-i}H e_i},~\text{from \Cref{unroll}}\nn\\
-&=2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t-1}\ip{He_i,H e_i}\nn\\
-&\leq2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t}\ip{He_i,H e_i}\nn\\
-\end{align}
+\fi
+There are two cases depending on whether $i=j$. When $i< j$,
 \begin{align*}
- \E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{He_i,He_j}&=\E\ous{\sum}{i=0}{t}(1+4(\alpha\rho_{\alpha})^{-1})\ip{He_i,He_i}
+\E\ip{He_i,He_j}
+&=\E \ip{He_i,H\big[F_{j,i+1} e_i+\alpha\textstyle\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\\
+&=\E\ip{He_i,H F_{j,i+1} e_i} & \text{(from \Cref{noisecancel})}\\
+&=\E\ip{He_i,(I-\alpha H)^{j-i}H e_i}\,, &\text{(from \Cref{unroll})}
 \end{align*}
-Now
+and therefore
+\begin{align*}
+\label{inter}
+\sum_{i=0}^{t-1}\sum_{j=i+1}^t \E\ip{ He_i,H e_j}
+&=\frac2{\alpha\rho_{\alpha}} \ous{\sum}{i=0}{t-1}\E\ip{He_i,H e_i}
+\leq \frac2{\alpha\rho_{\alpha}}\ous{\sum}{i=0}{t}\E\ip{He_i,H e_i}\,.
+\end{align*}
+Since $\sum_{i,j}\cdot{} = \sum_{i=j}\cdot{} + 2 \sum_i \sum_{j>i} \cdot{}$,
+\begin{align*}
+\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t} \E\ip{He_i,He_j}&= \left(1+\frac4{\alpha\rho_{\alpha}}\right)\ous{\sum}{i=0}{t}\E\ip{He_i,He_i}\,.
+\end{align*}
+Now, \todoc{So where did the next inequality come from?}
 \begin{align*}
 \E\ip{He_i,He_i}=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\ous{\sum}{j=1}{i}\E\ip{F_{i,j+1}\zeta_j,F_{i,j+1}\zeta_j}
-\leq (1-\alpha\rho_{\alpha})^i+ (\alpha\rho_{\alpha})^{-1}\sigma^2
+\leq (1-\alpha\rho_{\alpha})^i+ \frac{\sigma^2}{\alpha \rho_\alpha}\,,
 \end{align*}
+and so
 \begin{align*}
-\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{He_i,He_j}&\leq (1+4(\alpha\rho_{\alpha})^{-1}) (\alpha\rho_{\alpha})^{-1}(t\sigma^2+\norm{\theta_0-\ts}^2)
+\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t} \E\ip{He_i,He_j}
+&\leq \left(1+\frac4{\alpha\rho_{\alpha}}\right)\, \frac1{\alpha\rho_{\alpha}}\, (t\sigma^2+\norm{\theta_0-\ts}^2)\,.
 \end{align*}
+Putting things together,
 \begin{align}
-\E[\norm{H\eb_t}]\leq (1+4(\alpha\rho_{\alpha})^{-1}) (\alpha\rho_{\alpha})^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \Big)
+\E[\norm{H\eb_t}]
+\leq \left(1+\frac4{\alpha\rho_{\alpha}}\right)\, \frac1{\alpha\rho_{\alpha}}\, \,
+		\left(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \right)\,.
 \end{align}
 \end{proof}
 
