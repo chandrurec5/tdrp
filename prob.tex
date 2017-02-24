@@ -109,9 +109,10 @@ Here, $s_t$ are $i.i.d$ random variables distributed according to the law $s_t\s
 %%%%%%%%%%%%%%%%%%%%%
 The following theorem is the main result of the paper.
 To state the result we define the key quantity
-\begin{align*}
-\rho_\alpha\eqdef \sup_{\norm{x}\leq 1} \E[x^\top (2H-\alpha H_tH_t)x]\,.
-\end{align*}
+\begin{align}
+\label{eq:rhodef}
+\rho_\alpha\eqdef \inf_{\norm{x}=1} x^\top (H^\top+H-\alpha\EE{ H_1^\top H_1} )x\,.
+\end{align}
 \begin{theorem}\label{maintheorem}
 Assume that $\alpha>0$ is such that $\rho_\alpha>0$. Then, it follows that for \emph{any} $t\ge 1$,
 \begin{align}

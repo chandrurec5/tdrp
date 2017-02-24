@@ -35,9 +35,10 @@ e_t
 & \qquad \qquad\qquad \qquad\qquad \qquad\,\,\, + \alpha \zeta_t\,,
 \end{align*}
 which can be written compactly as
-\begin{align*}
+\begin{align}
+\label{eq:etft}
 e_t = F_{t,1} e_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} \zeta_t )\,.
-\end{align*}
+\end{align}
 Hence, $\eb_t \doteq \tb_t-\ts$ satisfies
 \begin{align*}
 \eb_t&=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i
@@ -74,9 +75,9 @@ Since $\sum_{i,j}\cdot{} = \sum_{i=j}\cdot{} + 2 \sum_i \sum_{j>i} \cdot{}$,
 \begin{align*}
 \ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t} \E\ip{He_i,He_j}&= \left(1+\frac4{\alpha\rho_{\alpha}}\right)\ous{\sum}{i=0}{t}\E\ip{He_i,He_i}\,.
 \end{align*}
-Now, from \Cref{innerproduct}\todoc{So where did the next inequality come from?}
+Now, from \cref{innerproduct}, \todoc{So where did the next inequality come from?}
 \begin{align*}
-\E\ip{He_i,He_i}=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\ous{\sum}{j=1}{i}\E\ip{\alpha F_{i,j+1}\zeta_j,\alpha F_{i,j+1}\zeta_j}
+\E\ip{He_i,He_i}=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\alpha^2\ous{\sum}{j=1}{i}\E\ip{ F_{i,j+1}\zeta_j, F_{i,j+1}\zeta_j}
 \leq (1-\alpha\rho_{\alpha})^i\norm{e_0}^2+ \alpha^2\frac{\sigma^2}{\alpha \rho_\alpha}\,,
 \end{align*}
 and so
@@ -160,14 +161,32 @@ Taking expectation of both sides gives the desired result.
 \end{proof}
 
 \begin{lemma}\label{innerproduct}
-Let $x_j\in \R^n$ be $\F_j$ measurable. Then for any $i>j$ $\E\ip{F_{i,j+1}x_j,F_{i,j+1}x_j}\leq (1-\alpha \rho_\alpha)^{i-j}\norm{x_i}^2$
+Let $i>j \ge 0$ and let $x\in \R^n$ be an $\F_j$-measurable random vector.
+Then, 
+\begin{align*}
+\E\ip{F_{i,j+1}x,F_{i,j+1}x}\leq (1-\alpha \rho_\alpha)^{i-j}\E\norm{x}^2\,.
+\end{align*}
 \end{lemma}
 \begin{proof}
+Note that
+$S_t\doteq \EE{ (I-\alpha H_t)^\top (I-\alpha H_t) | \F_{t-1} } 
+= I - \alpha (H^\top + H) + \alpha^2 \EE{ H_t^\top H_t | \F_{t-1} }$.
+Since $(g_t,H_t)_t$ is an independent sequence, $\EE{ H_t^\top H_t|\F_{t-1}} = \EE{ H_1^\top H_1 }$.
+Now, using the definition of $\rho_\alpha$ from \eqref{eq:rhodef},
+$\sup_{x:\norm{x}= 1} x^\top S_t x = 1 - \alpha \inf_{x:\norm{x}=1} x^\top (H^\top + H - \alpha \EE{H_1^\top H_1}) x 
+= 1-\alpha \rho_\alpha$.
+Hence,
 \begin{align*}
-\E\ip{F_{i,j+1}x_j,F_{i,j+1}x_j}&= \E\big[\E[x_j^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_i)^\top (I-\alpha H_i)\ldots (I-\alpha H_{j+1})x_j|\F_{i-1}]\big]\\
-&=(1-\alpha\rho_{\alpha}) \E[x_j^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_{i-1})^\top (I-\alpha H_{i-1})\ldots (I-\alpha H_{j+1})x_j]
+\EE{\ip{F_{i,j+1}x,F_{i,j+1}x}|\F_{i-1} }
+&= \EE{x^\top F_{i-1,j+1}^\top (I-\alpha H_i)^\top (I-\alpha H_i) F_{i-1,j+1} x\,|\,\F_{i-1}}\\
+&=(x F_{i-1,j+1})^\top \, S_i \, F_{i-1,j+1} x\\
+&\le (1-\alpha \rho_\alpha) \, \ip{ F_{i-1,j+1} x, F_{i-1,j+1} x} \\
+& \le (1-\alpha \rho_\alpha)^2\, \ip{ F_{i-2,j+1} x, F_{i-2,j+1} x} \\
+& \quad \vdots \\
+& \le (1-\alpha \rho_\alpha)^{i-j}\, \norm{x}^2\,.
+%&= \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_i)^\top (I-\alpha H_i)\ldots (I-\alpha H_{j+1})x|\F_{i-1}]\\
+%&=(1-\alpha\rho_{\alpha}) \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_{i-1})^\top (I-\alpha H_{i-1})\ldots (I-\alpha H_{j+1})x]
 \end{align*}
-The result can be obtained by similary taking conditional expectations with respect to $\F_{i-2},\ldots,\F_{j}$.
 \end{proof}
 
 \todoc[inline]{These were marked as stashed changes. Choose whichever you want.}
