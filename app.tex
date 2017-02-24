@@ -3,11 +3,22 @@
 \section{Appendix: Proof of the main result}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
+
 \begin{proof}
+The error dynamics for the LSA in \eqref{eq:lsa1} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as 
+$\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(e_{t-1}+\ts))$,
+or 
+\begin{align}\label{lsergen}
+e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t\,, \qquad \zeta_t\eqdef (N_t-M_t\ts)\,,\qquad  t=1,2,\dots
+\end{align}
+Hence, $\eb_t \doteq \tb_t-\ts$ satisfies
 \begin{align*}
-\eb_t&=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i\\
-&=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )
+\eb_t&=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i
+=\frac{1}{t+1}(\ous{\sum}{i=0}{t} F_{i,1} e_0+ \alpha\ous{\sum}{i=1}{t} \ous{\sum}{k=i}{t} F_{k,i+1}  \zeta_i )\,,
 \end{align*}
+where $F_{i,t}$ TODO
+
+Then,
 \begin{align*}
 \E[\norm{H\eb_t}^2]&=\E\ip{H\eb_t,H\eb_t}\\
 &=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}e_i,H\ous{\sum}{i=0}{t}e_i}
@@ -85,16 +96,6 @@ For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top
 
 
 
-\textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{eq:lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
-\begin{align}\label{errprelim}
-&\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(\theta_t-\ts+\ts)),\text{~or}\nn\\
-&e_t=(I-\alpha H_t)e_{t-1}+(N_t-M_t\ts).
-\end{align}
-In what follows we consider what we call linear stochastic error recursion (LSER) given by
-\begin{align}\label{lsergen}
-e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
-\end{align}
-where $\zeta_t\eqdef (N_t-M_t\ts)$.
 
 
 
