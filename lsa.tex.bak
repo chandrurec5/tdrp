@@ -63,7 +63,10 @@
 
 \vskip 0.3in
 ]
-\input{abstract}
+\begin{abstract}
+Linear stochastic approximation (LSA) algorithms arise quite naturally in various applications such linear least squares problem, solution to large scale linear systems and temporal difference learning algorithms. LSA schemes are often employed to solve for a desired parameter from noisy observations. In this paper, we are interested in constant step size LSA algorithms with iterate averaging and are interested in studying the mean-squared error (MSE) of the averaged iterates with respect to the desired solution. Our study is motivated by the recent results that show that LSA algorithms arising in the linear least squares problem  exhibit an ``amazing'' property where the choice of the step size as well as the rate of convergence of the MSE is instance independent. In this paper, we ask the question whether this ``amazing" property continues to hold for general LSA schemes.\par
+    
+\end{abstract}
 \input{intro}
 \input{notation}
 \input{prob}
@@ -71,12 +74,11 @@
 \input{related}
 \input{proof}
 \input{conc}
-\input{agenda}
 \bibliography{ref}
 \bibliographystyle{icml2016}
 
-%\appendix
-%\input{app}
+\appendix
+\input{app}
 %\input{add}
 %\input{lin}
 %\input{mdp}

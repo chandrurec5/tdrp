@@ -5,57 +5,181 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
 \begin{proof}
-$\E[\norm{H\eb_t}^2]=\E\ip{H\eb_t,H\eb_t}=\frac{1}{(t+1)^2}\E\ip{H\ous{\sum}{i=0}{t}(\theta_i-\ts),H\ous{\sum}{i=0}{t}(\theta_i-\ts)}$.
-$\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}+ 2\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}$. Now
-\begin{align}\label{inter}
-&\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}\nn\\
-&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H\big[F_{j,i+1} (\theta_i-\theta^*)+\alpha\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\nn\\
-&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H F_{j,i+1} (\theta_i-\theta^*)}\nn\\
-&=\E\ous{\sum}{i=0}{t-1}\ous{\sum}{j=i+1}{t}\ip{H(\theta_i-\theta^*),H(I-\alpha H)^{j-i} (\theta_i-\theta^*)}\nn\\
-&=2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t-1}\ip{H(\theta_i-\theta^*),H (\theta_i-\theta^*)}\nn\\
-&\leq2(\alpha\rho_{\alpha})^{-1}\E\ous{\sum}{i=0}{t}\ip{H(\theta_i-\theta^*),H (\theta_i-\theta^*)}\nn\\
-\end{align}
- $\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}=\E\ous{\sum}{i=0}{t}(1+4(\alpha\rho_{\alpha})^{-1})\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}
-$
-
-Now
-\begin{align*}
-\E\ip{H(\theta_i-\theta^*),H(\theta_i-\theta^*)}=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\ous{\sum}{j=1}{i}\E\ip{F_{i,j+1}\zeta_j,F_{i,j+1}\zeta_j}
-\leq (1-\alpha\rho_{\alpha})^i+ (\alpha\rho_{\alpha})^{-1}\sigma^2
-\end{align*}
-$\E\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t}\ip{H(\theta_i-\theta^*),H(\theta_j-\theta^*)}\leq (1+4(\alpha\rho_{\alpha})^{-1}) (\alpha\rho_{\alpha})^{-1}(t\sigma^2+\norm{\theta_0-\ts}^2)$
-\begin{align}
-\E[\norm{H\eb_t}]\leq (1+4(\alpha\rho_{\alpha})^{-1}) (\alpha\rho_{\alpha})^{-1} \Big(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \Big)
-\end{align}
-\end{proof}
-
-\todoc[inline]{These were marked as stashed changes. Choose whichever you want.}
-\begin{proof}
-W.l.o.g  $i>j$
-\begin{align}
-&\E[\ip{F_{t,i+1} \zeta_{i},F_{t,j+1} \zeta_{j}}]\nn\\
-\label{diffindexinter}=&\E\big[\E[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots(I-\alpha H_t)^\top(I-\alpha H_t)\ldots(I-\alpha H_{j+1}) \zeta_{j}|\F_{t-1}]\big]\\
-=&\E\big[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots\E[(I-\alpha H_t)^\top(I-\alpha H_t)|\F_{t-1}]\ldots(I-\alpha H_{j+1}) \zeta_{j}\big]\\
-=&\E\big[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots C\ldots(I-\alpha H_{j+1}) \zeta_{j}\big]\\
-\label{diffindex}=&\E[ \sum_{l} G_l],
-\end{align}
-where $l$ is any index and $G_l$s in \eqref{diffindex} are terms obtained by expanding the product in \eqref{diffindexinter} using the fact that $H_t=H+M_{t},~\forall t\geq 0$. Note that $G_l$ is a product involving powers of $\alpha H$, matrices such as $M^\top_{q+1}$ and $M_{p+1}$ for some $ i\leq p<t, j\leq q < t$ and vectors $\zeta^\top_i$ and $\zeta^\top_j$.
-For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top_{r(l)+1}$ or $M_{r(l)+1}$ or $\zeta^\top_{r(l)+1}$ is present in that term.
-\begin{align*}
-\E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
-\end{align*}
-\end{proof}
-
-
-
-\textbf{Linear Stochastic Error Recursion (LSER)} The error dynamics for the LSA in \eqref{eq:lsa} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as follows:
-\begin{align}\label{errprelim}
-&\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(\theta_t-\ts+\ts)),\text{~or}\nn\\
-&e_t=(I-\alpha H_t)e_{t-1}+(N_t-M_t\ts).
-\end{align}
-In what follows we consider what we call linear stochastic error recursion (LSER) given by
+The error dynamics for the LSA in \eqref{eq:lsa1} i.e., the dynamics of $e_t\eqdef\theta_t-\ts$ can be written as
+$\theta_t-\ts=\theta_{t-1}-\ts+\alpha(g_t -H_t(e_{t-1}+\ts))$.
+From $H\ts=g$ it follows that $H_t\theta^* = g_t + M_t\ts - N_t$. Defining
+\[
+\zeta_t = N_t - M_t \ts, \qquad t\ge 1
+\]
+and combining with the previous equality, we get
 \begin{align}\label{lsergen}
-e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t,
+e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t\,.
 \end{align}
-where $\zeta_t\eqdef (N_t-M_t\ts)$.
+Note that
+$
+\EE{ \norm{\zeta_t}^2 }
+= \EE{ \norm{N_t}^2 } + (\ts)^\top \EE{ M_t^\top M_t }\ts \le \sigma_N^2 + (\ts)^\top \Sigma_M \ts
+= \sigma^2
+$.
+Iterating \eqref{lsergen}  gives
+\begin{align*}
+e_t
+& = (I-\alpha H_t) (I-\alpha H_{t-1}) e_{t-2}\\ &+ \alpha (I-\alpha H_t) \zeta_{t-1} +\alpha \zeta_t \\
+& \quad \vdots\\
+& = (I-\alpha H_t) \cdots (I-\alpha H_1) e_0\\ &+ \alpha (I-\alpha H_t) \cdots (I-\alpha H_2) \zeta_1 \\
+& + \alpha (I-\alpha H_t) \cdots (I-\alpha H_3) \zeta_2\\
+&  \quad \vdots \\
+&+ \alpha \zeta_t\,,
+\end{align*}
+which can be written compactly as
+\begin{align}
+\label{eq:etft}
+e_t = F_{t,1} e_0 + \alpha (F_{t,2} \zeta_1 + \dots + F_{t,t+1} \zeta_t )\,,
+\end{align}
+where $F_{t,i} = (I-\alpha H_t) (I-\alpha H_{t-1}) \dots (I-\alpha H_i)$ when $t\ge i$ and we also let $F_{t,t+1}=I$, the identity matrix.
+Hence, $\eb_t \doteq \tb_t-\ts$ satisfies
+\begin{align*}
+\eb_t=\frac{1}{t+1}\ous{\sum}{i=0}{t}e_i
+=\frac{1}{t+1}&\Big\{\ous{\sum}{i=0}{t} F_{i,1} e_0 \\
+&+ \alpha \sum_{i=1}^{t} \left(\sum_{k=i}^{t} F_{k,i+1} \right)\zeta_i \Big\} ,
+\end{align*}
+where in the second sum we flipped the order of sums and swapped the names of the variables that the sum runs over.
 
+It follows that \todoc{We should rather use $C$ instead of $H$ here?}
+\begin{align*}
+\E[\norm{\eb_t}^2]&=\E\ip{\eb_t,\eb_t}
+=\frac{1}{(t+1)^2} \sum_{i,j=0}^t \E\ip{e_i,e_j}\,.
+\end{align*}
+Hence, we see that it suffices to bound $\EE{\ip{ e_i,  e_j }}$.
+There are two cases depending on whether $i=j$. When $i< j$,
+\begin{align*}
+\E\ip{e_i,e_j}
+&=\E \ip{e_i,\big[F_{j,i+1} e_i+\alpha\textstyle\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\\
+&=\E\ip{e_i,F_{j,i+1} e_i}  \text{(from \cref{noisecancel})}\\
+&=\E\ip{e_i, (I-\alpha H)^{j-i} e_i} \text{(from \cref{lem:unroll})}\\
+&=\E\ip{e_i,(I-\alpha H)^{j-i}e_i},
+\end{align*}
+and therefore
+\begin{align*}
+\label{inter}
+\sum_{i=0}^{t-1}\sum_{j=i+1}^t \E\ip{ e_i,e_j}
+&=\frac2{\alpha\rho_{\alpha}} \ous{\sum}{i=0}{t-1}\E\ip{e_i,e_i}\\
+&\leq \frac2{\alpha\rho_{\alpha}}\ous{\sum}{i=0}{t}\E\ip{e_i, e_i}\,.
+\end{align*}
+Since $\sum_{i,j}\cdot{} = \sum_{i=j}\cdot{} + 2 \sum_i \sum_{j>i} \cdot{}$,
+\begin{align*}
+\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t} \E\ip{e_i,e_j}&= \left(1+\frac4{\alpha\rho_{\alpha}}\right)\ous{\sum}{i=0}{t}\E\ip{e_i,e_i}\,.
+\end{align*}
+Expanding $e_i$ using \eqref{eq:etft} and then using \cref{innerproduct} and that by assumption $\EE{ \norm{\zeta_j}^2 } \le \sigma^2$ gives
+\begin{align*}
+\E\ip{e_i,e_i}&=\E\ip{F_{i,1}e_0,F_{i,1}e_0}+\alpha^2\ous{\sum}{j=1}{i}\E\ip{ F_{i,j+1}\zeta_j, F_{i,j+1}\zeta_j}\\
+&\leq (1-\alpha\rho_{\alpha})^i\norm{e_0}^2+ \alpha^2\frac{\sigma^2}{\alpha \rho_\alpha}\,,
+\end{align*}
+and so
+\begin{align*}
+\ous{\sum}{i=0}{t}\ous{\sum}{j=0}{t} \E\ip{e_i,e_j}
+&\leq \left(1+\frac4{\alpha\rho_{\alpha}}\right)\, \frac1{\alpha\rho_{\alpha}}\, (t\sigma^2+\norm{\theta_0-\ts}^2)\,.
+\end{align*}
+Putting things together,
+\begin{align}
+\E[\norm{\eb_t}^2]
+\leq \left(1+\frac4{\alpha\rho_{\alpha}}\right)\, \frac1{\alpha\rho_{\alpha}}\, \,
+\left(\frac{\norm{\theta_0-\ts}^2}{(t+1)^2}+ \frac{\alpha^2\sigma^2}{t+1} \right)\,.
+\end{align}
+\end{proof}
+
+Let $\F_t = \sigma( H_1,\dots,H_t, \zeta_1,\dots,\zeta_t ) $, with $\F_0$ the $\sigma$-field that holds all random variables.
+\newcommand{\cF}{\F}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}[Product unroll lemma]\label{lem:genunroll}
+Let $t>i\ge 1$, $x,y\in \R^n$ be $\F_{i}$-measurable random vectors. Then,
+\begin{align*}
+\E[x^\top F_{t,i+1}y|\F_i]=x^\top (I-\alpha H)^{t-i} y\,.
+\end{align*}
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+By the definition of $F_{t,i+1}$,
+and because $F_{t-1,i+1} = (I-\alpha H_{t-1}) \dots (I-\alpha H_{i+1})$ is $\cF_{t-1}$-measurable,
+as are $x$ and $y$,
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-1} } &= x^\top \EE{ (I-\alpha H_t) | \cF_{t-1} } F_{t-1,i+1} y\\
+&=x^\top  (I-\alpha H)  F_{t-1,i+1} y\,.
+\end{align*}
+By the tower-rule for conditional expectations and our measurability assumptions,
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-2} }
+&=x^\top  (I-\alpha H)  \EE{F_{t-1,i+1} |\cF_{t-2}} y\\
+&= x^\top (I-\alpha H)^2 F_{t-2,i+1} y\,.
+\end{align*}
+Continuing this way we get
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-j} }
+= x^\top (I-\alpha H)^j F_{t-j,i+1} y\,, \quad j=1,2,\dots,t-i\,.
+\end{align*}
+Specifically, for $j=t-i$ we get
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{i} }  = x^\top (I-\alpha H)^{t-i} y\,.
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}\label{noisecancel}
+Let $t>i\ge 1$ and let $x$ be an $\F_{i-1}$-measurable random vector. Then,
+$\E[x^\top F_{t,i+1}\zeta_{i}]=0$.
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+By \cref{lem:genunroll},
+\begin{align*}
+\EE{x^\top F_{t,i+1} \zeta_i | \cF_{i} }  = x^\top (I-\alpha H)^{t-i} \zeta_i\,.
+\end{align*}
+Using the tower rule,
+\begin{align*}
+\EE{x^\top F_{t,i+1} \zeta_i | \cF_{i-1} }
+= x^\top (I-\alpha H)^{t-i}\EE{ \zeta_i | \cF_{i-1} }= 0\,.
+\end{align*}
+\end{proof}
+
+\begin{lemma}\label{lem:unroll}
+For all $t>i\ge 0$, $\E \ip{He_i,H F_{t,i+1} e_i}=\E\ip{He_i,H(I-\alpha H)^{t-i} e_i}$.
+\end{lemma}
+\begin{proof}
+The lemma follows directly from \cref{lem:genunroll}. Indeed,
+$\theta_i$ depends only on $H_1,\dots,H_{i},g_1,\dots,g_{i}$, $\theta_i$ and so is $e_i$ $\cF_i$-measurable.
+Hence, the lemma is applicable and implies that
+\begin{align*}
+\EE{ \ip{He_i, HF_{t,i+1} e_i} | \cF_i } =
+\EE{ \ip{He_i, H (I-\alpha H)^{t-i} e_i} | \cF_i }\,.
+\end{align*}
+Taking expectation of both sides gives the desired result.
+\end{proof}
+
+\begin{lemma}\label{innerproduct}
+Let $i>j \ge 0$ and let $x\in \R^n$ be an $\F_j$-measurable random vector.
+Then,
+\begin{align*}
+\E\ip{F_{i,j+1}x,F_{i,j+1}x}\leq (1-\alpha \rho_\alpha)^{i-j}\E\norm{x}^2\,.
+\end{align*}
+\end{lemma}
+\begin{proof}
+Note that
+$S_t\doteq \EE{ (I-\alpha H_t)^\top (I-\alpha H_t) | \F_{t-1} }
+= I - \alpha (H^\top + H) + \alpha^2 \EE{ H_t^\top H_t | \F_{t-1} }$.
+Since $(g_t,H_t)_t$ is an independent sequence, $\EE{ H_t^\top H_t|\F_{t-1}} = \EE{ H_1^\top H_1 }$.
+Now, using the definition of $\rho_\alpha$ from \eqref{eq:rhodef},
+$\sup_{x:\norm{x}= 1} x^\top S_t x = 1 - \alpha \inf_{x:\norm{x}=1} x^\top (H^\top + H - \alpha \EE{H_1^\top H_1}) x
+= 1-\alpha \rho_\alpha$.
+Hence,
+\begin{align*}
+&\EE{\ip{F_{i,j+1}x,F_{i,j+1}x}|\F_{i-1} }\\
+&= \EE{x^\top F_{i-1,j+1}^\top (I-\alpha H_i)^\top (I-\alpha H_i) F_{i-1,j+1} x\,|\,\F_{i-1}}\\
+&=(x F_{i-1,j+1})^\top \, S_i \, F_{i-1,j+1} x\\
+&\le (1-\alpha \rho_\alpha) \, \ip{ F_{i-1,j+1} x, F_{i-1,j+1} x} \\
+& \le (1-\alpha \rho_\alpha)^2\, \ip{ F_{i-2,j+1} x, F_{i-2,j+1} x} \\
+& \quad \vdots \\
+& \le (1-\alpha \rho_\alpha)^{i-j}\, \norm{x}^2\,.
+%&= \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_i)^\top (I-\alpha H_i)\ldots (I-\alpha H_{j+1})x|\F_{i-1}]\\
+%&=(1-\alpha\rho_{\alpha}) \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_{i-1})^\top (I-\alpha H_{i-1})\ldots (I-\alpha H_{j+1})x]
+\end{align*}
+\end{proof}
