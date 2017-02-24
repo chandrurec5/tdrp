@@ -5,9 +5,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In this section we provide the proof of \cref{maintheorem}.
 
-The proof technique for \Cref{maintheorem} has been adopted from Appendix $B$ of \cite{bachharder} . However, there are some critical differences which are listed below.
+The proof technique for \cref{maintheorem} has been adopted from Appendix $B$ of \cite{bachharder} . However, there are some critical differences which are listed below.
 \begin{itemize}
-\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables the authors in \cite{bachharder} to define operators from the space of symmetric matrices to the space of symmetric matrices and carry out the computations making use of such operators. In \Cref{genlsa} the matrix is known only to be (laxly) positive definite, i.e., the lack of symmetry. 
+\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables the authors in \cite{bachharder} to define operators from the space of symmetric matrices to the space of symmetric matrices and carry out the computations making use of such operators. In \cref{genlsa} the matrix is known only to be (laxly) positive definite, i.e., the lack of symmetry. 
 Thus we cannot define appropriate linear operators, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
 \item Another significant difference is the assumption of structured noise in \cite{bachharder}, which does not apply in our case, simply due to the fact that we don't have any symmetric matrices at all in our scheme of things.
 \end{itemize}
@@ -64,8 +64,8 @@ There are two cases depending on whether $i=j$. When $i< j$,
 \begin{align*}
 \E\ip{He_i,He_j}
 &=\E \ip{He_i,H\big[F_{j,i+1} e_i+\alpha\textstyle\sum_{k=i+1}^j F_{j,k+1}\zeta_{k}\big]}\\
-&=\E\ip{He_i,H F_{j,i+1} e_i} & \text{(from \Cref{noisecancel})}\\
-&=\E\ip{He_i,H (I-\alpha H)^{j-i} e_i} & \text{(from \Cref{noisecancel})}\\
+&=\E\ip{He_i,H F_{j,i+1} e_i} & \text{(from \cref{noisecancel})}\\
+&=\E\ip{He_i,H (I-\alpha H)^{j-i} e_i} & \text{(from \cref{lem:unroll})}\\
 &=\E\ip{He_i,(I-\alpha H)^{j-i}H e_i}\,, &\text{(because $(I-\alpha H)$ and $H$ commute)}
 \end{align*}
 and therefore
@@ -150,8 +150,8 @@ Using the tower rule,
 \end{align*}
 \end{proof}
 
-\begin{lemma}\label{unroll}
-For all $t>i\ge 0$, $\E \ip{He_i,H F_{t,i+1} e_i}=\E\ip{He_i,(I-\alpha H)^{t-i}H e_i}$.
+\begin{lemma}\label{lem:unroll}
+For all $t>i\ge 0$, $\E \ip{He_i,H F_{t,i+1} e_i}=\E\ip{He_i,H(I-\alpha H)^{t-i} e_i}$.
 \end{lemma}
 \begin{proof}
 The lemma follows directly from \cref{lem:genunroll}. Indeed, 
@@ -190,23 +190,6 @@ Hence,
 & \le (1-\alpha \rho_\alpha)^{i-j}\, \norm{x}^2\,.
 %&= \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_i)^\top (I-\alpha H_i)\ldots (I-\alpha H_{j+1})x|\F_{i-1}]\\
 %&=(1-\alpha\rho_{\alpha}) \E[x^\top (I-\alpha H_{j+1})\ldots (I-\alpha H_{i-1})^\top (I-\alpha H_{i-1})\ldots (I-\alpha H_{j+1})x]
-\end{align*}
-\end{proof}
-
-\todoc[inline]{These were marked as stashed changes. Choose whichever you want.}
-\begin{proof}
-W.l.o.g  $i>j$
-\begin{align}
-&\E[\ip{F_{t,i+1} \zeta_{i},F_{t,j+1} \zeta_{j}}]\nn\\
-\label{diffindexinter}=&\E\big[\E[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots(I-\alpha H_t)^\top(I-\alpha H_t)\ldots(I-\alpha H_{j+1}) \zeta_{j}|\F_{t-1}]\big]\\
-=&\E\big[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots\E[(I-\alpha H_t)^\top(I-\alpha H_t)|\F_{t-1}]\ldots(I-\alpha H_{j+1}) \zeta_{j}\big]\\
-=&\E\big[ \zeta^\top_{i}(I-\alpha H_{i+1})^\top\ldots C\ldots(I-\alpha H_{j+1}) \zeta_{j}\big]\\
-\label{diffindex}=&\E[ \sum_{l} G_l],
-\end{align}
-where $l$ is any index and $G_l$s in \eqref{diffindex} are terms obtained by expanding the product in \eqref{diffindexinter} using the fact that $H_t=H+M_{t},~\forall t\geq 0$. Note that $G_l$ is a product involving powers of $\alpha H$, matrices such as $M^\top_{q+1}$ and $M_{p+1}$ for some $ i\leq p<t, j\leq q < t$ and vectors $\zeta^\top_i$ and $\zeta^\top_j$.
-For any given $G_l$ and let $r(l)$ be the largest index such that either $M^\top_{r(l)+1}$ or $M_{r(l)+1}$ or $\zeta^\top_{r(l)+1}$ is present in that term.
-\begin{align*}
-\E[ \sum_{l} G_l]=  \sum_{l} \E\big[\E[G_l|\F_{r(l)}]\big]=0
 \end{align*}
 \end{proof}
 
