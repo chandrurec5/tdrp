@@ -92,30 +92,71 @@ Putting things together,
 \end{align}
 \end{proof}
 
-\begin{lemma}\label{noisecancel}
-For any $x_{i-1}\in \R^n$ that is $\F_{i-1}$ measurable and $\forall ~t > i$ if follows that $\E[x_i^\top F_{t,i+1}\zeta_{i}]=0$
-\end{lemma}
-\small
-\begin{proof}
+Let $\F_t = \sigma( H_1,\dots,H_t, \zeta_1,\dots,\zeta_t ) $, with $\F_0$ the $\sigma$-field that holds all random variables.
+\newcommand{\cF}{\F}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}[Product unroll lemma]\label{lem:genunroll}
+Let $t>i\ge 1$, $x,y\in \R^n$ be $\F_{i}$-measurable random vectors. Then, 
 \begin{align*}
-&\E[x_t^\top F_{i,t+1}\zeta_{i}]\\
-%=\E\big[\E[ x_{i-1}^\top F_{i,t+1}\zeta_{i}|\F_t]\big]\\
-=&\E\Bigg[\E\bigg[\E\Big[\E\big[ x_{i-1}^\top F_{t,i+1}\zeta_{i}|\F_{t}\big]|\F_{t-1}\Big]\ldots|\F_{i-1}\bigg]\Bigg]\\
-=&\E\Bigg[ x_{i-1}^\top \E\bigg[\E\Big[\E\big[(I-\alpha H_t)|\F_{t}\big]|\ldots \F_{i}\Big]\zeta_{i}|\F_{i-1}\bigg]\Bigg]\\
-=&\E\Bigg[ x_{i-1}^\top \E[(I-\alpha H)^{t-i+1}\zeta_{i}|\F_{i-1}]\Bigg]\\
-=&\E\Bigg[ x_{i-1}^\top (I-\alpha H)^{t-i}\E\bigg[\zeta_{i}|\F_{i-1}\bigg]\Bigg]\\
-=&0
+\E[x^\top F_{t,i+1}y|\F_i]=x^\top (I-\alpha H)^{t-i} y\,.
+\end{align*}
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+By the definition of $F_{t,i+1}$, 
+and because $F_{t-1,i+1} = (I-\alpha H_{t-1}) \dots (I-\alpha H_{i+1})$ is $\cF_{t-1}$-measurable,
+as are $x$ and $y$,
+\begin{align*}
+ \EE{x^\top F_{t,i+1} y | \cF_{t-1} } = x^\top \EE{ (I-\alpha H_t) | \cF_{t-1} } F_{t-1,i+1} y
+=x^\top  (I-\alpha H)  F_{t-1,i+1} y\,.
+\end{align*}
+By the tower-rule for conditional expectations and our measurability assumptions,
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-2} } 
+=x^\top  (I-\alpha H)  \EE{F_{t-1,i+1} |\cF_{t-2}} y
+= x^\top (I-\alpha H)^2 F_{t-2,i+1} y\,.
+\end{align*}
+Continuing this way we get
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{t-j} } 
+= x^\top (I-\alpha H)^j F_{t-j,i+1} y\,, \quad j=1,2,\dots,t-i\,.
+\end{align*}
+Specifically, for $j=t-i$ we get
+\begin{align*}
+\EE{x^\top F_{t,i+1} y | \cF_{i} }  = x^\top (I-\alpha H)^{t-i} y\,.
 \end{align*}
 \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}\label{noisecancel}
+Let $t>i\ge 1$ and let $x$ be an $\F_{i-1}$-measurable random vector. Then,
+$\E[x^\top F_{t,i+1}\zeta_{i}]=0$.
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proof}
+By \cref{lem:genunroll},
+\begin{align*}
+\EE{x^\top F_{t,i+1} \zeta_i | \cF_{i} }  = x^\top (I-\alpha H)^{t-i} \zeta_i\,.
+\end{align*}
+Using the tower rule,
+\begin{align*}
+\EE{x^\top F_{t,i+1} \zeta_i | \cF_{i-1} } 
+ = x^\top (I-\alpha H)^{t-i}\EE{ \zeta_i | \cF_{i-1} }= 0\,.
+\end{align*}
+\end{proof}
+
 \begin{lemma}\label{unroll}
-For all $j>i$, $\E \ip{He_i,H F_{j,i+1} e_i}=\E\ip{He_i,(I-\alpha H)^{j-i}H e_i}$
+For all $t>i\ge 0$, $\E \ip{He_i,H F_{t,i+1} e_i}=\E\ip{He_i,(I-\alpha H)^{t-i}H e_i}$.
 \end{lemma}
 \begin{proof}
-\begin{align}
-\E \ip{He_i,H F_{j,i+1} e_i}&=\E\big[ \E[\ip{He_i,H (I-\alpha H_j)\ldots (I-\alpha H_{i+1} ) e_i}|\F_{j-1}]\big]\\
-&=\E[\ip{He_i,H (I-\alpha H)F_{j-1,i+1} e_i}]
-\end{align}
-The proof follows by subsequently taking conditions expectations with respect to $\F_{j-2},\ldots \F_{i}$.
+The lemma follows directly from \cref{lem:genunroll}. Indeed, 
+$\theta_i$ depends only on $H_1,\dots,H_{i},g_1,\dots,g_{i}$, $\theta_i$ and so is $e_i$ $\cF_i$-measurable.
+Hence, the lemma is applicable and implies that
+\begin{align*}
+\EE{ \ip{He_i, HF_{t,i+1} e_i} | \cF_i } = 
+\EE{ \ip{He_i, H (I-\alpha H)^{t-i} e_i} | \cF_i }\,.
+\end{align*}
+Taking expectation of both sides gives the desired result.
 \end{proof}
 
 \todoc[inline]{These were marked as stashed changes. Choose whichever you want.}
