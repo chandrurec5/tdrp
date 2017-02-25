@@ -1,21 +1,23 @@
 %!TEX root =  lsa.tex
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-What is the problem setup:
-We consider the setting of constant step size linear stochastic approximation (LSA) algorithms with multiplicative $i.i.d$ noise and iterate averaging. The setting arises in applications in science and engineering, where the aim is to handle large volumes of data in large dimensions with preferably $O(n)$ (where $n$ is the dimension of the data) computations per time step. The motivation for our work is to extend the recent results \cite{bachharder} in a sub-class of our setting that arise in the solving linear least squares prediction with squared loss and $i.i.d$ sampling. The authors in \cite{bachharder} obtained remarkable resutls in that there exists a constant step-size such that the expected squared prediction error after $t$ updates is at most $\frac{C}{t}$ with a universal constant $C>0$ uniformly over all problem instances such that the magnitude of feature vectors is bounded by a known constant. The result is remarkable due to the fact that there is no dependence on the conditioning of the underlying system, for the choice of the step-size as well as the constant $C$.\par
-In this paper, we would like to ask whether these ``remarkable" properties hold in our setting of general class of LSAs (other than the linear least squares prediction setting). One potential application domain is linear value function approximation in reinforcemnet learning using temporal difference learning (TD) either from experience replay in a batch setting or solving linear sytems using TD-style algorithms.
-\comment{
-Question asked: To what extent can this remarkable result generalized beyond linear prediction 
-with squared loss?
-One potential application domain is
-linear value function approximation in reinforcement learning using temporal difference (TD) learning.
-Either experience replay in a batch setting, or solving linear systems using TD-style algorithms.
-Our motivation to study constant stepsize LSA with RP-averaging stems from the fact that LSAs are common in applications such as temporal difference learning algorithms \cite{} in reinforcement learning (RL)\cite{}, solution to large scale linear systems \cite, and the linear least squares problem in \cite{}. In particular, constant stepsize and RP averaging has been shown to have `` amazing" properties in the case of linear least squares problem and we would like to investigate further as to whether these properties generalize to LSA.
-}
-The proof technique for \cref{maintheorem} has been adopted from Appendix $B$ of \cite{bachharder} . However, there are some critical differences which are listed below.
+We consider the setting of constant stepsize linear stochastic approximation (LSA) algorithms with multiplicative $i.i.d$ noise and iterate averaging for finding the solution of linear systems based on noisy data. \todoc{Add blah blah about stochastic approximation: Citations, why care, ..}
+The setting arises in applications in science and engineering, where the aim is to handle large volumes of high-dimensional data linear-in-the-dimension computation per time step. Two example applications which will use
+as running examples are linear prediction with quadratic loss and using linear value functions to predict total reward 
+of some fixed policy in reinforcement learning. \todoc{Add refs}
+Recently, \citet{bachharder} achieved remarkable results in analyzing the expected loss of 
+that arise in the solving linear least-squares prediction with squared loss and $i.i.d$ sampling.
+According to this result, there exists a constant step-size such that for any problem where the noisy data is bounded by a known constant, the expected squared prediction error after $t$ updates is at most $\frac{C}{t}$ with a constant $C>0$ that depends \emph{only} on the bound on the data. \todoc{Dimension?} 
+In particular, as opposed to many earlier results available in the literature \todoc{Add citations}, $C$ does \emph{not} depend on the conditioning of the underlying system, while the total runtime of the algorithm scales linearly with both $t$ and $n$. 
+\todoc{Comment on: Was this known before for $O(n^2)$ or higher complexity algorithms?}
+
+In this paper, we ask whether these ``remarkable" properties hold in our setting of general class of LSAs (other than the linear least-squares prediction setting). We are especially interested in linear value function approximation in reinforcement learning using temporal difference learning (TD) either from experience replay in a batch setting or solving linear systems using TD-style algorithms. \todoc{TD-style, or just TD?} \todoc{Later we need to comment on TD with eligibility traces and other variations of TD, e.g., new variants.}
+
+Our proof technique for \cref{maintheorem} has been adopted from Appendix $B$ of \citet{bachharder}. \todoc{I believe it goes way back to the first proofs for stochastic approximation.} 
+However, there are some critical differences which are listed below. \todoc{What is the difference to their earlier paper? We should also compare ourselves to that.}
 \begin{itemize}
-\item Linear least squares problem is considered in \cite{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables the authors in \cite{bachharder} to define operators from the space of symmetric matrices to the space of symmetric matrices and carry out the computations making use of such operators. In \cref{genlsa} the matrix is known only to be (laxly) positive definite, i.e., the lack of symmetry.
-Thus we cannot define appropriate linear operators, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
-\item Another significant difference is the assumption of structured noise in \cite{bachharder}, which does not apply in our case, simply due to the fact that we don't have any symmetric matrices at all in our scheme of things.
+\item In the linear least-squares problem is considered by \citet{bachharder} and the random matrices involved are known to be symmetric positive definite. This enables \citet{bachharder} to define operators that act between spaces of \emph{symmetric} matrices and carry out the computations making use of such operators. In our case, the matrices are known only to be (laxly) positive definite, i.e., they lack symmetry. \todoc{We should point out after our analysis in which step the symmetry helps \citet{bachharder}. We should also make this somehow clear here if possible.}
+Thus, the above approach does not work, and instead we have resort to an analysis that makes use of only the expected norms of the random matrices involved.
+\item Another significant difference is that in linear least-squares, the ``noise'' has a favorable ``structure''. Again, due to the lack of symmetry, this favorable structure does not apply. \todoc{Again, after the analysis, we should point out how the structured noise would have helped. I am wondering whether a more graceful degradation should happen? Is this really all or nothing?}
 \end{itemize}
 

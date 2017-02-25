@@ -1,5 +1,5 @@
 \section{Asymptotic analysis: The ODE method}
-We now review some of the results in stochastic approximation theory \cite{SA}. Consider the following LSA with diminishing step sizes given by
+We now review some of the results in stochastic approximation theory \cite{SA}. Consider the following LSA with diminishing stepsizes given by
 \begin{align}\label{lsadim}
 \theta_t=\theta_{t-1}+\alpha_t(b_t-H_t\theta_{t-1}),
 \end{align}
@@ -7,7 +7,7 @@ where $\alpha_t$ satifies \Cref{dimassmp}
 \begin{assumption}\label{dimassmp}
 $\us{\lim}{t\ra\infty }\alpha_t=0, \us{\sum}{t\geq 0}\alpha_t=\infty, \us{\sum}{t\geq 0}\alpha_t^2<\infty$
 \end{assumption}
-The results in this section hold for the AS case and diminishing step sizes (see \Cref{} ), and are based on the ordinary differential equation (ODE) method \cite{SA,Kush}. The ODE method concerns itself with asymptotic behaviour of \eqref{lsadim}.
+The results in this section hold for the AS case and diminishing stepsizes (see \Cref{} ), and are based on the ordinary differential equation (ODE) method \cite{SA,Kush}. The ODE method concerns itself with asymptotic behaviour of \eqref{lsadim}.
 The idea here is to associate the following ODE in \eqref{ode} with \eqref{lsadim}:
 \begin{align}\label{ode}
 \dot{\theta(t)}=g-H\theta(t),
@@ -17,7 +17,7 @@ The ODE method centres around the following transformation/interpretation of the
 \begin{align}\label{stepacc}
 t_c(t_d)=\ous{\sum}{s=0}{t_d}\alpha_s,
 \end{align}
-i.e., the continuous time $t_c$ corresponding to the discrete time $t_d$ is merely the step sizes accumulated during the discrete time period from $0$ to $t_d$. The iterates of \eqref{lsadim} can then be used to define a continuous time trajectory $\hat{\theta(t)}$ as follows:
+i.e., the continuous time $t_c$ corresponding to the discrete time $t_d$ is merely the stepsizes accumulated during the discrete time period from $0$ to $t_d$. The iterates of \eqref{lsadim} can then be used to define a continuous time trajectory $\hat{\theta(t)}$ as follows:
 \begin{align}\label{inter}
 \hat{\theta(t)}=\theta_{t_d}+(\theta_{t_d+1}-\theta_{t_d})\frac{t-t_c(t_d) }{t_c(t_d+1)-t_c(t_d)}, ~\forall~t\in[t_c(t_d),t_c(t_d+1)].
 \end{align}
@@ -39,5 +39,5 @@ We denote the spectrum of $H$ by $\{\mu_i,i=1,\ldots,n\}$. It is known from stan
 \begin{align}\label{oderate}
 \theta(t)-\ts=\sum_{i=1}^n C_i e^{-\mu_i t},
 \end{align}
-where $C=(C_i,i=1,\ldots,n)\in \R^n$ are real coefficients. The time $t\geq 0$ in \eqref{oderate} is the continous time defined in \eqref{stepacc}. It is easy to see from \eqref{oderate} that terms in the summation are dependent on the Eigen values values and the accumulation of step sizes as given by \eqref{stepacc}. For instance, if the step-size are chosen to be $\alpha_t=C/t$, then
+where $C=(C_i,i=1,\ldots,n)\in \R^n$ are real coefficients. The time $t\geq 0$ in \eqref{oderate} is the continous time defined in \eqref{stepacc}. It is easy to see from \eqref{oderate} that terms in the summation are dependent on the Eigen values values and the accumulation of stepsizes as given by \eqref{stepacc}. For instance, if the step-size are chosen to be $\alpha_t=C/t$, then
 \begin{align}\label{biasforget}e^{-\mu_i\sum_{0\leq k<t}\alpha_t}\approx e^{-\mu_i Clog s}=O(1/s^{\mu_i C})\end{align}

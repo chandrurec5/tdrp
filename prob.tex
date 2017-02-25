@@ -47,7 +47,7 @@ $\E[M_t^\top M_t]\preceq \Sigma_M^2$ both hold.
 \end{enumerate}
 \end{assumption}
 Note that $H$ is not necessarily symmetric.
-Since $H$ is PD, it is invertible. We let
+Since $H$ is PD, it is invertible. We let \todoc{We could have $H$ PSD and assume that $H\ts = g$ has solutions, and then take any solution? What would this change? Bertsekas spends separates papers on this.}
 \begin{align*}
 \ts = H^{-1} g\,.
 \end{align*}
@@ -63,21 +63,18 @@ Here, the choice of the matrix $C$ depends on the application.
 
 
 As noted in the introduction, LSA is widely used in science and engineering. Here, we provide a specific example to be used throughout the rest of the paper.
-\comment{
-Here, we provide two specific examples
-of LSA, which we will use throughout the paper:
 %%%%%%%%%%%%%%%%%%%%%
 \begin{example}[Linear Prediction under Quadratic Loss]
+\todoc[inline]{
 Fill this in similarly to the TD example. What is the data, what is the goal (here we can explain briefly),
 what is the update, what is the loss metric.
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO 
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO }
 \end{example}
-%%%%%%%%%%%%%%%%%%%%%
-}
+
 
 %%%%%%%%%%%%%%%%%%%%%
 \begin{example}[Temporal Difference  (TD) Learning]
@@ -118,7 +115,7 @@ To state the result we define the key quantity
 \end{align}
 \begin{theorem}\label{maintheorem}
 Assume that $\alpha>0$ is such that $\rho_\alpha>0$. Let $\sigma^2 = \sigma_N^2 + (\ts)^\top \Sigma_M \ts$.
-Then, it follows that for \emph{any} $t\ge 1$,
+Then, it follows that for \emph{any} $t\ge 1$, \todoc{We need to explain why we take $C=I$ and how to get the general result.}
 \begin{align}
 \begin{split}
 \MoveEqLeft\E[\norm{(\tb_t-\ts)}^2]\leq \\
