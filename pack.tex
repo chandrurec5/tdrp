@@ -3,7 +3,6 @@
 \setlength{\marginparwidth}{13ex}
 \newcommand{\todoc}[2][]{\todo[size=\scriptsize,color=blue!20!white,#1]{Csaba: #2}}
 \newcommand{\todoch}[2][]{\todo[size=\scriptsize,color=red!20!white,#1]{Chandru: #2}}
-\newcommand{\todox}[2][]{\todo[size=\scriptsize,color=green!20!white,#1]{Xiaowei: #2}}
 \newcommand{\norm}[1]{\left\| #1\right\|}
 \newcommand{\ip}[1]{\langle#1\rangle}
 \newcommand{\ber}{\begin{enumerate}[label=(\roman*)]}
@@ -55,6 +54,7 @@
 %\usepackage{comment}
 %\renewenvironment{comment}{}{}
 \usepackage[capitalize]{cleveref}
+\DeclareMathOperator{\supp}{supp}
 \usepackage{enumitem}
 %\usepackage{tikz}
 %\usepackage{placeins}
@@ -83,10 +83,14 @@
 \newcommand{\ab}{\bar{\alpha}}
 \newcommand{\eqdef}{\stackrel{\cdot}{=}}
 \newcommand{\eb}{\bar{e}}
+\newcommand{\eye}{I}
+
+
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[]
 \newtheorem{lemma}{Lemma}[]
 \newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
 
 \theoremstyle{definition}
 \newtheorem{assumption}{Assumption}[]

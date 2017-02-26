@@ -39,7 +39,7 @@ The random quantities $(H_t,g_t)_t$  are independent of each other with common m
 %%%%%%%%%%%%%%%%%%%%%
 \item \label{noise} The ``noise variables'', $M_t = H_t - H$ and $N_t = g_t - g$ have uniformly bounded second moments;
 in particular, we let $\sigma_N^2>0$ and $\Sigma_M^2\succ 0$ such that for any $t\ge 1$,
-$\sup_{t\ge 1} \E[N_t^\top N_t]<\sigma_N^2$ and
+$\sup_{t\ge 1} \E[N_t^\top N_t]\le \sigma_N^2$ and
 $\E[M_t^\top M_t]\preceq \Sigma_M^2$ both hold.
 
 %%%%%%%%%%%%%%%%%%%%%
@@ -65,6 +65,7 @@ Here, the choice of the matrix $C$ depends on the application.
 As noted in the introduction, LSA is widely used in science and engineering. Here, we provide a specific example to be used throughout the rest of the paper.
 %%%%%%%%%%%%%%%%%%%%%
 \begin{example}[Linear Prediction under Quadratic Loss]
+\label{ex:leastsquares}
 \todoc[inline]{
 Fill this in similarly to the TD example. What is the data, what is the goal (here we can explain briefly),
 what is the update, what is the loss metric.
@@ -125,3 +126,4 @@ Then, it follows that for \emph{any} $t\ge 1$, \todoc{We need to explain why we 
 \end{align}
 \end{theorem}
 \todoc[inline]{The result should rather be stated for $\EE{\norm{\tb_t-\ts}_C^2}$.}
+\todoc[inline]{Here, we should add the algorithm that ``learns'' the right constant.}
