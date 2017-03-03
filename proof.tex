@@ -15,13 +15,27 @@ and combining with the previous equality, we get
 \begin{align}\label{lsergen}
 e_t=(I-\alpha H_t)e_{t-1}+\alpha \zeta_t\,.
 \end{align}
+Now, choose any nonsingular matrix $U\in \R^{n\times n}$ with $\norm{U}_2 \le 1$.
+Multiplying the previous equation from the left by $U$,
+\begin{align}
+U e_t=(I-\alpha U H_t U^{-1}) Ue_{t-1}+\alpha U \zeta_t\,.
+\label{eq:lsergen2}
+\end{align}
+Note that $\norm{e_t}\le \norm{U^{-1}} \norm{U e_t} \le \norm{ U e_t}$.
+Hence, it suffices to bound the norm of $U e_t$. 
 Note that
 $
 \EE{ \norm{\zeta_t}^2 }
-= \EE{ \norm{N_t}^2 } + (\ts)^\top \EE{ M_t^\top M_t }\ts \le \sigma_N^2 + (\ts)^\top \Sigma_M \ts
+\le (\EE{ \norm{N_t}^2 } + (\ts)^\top \EE{ M_t^\top M_t }\ts \le \sigma_N^2 + (\ts)^\top \Sigma_M \ts)
 = \sigma^2
-$.
-Iterating \eqref{lsergen}  gives
+$
+and hence
+\begin{align*}
+\EE{ \norm{ U \zeta_t}^2 } \le \norm{U}^2 \EE{ \norm{\zeta_t}^2 } \le \norm{U}^2 \sigma^2\,.
+\end{align*}
+To minimize clutter, we redefine $e_t$ to denote $U e_t$, $H_t$ to denote $U H_t U^{-1}$ and $\zeta_t$ to denote $U \zeta_t$.
+
+Iterating \eqref{lsergen} (more precisely \eqref{eq:lsergen2}) gives
 \begin{align*}
 e_t
 & = (I-\alpha H_t) (I-\alpha H_{t-1}) e_{t-2}\\ &+ \alpha (I-\alpha H_t) \zeta_{t-1} +\alpha \zeta_t \\

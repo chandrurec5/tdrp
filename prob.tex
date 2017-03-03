@@ -15,13 +15,13 @@ where $\alpha>0$ is a positive step-size parameter; the only tuning parameter of
 initial value $\theta_0$.
 The iterate $\theta_t$ is treated as an internal state of the algorithm, while $\tb_t$ is the output at time step $t$.
 The update of $\theta_t$ alone is considered a form of constant stepsize LSA.
-Note that the computation of $\tb_t$ can also be performed in an incremental fashion with $O(n)$ storage.
+Note that the computation of $\tb_t$ can also be performed in an incremental fashion using $O(n)$ storage.
 
 Owning to the special form of $H_t$, sometimes the matrix-vector product $H_t \theta_{t-1}$ 
 can be efficiently computed in $O(n)$ time.
 This happens for example when $H_t$ is rank one; two specific examples of this kind are presented later in this section.
 The significance of efficient computation of the matrix-vector product is that then an update of the algorithm
-can be implemented in $O(n)$ time with $O(n)$ storage,
+can be implemented in $O(n)$ time and $O(n)$ storage,
 which makes the algorithm particularly attractive in large-scale computations when $n$ is in the range of thousands or more.
 
 We are interested in the behaviour of \eqref{eq:lsa} under the following conditions:
@@ -92,7 +92,7 @@ Here, $(\phi_t,\tilde{\phi}_t,R_t)\in \R^n\times \R^n \times \R$ is the data at 
 Assuming $(\phi_t,\tilde{\phi}_t,R_t)$ is i.i.d. and say, bounded, 
 we see that with $H_t = \phi_t \phi_t^\top-\gamma \phi_t \tilde{\phi}_t^\top$, $g_t = R_t \phi_t$ is in the form of 
 \eqref{eq:lsa1} and satisfies the assumptions as long as $H = \EE{H_t}$ is PD. 
-Note that the matrices $H_t$ are rank-1, hence the algorithm can indeed be implemented with $O(n)$ storage and
+Note that the matrices $H_t$ are rank-1, hence the algorithm can indeed be implemented using $O(n)$ storage and
 time (as is also shown in the first form of the update of $\theta_t$).
 However, the matrices $H_t$ are not symmetric (nor is $H$ symmetric in general).
 \todoc[inline]{Finish: This is indeed satisfied in ``on policy'' TD, etc. Add at least one reference. Note that this is TD(0).}
@@ -108,12 +108,25 @@ Here, $s_t$ are $i.i.d$ random variables distributed according to the law $s_t\s
 \fi
 \end{example}
 %%%%%%%%%%%%%%%%%%%%%
-The following theorem is the main result of the paper.
-To state the result we define the key quantity
+For stating our main result it will be beneficial to define the following:
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cN}{\mathcal{N}}
+For an $n\times n$ nonsingular matrix $U$ define the operator $\cT_{U}(X) = U^{-1} X U$ that acts
+on the set of $n\times n$ matrices. 
+Define $\cN = \{ U \in \R^{n\times n}\,:\, U \text{ nonsingular }, \norm{U}_2 \le 1 \}$,
+\[
+S_U = (\cT_U(H))^\top  + \cT_U(H) - \alpha \EE{ \cT_U(H_1)^\top \cT_U(H_1) },
+\]
+and
 \begin{align}
 \label{eq:rhodef}
-\rho_\alpha\eqdef \inf_{\norm{x}=1} x^\top (H^\top+H-\alpha\EE{ H_1^\top H_1} )x\,.
+\rho_\alpha
+% \inf_{\norm{x}=1} x^\top (H^\top+H-\alpha\EE{ H_1^\top H_1} )x\,.
+\eqdef \sup_{U\in \cN} \inf_{\norm{x}=1} x^\top S_U x 
+=         \sup_{U\in \cN} \lambda_{\min}(S_U)\,.
 \end{align}
+Note that the equality holds because $S_U$ is symmetric.
+With this, we are ready to state our main result:
 \begin{theorem}\label{maintheorem}
 Assume that $\alpha>0$ is such that $\rho_\alpha>0$. Let $\sigma^2 = \sigma_N^2 + (\ts)^\top \Sigma_M \ts$.
 Then, it follows that for \emph{any} $t\ge 1$, \todoc{We need to explain why we take $C=I$ and how to get the general result.}

@@ -21,7 +21,7 @@ We discussed in \Cref{sec:prob} that the maximum stepsize depends on the problem
 \paragraph{Contraction Per Time Step}
 For a distribution $P$ over square $n\times n$ real matrices let $H_P = \int M dP(M)$, $Q_P = \int M^\top M dP(M)$ and
 \begin{align*}
-\rho_\alpha(P) = \inf_{\norm{x}=1} x^\top (H_P^\top + H_P - \alpha Q) x\,.
+\rho_\alpha(P) = \inf_{\norm{x}=1} x^\top (H_P^\top + H_P - \alpha Q_P) x\,.
 \end{align*}
 \newcommand{\cP}{\mathcal{P}}
 Call a set of distributions $\cP$ over square real matrices 
@@ -37,8 +37,9 @@ then any $0<\alpha'\le \alpha$ is also witnessing this.
 If $\cP$ is weakly admissible, then one can choose a stepsize $\alpha>0$ solely based on the knowledge of $\cP$ and 
 conclude that no matter the joint distribution of $(H_t,g_t)$, as long as the distribution of $H_t$ is an element of $\cP$, the conclusions of \cref{maintheorem} hold. Further, if $\cP$ is admissible then the error bound stated in  \cref{maintheorem} becomes independent of the instance.
 Hence, an interesting question to investigate is whether a given set $\cP$ is (weakly) admissible.
-For $B>0$, let $\cP_B$ is the set of distributions where for every $P\in \cP_B$, 
-$H_P$ is nonsingular and if $H\sim P$ then $\norm{H}\le B$ holds with probability one.
+A hopeful set is the following:
+For $B>0$, let $\cP_B$ is the set of distributions where for every $P\in \cP_B$, $H_P+H_P^\top\succ 0$ 
+and if $H\sim P$ then $\norm{H}\le B$ holds with probability one.
 In what follows all distributions will be a subset of $\cP_B$ with some $B>0$, 
 Note that in most applications the knowledge of a suitable $B>0$ such that $\cP\subset \cP_B$ is available.
 By appropriately normalizing the matrices involved, we may as well assume that $B=1$.
@@ -52,6 +53,8 @@ Fix an arbitrary $\alpha>0$. We show that there exists $P\in \cP$ such that $\rh
 For $\epsilon \in (0,1/2)$ let $P$ be the distribution that is supported on $\{-I,I\}$ and takes on the value of $I$ with probability $1/2+\epsilon$. Then $H_P = 2\epsilon I \succ 0$, hence $P\in \cP_1$. Further, $Q_P = I$.
 Hence, $\rho_\alpha(P) = 4\epsilon-\alpha$. Hence, if $\epsilon<\alpha/4$, $\rho_\alpha(P)<0$.
 \end{proof}
+Note that the result still holds if in the definition of $\cP_B$ we replace the condition that $H_P + H_P^\top \succ 0$ with the
+stronger condition that $H_P\succ 0$. In words, positive definiteness of $H_P$ alone is not sufficient for weak admissibility.
 
 In linear least-squares problems (cf. \cref{ex:leastsquares}) the set $\cP$ has more structure.
 In particular, the random matrices $\{H_t\}$ are PSD. \todoc{The standard notation is $\mathrm{S}^{++}$ for the set of positive definite matrices. Introduce these and use them below..}
